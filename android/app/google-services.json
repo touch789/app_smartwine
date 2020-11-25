@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "900746723284",
+    "firebase_url": "https://smartwine-bfce1.firebaseio.com",
+    "project_id": "smartwine-bfce1",
+    "storage_bucket": "smartwine-bfce1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900746723284:android:83aa282e0be44f198d6041",
+        "android_client_info": {
+          "package_name": "com.example.baby_names"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900746723284-4n3tgo5fq4btq4istqelidg39u2kf043.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW85ynzUBKGNo_bw9GCMVa5YjFSEitzv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900746723284-4n3tgo5fq4btq4istqelidg39u2kf043.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900746723284:android:58bdb095f0eec7ce8d6041",
+        "android_client_info": {
+          "package_name": "com.example.fireauthen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900746723284-4n3tgo5fq4btq4istqelidg39u2kf043.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW85ynzUBKGNo_bw9GCMVa5YjFSEitzv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900746723284-4n3tgo5fq4btq4istqelidg39u2kf043.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
