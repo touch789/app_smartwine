@@ -1,16 +1,16 @@
-import 'package:baby_names/screen/home.dart';
-import 'package:baby_names/screen/login.dart';
-import 'package:baby_names/screen/rechercher.dart';
-import 'package:baby_names/screen/register.dart';
-import 'package:baby_names/screen/splash.dart';
-import 'package:baby_names/screen/task.dart';
+import 'screen/home.dart';
+import 'screen/login.dart';
+import 'screen/rechercher.dart';
+import 'screen/register.dart';
+import 'screen/splash.dart';
 import 'package:flutter/material.dart';
-
+import 'screen/task.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  //test
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

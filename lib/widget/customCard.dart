@@ -1,11 +1,19 @@
-import 'package:baby_names/screen/task.dart';
+import '../screen/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomCard extends StatelessWidget {
   CustomCard(
-      {@required this.title, this.description, this.designation, this.country, this.province, this.variety, this.winery, this.region, this.id, this.usid});
+      {@required this.title,
+      this.description,
+      this.designation,
+      this.country,
+      this.province,
+      this.variety,
+      this.winery,
+      this.region,
+      this.id,
+      this.usid});
 
   final title;
   final description;
@@ -18,69 +26,68 @@ class CustomCard extends StatelessWidget {
   final id;
   final usid;
 
-
-  void deleteBottle ( String id , BuildContext context) async{
-
+  void deleteBottle(String id, BuildContext context) async {
     Firestore.instance
         .collection("users")
         .document(usid)
         .collection('bottle')
-        .document(id).delete();
-    DocumentSnapshot variable = await Firestore.instance.collection('users').document(usid).collection('compteur').document('count').get();
+        .document(id)
+        .delete();
+    DocumentSnapshot variable = await Firestore.instance
+        .collection('users')
+        .document(usid)
+        .collection('compteur')
+        .document('count')
+        .get();
     int nb = int.parse(variable.data["count"]);
 
-    Firestore.instance.collection('users').document(usid).collection('compteur').document('count').setData(
-        {"count":(nb-1).toString()});
+    Firestore.instance
+        .collection('users')
+        .document(usid)
+        .collection('compteur')
+        .document('count')
+        .setData({"count": (nb - 1).toString()});
     Navigator.of(context).pop();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        child : Container(
-          child: Column(
-        children: <Widget>[
-
-          Padding(
-            key: ValueKey(title),
-            padding: const EdgeInsets.symmetric(
-                horizontal: 16.0, vertical: 8.0),
-            child: Container(
-              decoration: BoxDecoration(
-
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: ListTile(
-                title: Text(title),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              BottlePage(
-                                  title: title,
-                                  description: description,
-                                  region: region,
-                                  country: country,
-                                  province: province,
-                                  variety: variety,
-                                  winery: winery,
-                                  designation: designation,
-                                  id: id,
-                                  usid: usid)));
-                },
-                onLongPress: () => _showMyDialog(context,id),
-              ),
-            ),
-          )
-        ]
-    )
-    )
-        );
+        child: Container(
+            child: Column(children: <Widget>[
+      Padding(
+        key: ValueKey(title),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: ListTile(
+            title: Text(title),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BottlePage(
+                          title: title,
+                          description: description,
+                          region: region,
+                          country: country,
+                          province: province,
+                          variety: variety,
+                          winery: winery,
+                          designation: designation,
+                          id: id,
+                          usid: usid)));
+            },
+            onLongPress: () => _showMyDialog(context, id),
+          ),
+        ),
+      )
+    ])));
   }
 
-  Future<void> _showMyDialog(BuildContext context,String id) async {
+  Future<void> _showMyDialog(BuildContext context, String id) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -90,8 +97,8 @@ class CustomCard extends StatelessWidget {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-
-                Text('If you really want to delete this bottle please press "Yes", otherwise press "No".'),
+                Text(
+                    'If you really want to delete this bottle please press "Yes", otherwise press "No".'),
               ],
             ),
           ),
@@ -99,10 +106,9 @@ class CustomCard extends StatelessWidget {
             RaisedButton(
               child: Text('Yes'),
               onPressed: () {
-                deleteBottle(id,context);
+                deleteBottle(id, context);
               },
             ),
-
             RaisedButton(
               child: Text('No'),
               onPressed: () {
@@ -114,6 +120,4 @@ class CustomCard extends StatelessWidget {
       },
     );
   }
-
-
 }

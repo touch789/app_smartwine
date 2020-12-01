@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'file:///C:/Users/hcren/AndroidStudioProjects/appli_smartwine/lib/screen/home.dart';
+
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => HomePage(
-                                                  title:"My Wine cellar",
+                                                  title: "My Wine cellar",
                                                   uid: authResult.user.uid,
                                                 ))))
                                 .catchError((err) => print(err)))
