@@ -1,11 +1,11 @@
-import 'smartwine/addBottle.dart';
-import 'smartwine/rechercher.dart';
+import 'package:baby_names/screen/home.dart';
+import 'package:baby_names/screen/login.dart';
+import 'package:baby_names/screen/rechercher.dart';
+import 'package:baby_names/screen/register.dart';
+import 'package:baby_names/screen/splash.dart';
+import 'package:baby_names/screen/task.dart';
 import 'package:flutter/material.dart';
-import 'smartwine/task.dart';
-import 'smartwine/register.dart';
-import 'smartwine/splash.dart';
-import 'smartwine/login.dart';
-import 'smartwine/home.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
           '/SearchList': (BuildContext context) => ListSearch(),
-          '/addBottle': (BuildContext context) => addBottle(),
         });
   }
 }
