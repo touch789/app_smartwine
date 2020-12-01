@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'SmartWine',
+        title: 'Smartwine',
         theme: ThemeData(
           primarySwatch: Colors.pink,
         ),
@@ -28,8 +28,6 @@ class MyApp extends StatelessWidget {
           '/register': (BuildContext context) => RegisterPage(),
           '/SearchList': (BuildContext context) => ListSearch(),
           '/addBottle': (BuildContext context) => addBottle(),
-
-
         });
   }
 }
