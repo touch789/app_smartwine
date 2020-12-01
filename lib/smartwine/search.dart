@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'classBouteille.dart';
+import '../model/classBouteille.dart';
 import 'Services.dart';
 
 

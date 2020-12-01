@@ -1,7 +1,7 @@
-import 'Services.dart';
+import '../smartwine/Services.dart';
 import 'package:flutter/material.dart';
-import 'search.dart';
-import 'classBouteille.dart';
+import '../smartwine/search.dart';
+import '../model/classBouteille.dart';
 
 
 

@@ -9,6 +9,7 @@ import 'home.dart';
 
 
 
+// ignore: must_be_immutable
 class BottlePage extends StatelessWidget {
   BottlePage({@required this.title, this.description, this.designation, this.country, this.province, this.variety, this.winery, this.region, this.id,this.usid});
 

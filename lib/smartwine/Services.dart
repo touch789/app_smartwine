@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http; // add the http plugin in pubspec.yaml file.
-import 'classBouteille.dart';
+import '../model/classBouteille.dart';
 import 'package:flutter/services.dart';
 
 class Services {
