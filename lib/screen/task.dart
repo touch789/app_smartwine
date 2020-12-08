@@ -41,8 +41,7 @@ class BottlePage extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => HomePage(
-              title:"My Wine Cellar",
-              uid: usid,
+              uid: currentUser.uid,
             )),
             (_) => false);
 

@@ -1,4 +1,5 @@
 import 'package:baby_names/screen/addBottle.dart';
+import 'package:baby_names/screen/cellar.dart';
 
 import 'screen/home.dart';
 import 'screen/login.dart';
@@ -23,11 +24,12 @@ class MyApp extends StatelessWidget {
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
           '/task': (BuildContext context) => BottlePage(title: 'Task'),
-          '/home': (BuildContext context) => HomePage(title: 'Home'),
+          '/home': (BuildContext context) => HomePage(),
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
           '/SearchList': (BuildContext context) => ListSearch(),
           '/addBottle': (BuildContext context) => addBottle2(),
+          '/cellar': (BuildContext context) => cellar(),
         });
   }
 }

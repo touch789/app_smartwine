@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:baby_names/screen/cellar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,8 @@ final databaseReference =
     FirebaseDatabase.instance.reference().child("Bottle/2/data");
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title, this.uid})
+  HomePage({Key key, this.uid})
       : super(key: key); //update this to include the uid in the constructor
-  final String title;
   final String uid; //include this
 
   @override
@@ -242,7 +242,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("My wine cellar"),
+
         actions: <Widget>[
           FlatButton(
             child: Text("Log Out"),
@@ -281,6 +282,24 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(right: 8.0),
                 child: myTextItems("Users", "25.5M"),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                    child: Text('appui ici pour la list des vins'),
+                    color: Colors.red,
+
+                    onPressed: () => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => cellar(
+                              title:"My Wine Cellar",
+                              uid: currentUser.uid,
+                            )),
+                            (_) => false)
+
+                ),
+              ),
+
             ],
             staggeredTiles: [
               StaggeredTile.extent(4, 250.0),

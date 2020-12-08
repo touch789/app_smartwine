@@ -132,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) => HomePage(
-                                                      title:"My Wine Cellar",
+
                                                       uid: authResult.user.uid,
                                                     )),
                                             (_) => false),

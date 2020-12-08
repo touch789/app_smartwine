@@ -27,7 +27,7 @@ dependencies:
   firebase_database: ^3.1.6
   firebase_core: ^0.4.0+9
   firebase_auth: ^0.14.0+5
-  flappy_search_bar: 1.4.1
+  flappy_search_bar: ^1.4.1
   http: 0.11.3+17
   qrscan: ^0.2.20
   permission_handler: ^5.0.1+1
@@ -35,7 +35,7 @@ dependencies:
   flutter_circular_chart: ^0.1.0
   font_awesome_flutter: ^8.10.1
   hexcolor: ^1.0.6
-  percent_indicator: ^2.1.1+1
+  percent_indicator: "^2.1.7+2"
   fl_chart: ^0.12.0
 
 
