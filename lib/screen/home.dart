@@ -224,6 +224,11 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, "/SearchList");
                 }),
             FlatButton(
+                child: Text('ajouter'),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/addBottle");
+                }),
+            FlatButton(
                 child: Text('Add'),
                 onPressed: () {
                   if (BottleTitleInputController.text.isNotEmpty) {

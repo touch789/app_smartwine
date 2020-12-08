@@ -1,3 +1,5 @@
+import 'package:baby_names/screen/addBottle.dart';
+
 import 'screen/home.dart';
 import 'screen/login.dart';
 import 'screen/rechercher.dart';
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
           '/SearchList': (BuildContext context) => ListSearch(),
+          '/addBottle': (BuildContext context) => addBottle2(),
         });
   }
 }
