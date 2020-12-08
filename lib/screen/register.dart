@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key key}) : super(key: key);
+  RegisterPage({Key key, this.title}) : super(key: key);
+  String title;
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
