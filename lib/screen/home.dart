@@ -3,8 +3,14 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../widget/customCard.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_sparkline/flutter_sparkline.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_circular_chart/flutter_circular_chart.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child("Bottle/2/data");
@@ -20,26 +26,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController BottleTitleInputController;
-  TextEditingController BottleDescripInputController;
-  TextEditingController BottleCountryInputController;
-  TextEditingController BottleDesignationInputController;
-  TextEditingController BottleProvinceInputController;
-  TextEditingController BottleregionInputController;
-  TextEditingController BottlevarietyInputController;
-  TextEditingController BottleWineryInputController;
   FirebaseUser currentUser;
 
   @override
   initState() {
-    BottleTitleInputController = new TextEditingController();
-    BottleDescripInputController = new TextEditingController();
-    BottleCountryInputController = new TextEditingController();
-    BottleDesignationInputController = new TextEditingController();
-    BottleProvinceInputController = new TextEditingController();
-    BottleregionInputController = new TextEditingController();
-    BottlevarietyInputController = new TextEditingController();
-    BottleWineryInputController = new TextEditingController();
     this.getCurrentUser();
     super.initState();
   }
@@ -58,228 +48,250 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  var data = [0.0, 1.0, 1.5, 2.0, 0.0, 0.0, -0.5, -1.0, -0.5, 0.0, 0.0];
+  var data1 = [0.0, -2.0, 3.5, -2.0, 0.5, 0.7, 0.8, 1.0, 2.0, 3.0, 3.2];
+
+  List<CircularStackEntry> circularData = <CircularStackEntry>[
+    new CircularStackEntry(
+      <CircularSegmentEntry>[
+        new CircularSegmentEntry(700.0, Colors.pink, rankKey: 'Q1'),
+      ],
+      rankKey: 'Hygrometrie',
+    ),
+  ];
+
+  Material myTextItems(String title, String subtitle) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(24.0),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Material myCircularChart(String title) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(24.0),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: HexColor("#EB54A8"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircularPercentIndicator(
+                      backgroundColor: Colors.white,
+                      progressColor: HexColor("#EB54A8"),
+                      percent: 0.65,
+                      animation: true,
+                      radius: 100.0,
+                      lineWidth: 12.0,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      center: Text(
+                        "65%",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Material myCircularItems(String title, String subtitle) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(24.0),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: AnimatedCircularChart(
+                      size: const Size(100.0, 100.0),
+                      initialChartData: circularData,
+                      chartType: CircularChartType.Pie,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Material mychart1Items(String title) {
+    return Material(
+      color: HexColor("#EB54A8"),
+      borderRadius: BorderRadius.circular(24.0),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(1.0),
+                    child: new Sparkline(
+                      data: data,
+                      lineColor: Colors.white,
+                      pointSize: 8.0,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Log Out"),
-              textColor: Colors.white,
-              onPressed: () {
-                FirebaseAuth.instance
-                    .signOut()
-                    .then((result) =>
-                        Navigator.pushReplacementNamed(context, "/login"))
-                    .catchError((err) => print(err));
-              },
-            )
-          ],
-        ),
-        body: Center(
-          child: Container(
-              padding: const EdgeInsets.all(20.0),
-              child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
-                    .collection("users")
-                    .document(widget.uid)
-                    .collection('bottle')
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return new Text('Loading...');
-                    default:
-                      return new ListView(
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
-                          return new CustomCard(
-                              id: document.documentID,
-                              usid: widget.uid,
-                              title: document['title'],
-                              description: document['description'],
-                              designation: document['designation'],
-                              country: document['country'],
-                              province: document['province'],
-                              region: document['region'],
-                              variety: document['variety'],
-                              winery: document['winery']);
-                        }).toList(),
-                      );
-                  }
-                },
-              )),
-        ),
-        floatingActionButton: Stack(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 31),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: FloatingActionButton(
-                  onPressed: _showDialog,
-                  child: Icon(Icons.add),
-                ),
-              ),
-            ),
-          ],
-        ));
-  }
-
-  _showDialog() async {
-    DocumentSnapshot variable = await Firestore.instance
-        .collection('users')
-        .document(widget.uid)
-        .collection('compteur')
-        .document('count')
-        .get();
-    int nb = int.parse(variable.data["count"]);
-    print(nb);
-    if (nb <= 5) {
-      await showDialog<String>(
-        context: context,
-        child: AlertDialog(
-          contentPadding: const EdgeInsets.all(16.0),
-          content: Column(
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("Log Out"),
+            textColor: Colors.white,
+            onPressed: () {
+              FirebaseAuth.instance
+                  .signOut()
+                  .then((result) =>
+                      Navigator.pushReplacementNamed(context, "/login"))
+                  .catchError((err) => print(err));
+            },
+          )
+        ],
+      ),
+      body: Center(
+        child: Container(
+          color: HexColor("#FEF3FF"),
+          child: StaggeredGridView.count(
+            crossAxisCount: 4,
+            crossAxisSpacing: 12.0,
+            mainAxisSpacing: 12.0,
             children: <Widget>[
-              Text("Please fill all fields to add your new bottle"),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Title'),
-                  controller: BottleTitleInputController,
-                ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: mychart1Items("Température"),
               ),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Designation'),
-                  controller: BottleDesignationInputController,
-                ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: myCircularChart("Hygrometrie"),
               ),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Variety'),
-                  controller: BottlevarietyInputController,
-                ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: myTextItems("Mktg. Spend", "48.6M"),
               ),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Country'),
-                  controller: BottleCountryInputController,
-                ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: myTextItems("Users", "25.5M"),
               ),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Province'),
-                  controller: BottleProvinceInputController,
-                ),
-              ),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Region'),
-                  controller: BottleregionInputController,
-                ),
-              ),
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(labelText: 'Bottle Winery'),
-                  controller: BottleWineryInputController,
-                ),
-              ),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(labelText: 'Bottle Description*'),
-                  controller: BottleDescripInputController,
-                ),
-              )
+            ],
+            staggeredTiles: [
+              StaggeredTile.extent(4, 250.0),
+              StaggeredTile.extent(2, 250.0),
+              StaggeredTile.extent(2, 120.0),
+              StaggeredTile.extent(2, 120.0),
+              StaggeredTile.extent(4, 250.0),
             ],
           ),
-          actions: <Widget>[
-            FlatButton(
-                child: Text('Cancel'),
-                onPressed: () {
-                  BottleTitleInputController.clear();
-                  BottleDescripInputController.clear();
-                  BottleCountryInputController.clear();
-                  BottleDesignationInputController.clear();
-                  BottleProvinceInputController.clear();
-                  BottleregionInputController.clear();
-                  BottlevarietyInputController.clear();
-                  BottleWineryInputController.clear();
-                  Navigator.pop(context);
-                }),
-            FlatButton(
-                child: Text('Search'),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/SearchList");
-                }),
-            FlatButton(
-                child: Text('ajouter'),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/addBottle");
-                }),
-            FlatButton(
-                child: Text('Add'),
-                onPressed: () {
-                  if (BottleTitleInputController.text.isNotEmpty) {
-                    Firestore.instance
-                        .collection('users')
-                        .document(widget.uid)
-                        .collection('compteur')
-                        .document('count')
-                        .setData({"count": (nb + 1).toString()});
-                    Firestore.instance
-                        .collection("users")
-                        .document(widget.uid)
-                        .collection('bottle')
-                        .add({
-                          "title": BottleTitleInputController.text,
-                          "description": BottleDescripInputController.text,
-                          "country": BottleCountryInputController.text,
-                          "designation": BottleDesignationInputController.text,
-                          "province": BottleProvinceInputController.text,
-                          "region": BottleregionInputController.text,
-                          "variety": BottlevarietyInputController.text,
-                          "winery": BottleWineryInputController.text,
-                          "detect": false,
-                        })
-                        .then((result) => {
-                              Navigator.pop(context),
-                              BottleTitleInputController.clear(),
-                              BottleDescripInputController.clear(),
-                              BottleCountryInputController.clear(),
-                              BottleDesignationInputController.clear(),
-                              BottleProvinceInputController.clear(),
-                              BottleregionInputController.clear(),
-                              BottlevarietyInputController.clear(),
-                              BottleWineryInputController.clear()
-                            })
-                        .catchError((err) => print(err));
-                  }
-                })
-          ],
         ),
-      );
-    } else {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Wine cellar full"),
-              content: Text(
-                  "You can not add another bottle because your Wine cellar is full. Please delete a bottle before adding another one"),
-            );
-          });
-    }
+      ),
+    );
   }
 }
