@@ -1,3 +1,4 @@
+import 'package:baby_names/screen/ajoutbouteille.dart';
 import 'package:baby_names/screen/checkCellarId.dart';
 import 'package:baby_names/screen/cellar.dart';
 import 'screen/home.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
-          '/task': (BuildContext context) => BottlePage(title: 'Task'),
+          '/task': (BuildContext context) => BottlePage(),
           '/home': (BuildContext context) => HomePage(),
           '/splash': (BuildContext context) => SplashPage(),
           '/login': (BuildContext context) => LoginPage(),
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           '/addBottle': (BuildContext context) => checkCellarId(),
           '/cellar': (BuildContext context) => cellar(),
           '/checkcaveid': (BuildContext context) => checkCellarId(),
+          '/ajoutbouteille': (BuildContext context) => AjoutBouteille(),
         });
   }
 }

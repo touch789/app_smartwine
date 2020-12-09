@@ -138,6 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 builder: (context) => HomePage(
 
                                                       uid: authResult.user.uid,
+                                                      caveid: widget.caveid,
                                                     )),
                                             (_) => false),
                                         firstNameInputController.clear(),

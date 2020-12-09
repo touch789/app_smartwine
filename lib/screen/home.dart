@@ -317,10 +317,6 @@ class _HomePageState extends State<HomePage> {
                 child: myTextItems("Rosé", "25.5M"),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: myTextItems("White", "25.5M"),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   child: StreamBuilder<QuerySnapshot>(

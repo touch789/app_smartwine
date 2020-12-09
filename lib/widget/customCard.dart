@@ -5,24 +5,10 @@ import 'package:flutter/material.dart';
 class CustomCard extends StatelessWidget {
   CustomCard(
       {@required this.title,
-      this.description,
-      this.designation,
-      this.country,
-      this.province,
-      this.variety,
-      this.winery,
-      this.region,
       this.id,
       this.usid});
 
   final title;
-  final description;
-  final designation;
-  final country;
-  final province;
-  final region;
-  final variety;
-  final winery;
   final id;
   final usid;
 
@@ -69,14 +55,6 @@ class CustomCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => BottlePage(
-                          title: title,
-                          description: description,
-                          region: region,
-                          country: country,
-                          province: province,
-                          variety: variety,
-                          winery: winery,
-                          designation: designation,
                           id: id,
                           usid: usid)));
             },

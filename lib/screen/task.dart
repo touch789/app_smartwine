@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:baby_names/screen/cellar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ import 'home.dart';
 
 // ignore: must_be_immutable
 class BottlePage extends StatelessWidget {
-  BottlePage({@required this.title, this.description, this.designation, this.country, this.province, this.variety, this.winery, this.region, this.id,this.usid});
+  BottlePage({@required this.id,this.usid});
 
   String title ;
   String description;
@@ -40,8 +41,9 @@ class BottlePage extends StatelessWidget {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (context) => HomePage(
-              uid: currentUser.uid,
+            builder: (context) => cellar(
+              uid: usid,
+              title: "My wine cellar",
             )),
             (_) => false);
 
@@ -76,7 +78,7 @@ class BottlePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('Nom : ' + snapshot.data['title']),
+                      Text('Name : ' + snapshot.data['title']),
                       Text('Designation  :' + snapshot.data['designation']),
                       Text('Variety  :' + snapshot.data['variety']),
                       Text('Winery :' + snapshot.data['winery']),
