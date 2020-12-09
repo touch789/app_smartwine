@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'SmartWine',
+        title: 'SmartWine app',
         theme: ThemeData(
           primarySwatch: Colors.pink,
         ),
@@ -31,8 +31,6 @@ class MyApp extends StatelessWidget {
           '/addBottle': (BuildContext context) => checkCellarId(),
           '/cellar': (BuildContext context) => cellar(),
           '/checkcaveid': (BuildContext context) => checkCellarId(),
-
-
         });
   }
 }
