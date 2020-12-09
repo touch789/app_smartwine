@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   FirebaseUser currentUser;
 
   List<double> temp = [];
+  String hygro;
 
 
 
@@ -135,18 +136,31 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: CircularPercentIndicator(
-                      backgroundColor: Colors.white,
-                      progressColor: HexColor("#EB54A8"),
-                      percent: 0.65,
-                      animation: true,
-                      radius: 100.0,
-                      lineWidth: 12.0,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      center: Text(
-                        "65%",
-                        style: TextStyle(fontSize: 20.0),
-                      ),
+                    child:  StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance.collection('Cave').document(widget.caveid)
+                          .collection("sensor").orderBy("date", descending: true).limit(1)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return LinearProgressIndicator();
+                        } else {
+                          snapshot.data.documents.forEach((element) { hygro = element.data["humi"].toString();});
+                          return CircularPercentIndicator(
+
+                            backgroundColor: Colors.white,
+                            progressColor: HexColor("#EB54A8"),
+                            percent: double.parse(hygro)/100,
+                            animation: true,
+                            radius: 100.0,
+                            lineWidth: 12.0,
+                            circularStrokeCap: CircularStrokeCap.round,
+                            center: Text(
+                              hygro+"%",
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ],
