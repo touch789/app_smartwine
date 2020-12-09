@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
   HomePage({Key key, this.uid, this.caveid})
       : super(key: key); //update this to include the uid in the constructor
   final String uid;
-  final String caveid;//include this
+  final String caveid; //include this
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -33,10 +33,6 @@ class _HomePageState extends State<HomePage> {
 
   List<double> temp = [];
   String hygro;
-
-
-
-
 
   @override
   initState() {
@@ -55,11 +51,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       widget.caveid = variable.data["caveid"];
     });*/
-
   }
-
-
-
 
   List<CircularStackEntry> circularData = <CircularStackEntry>[
     new CircularStackEntry(
@@ -136,26 +128,31 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child:  StreamBuilder<QuerySnapshot>(
-                      stream: Firestore.instance.collection('Cave').document(widget.caveid)
-                          .collection("sensor").orderBy("date", descending: true).limit(1)
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('Cave')
+                          .document(widget.caveid)
+                          .collection("sensor")
+                          .orderBy("date", descending: true)
+                          .limit(1)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return LinearProgressIndicator();
                         } else {
-                          snapshot.data.documents.forEach((element) { hygro = element.data["humi"].toString();});
+                          snapshot.data.documents.forEach((element) {
+                            hygro = element.data["humi"].toString();
+                          });
                           return CircularPercentIndicator(
-
                             backgroundColor: Colors.white,
                             progressColor: HexColor("#EB54A8"),
-                            percent: double.parse(hygro)/100,
+                            percent: double.parse(hygro) / 100,
                             animation: true,
                             radius: 100.0,
                             lineWidth: 12.0,
                             circularStrokeCap: CircularStrokeCap.round,
                             center: Text(
-                              hygro+"%",
+                              hygro + "%",
                               style: TextStyle(fontSize: 20.0),
                             ),
                           );
@@ -222,7 +219,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Material mychart1Items(String title, List<double> data) {
-
     return Material(
       color: HexColor("#EB54A8"),
       borderRadius: BorderRadius.circular(24.0),
@@ -246,19 +242,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(1.0),
-
+                      padding: EdgeInsets.all(1.0),
                       child: Padding(
-
-
-                          padding: EdgeInsets.all(1.0),
-                          child: Sparkline(
-                            lineColor: Colors.white,
-                            lineWidth:5.0,
-                            data: data,
-                          ),
-                        )
-                  ),
+                        padding: EdgeInsets.all(1.0),
+                        child: Sparkline(
+                          lineColor: Colors.white,
+                          lineWidth: 5.0,
+                          data: data,
+                        ),
+                      )),
                 ],
               ),
             ],
@@ -266,9 +258,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-
-
-
   }
 
   @override
@@ -276,7 +265,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("My wine cellar"),
-
         actions: <Widget>[
           FlatButton(
             child: Text("Log Out"),
@@ -301,22 +289,20 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child : Container(
-                  child:  StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance.collection('Cave').document(widget.caveid)
-                        .collection("sensor").orderBy("date", descending: true).limit(3)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return LinearProgressIndicator();
-                      } else {
-                        snapshot.data.documents.forEach((element) {temp.add(element.data["temp"]);});
-                        return mychart1Items("Température", temp);
-                      }
-                    },
-                  ),
-                ),
-
+                child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Text('appui ici pour la list des vins'),
+                    color: HexColor("#EB54A8"),
+                    onPressed: () => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => cellar(
+                                  title: "My Wine Cellar",
+                                  uid: currentUser.uid,
+                                )),
+                        (_) => false)),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -324,31 +310,40 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: myTextItems("Mktg. Spend", "48.6M"),
+                child: myTextItems("Red", "48.6M"),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: myTextItems("Users", "25.5M"),
+                child: myTextItems("Rosé", "25.5M"),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: myTextItems("White", "25.5M"),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                    child: Text('appui ici pour la list des vins'),
-                    color: Colors.red,
-
-                    onPressed: () => Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => cellar(
-                              title:"My Wine Cellar",
-                              uid: currentUser.uid,
-                            )),
-                            (_) => false)
-
+                child: Container(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: Firestore.instance
+                        .collection('Cave')
+                        .document(widget.caveid)
+                        .collection("sensor")
+                        .orderBy("date", descending: true)
+                        .limit(3)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return LinearProgressIndicator();
+                      } else {
+                        snapshot.data.documents.forEach((element) {
+                          temp.add(element.data["temp"]);
+                        });
+                        return mychart1Items("Température", temp);
+                      }
+                    },
+                  ),
                 ),
               ),
-
-
             ],
             staggeredTiles: [
               StaggeredTile.extent(4, 250.0),
