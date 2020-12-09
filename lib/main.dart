@@ -1,6 +1,5 @@
-import 'package:baby_names/screen/addBottle.dart';
+import 'package:baby_names/screen/checkCellarId.dart';
 import 'package:baby_names/screen/cellar.dart';
-
 import 'screen/home.dart';
 import 'screen/login.dart';
 import 'screen/rechercher.dart';
@@ -28,8 +27,11 @@ class MyApp extends StatelessWidget {
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
           '/SearchList': (BuildContext context) => ListSearch(),
-          '/addBottle': (BuildContext context) => addBottle2(),
+          '/addBottle': (BuildContext context) => checkCellarId(),
           '/cellar': (BuildContext context) => cellar(),
+          '/checkcaveid': (BuildContext context) => checkCellarId(),
+
+
         });
   }
 }

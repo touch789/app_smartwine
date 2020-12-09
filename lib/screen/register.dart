@@ -5,14 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key key, this.title}) : super(key: key);
-  String title;
+  RegisterPage({Key key, this.caveid}) : super(key: key);
+   String caveid;
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
   TextEditingController firstNameInputController;
   TextEditingController lastNameInputController;
@@ -20,6 +21,8 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController pwdInputController;
   TextEditingController confirmPwdInputController;
   String titlename;
+
+
 
   @override
   initState() {
@@ -124,6 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     "fname": firstNameInputController.text,
                                     "surname": lastNameInputController.text,
                                     "email": emailInputController.text,
+                                    "caveid": widget.caveid,
                                   })
                                   .then((result) => {
                           Firestore.instance.collection('users').document(authResult.user.uid).collection('compteur').document('count').setData(
@@ -169,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   FlatButton(
                     child: Text("Login here!"),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(context, "/login");
                     },
                   )
                 ],

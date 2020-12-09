@@ -31,6 +31,7 @@ class _SplashPageState extends State<SplashPage> {
                                   builder: (context) => HomePage(
 
                                         uid: currentuser.uid,
+                                        caveid: result.data["caveid"],
                                       ))))
                       .catchError((err) => print(err))
                 }

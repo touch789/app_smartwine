@@ -1,19 +1,19 @@
+import 'package:baby_names/screen/register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:qrscan/qrscan.dart' as scanner;
 
 
 
 
 
-class addBottle2 extends StatefulWidget {
+class checkCellarId extends StatefulWidget {
   @override
-  _addBottle2State createState() => _addBottle2State();
+  _checkCellarIdState createState() => _checkCellarIdState();
 }
 
-class _addBottle2State extends State<addBottle2> {
+class _checkCellarIdState extends State<checkCellarId> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String email = "";
   String test ="";
@@ -44,6 +44,14 @@ class _addBottle2State extends State<addBottle2> {
     docRef.get().then((doc) {
     if (doc.exists) {
     print("Document data:" + doc.data["idcellar"]);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RegisterPage(
+
+              caveid: doc.data["idcellar"],
+            )),
+            (_) => false);
     } else {
     // doc.data() will be undefined in this case
    print("No such document!");
@@ -57,8 +65,6 @@ class _addBottle2State extends State<addBottle2> {
          );
        });
     }
-    }).catchError((error) {
-    print("Error getting document:"+error);
     });
 
   }

@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:baby_names/screen/cellar.dart';
+import 'package:baby_names/smartwine/cave.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +19,10 @@ final databaseReference =
     FirebaseDatabase.instance.reference().child("Bottle/2/data");
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.uid})
+  HomePage({Key key, this.uid, this.caveid})
       : super(key: key); //update this to include the uid in the constructor
-  final String uid; //include this
+  final String uid;
+  final String caveid;//include this
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,6 +30,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   FirebaseUser currentUser;
+
+  List<double> temp = [];
+
+
+
+
 
   @override
   initState() {
@@ -36,20 +45,20 @@ class _HomePageState extends State<HomePage> {
 
   void getCurrentUser() async {
     currentUser = await FirebaseAuth.instance.currentUser();
+    var userref = Firestore.instance.collection("users").document(uid).get();
+    /*DocumentSnapshot variable = await Firestore.instance
+        .collection('users')
+        .document(widget.uid)
+        .get();
+    print(variable.data["caveid"]);
+    setState(() {
+      widget.caveid = variable.data["caveid"];
+    });*/
+
   }
 
-  void readData() {
-    databaseReference
-        .orderByKey()
-        .limitToFirst(5)
-        .once()
-        .then((DataSnapshot snapshot) {
-      print('Data : ${snapshot.value}');
-    });
-  }
 
-  var data = [0.0, 1.0, 1.5, 2.0, 0.0, 0.0, -0.5, -1.0, -0.5, 0.0, 0.0];
-  var data1 = [0.0, -2.0, 3.5, -2.0, 0.5, 0.7, 0.8, 1.0, 2.0, 3.0, 3.2];
+
 
   List<CircularStackEntry> circularData = <CircularStackEntry>[
     new CircularStackEntry(
@@ -198,7 +207,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Material mychart1Items(String title) {
+  Material mychart1Items(String title, List<double> data) {
+
     return Material(
       color: HexColor("#EB54A8"),
       borderRadius: BorderRadius.circular(24.0),
@@ -223,11 +233,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: new Sparkline(
-                      data: data,
-                      lineColor: Colors.white,
-                      pointSize: 8.0,
-                    ),
+
+                      child: Padding(
+
+
+                          padding: EdgeInsets.all(1.0),
+                          child: Sparkline(
+                            lineColor: Colors.white,
+                            lineWidth:5.0,
+                            data: data,
+                          ),
+                        )
                   ),
                 ],
               ),
@@ -236,6 +252,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+
+
+
   }
 
   @override
@@ -268,7 +287,22 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: mychart1Items("Température"),
+                child : Container(
+                  child:  StreamBuilder<QuerySnapshot>(
+                    stream: Firestore.instance.collection('Cave').document(widget.caveid)
+                        .collection("sensor").orderBy("date", descending: true).limit(3)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return LinearProgressIndicator();
+                      } else {
+                        snapshot.data.documents.forEach((element) {temp.add(element.data["temp"]);});
+                        return mychart1Items("Température", temp);
+                      }
+                    },
+                  ),
+                ),
+
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -299,6 +333,7 @@ class _HomePageState extends State<HomePage> {
 
                 ),
               ),
+
 
             ],
             staggeredTiles: [

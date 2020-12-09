@@ -90,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                                             builder: (context) => HomePage(
 
                                                   uid: authResult.user.uid,
+                                                  caveid: result.data["caveid"],
                                                 ))))
                                 .catchError((err) => print(err)))
                             .catchError((err) => print(err));
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                   FlatButton(
                     child: Text("Register here!"),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/register");
+                      Navigator.pushNamed(context, "/checkcaveid");
                     },
                   )
                 ],

@@ -228,6 +228,12 @@ class _cellar extends State<cellar> {
                   Navigator.pushNamed(context, "/SearchList");
                 }),
             FlatButton(
+                child: Text('Search'),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/graph");
+                }),
+
+            FlatButton(
                 child: Text('Add'),
                 onPressed: () {
                   if (BottleTitleInputController.text.isNotEmpty) {
