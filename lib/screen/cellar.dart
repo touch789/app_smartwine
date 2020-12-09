@@ -65,7 +65,7 @@ class _cellar extends State<cellar> {
           title: Text(widget.title),
           leading: new IconButton(
               icon: new Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.pushNamed(context, "/home"),
+            onPressed: () => Navigator.pushNamed(context, "/splash"),
           ),
           actions: <Widget>[
             FlatButton(
@@ -227,12 +227,6 @@ class _cellar extends State<cellar> {
                 onPressed: () {
                   Navigator.pushNamed(context, "/SearchList");
                 }),
-            FlatButton(
-                child: Text('Search'),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/graph");
-                }),
-
             FlatButton(
                 child: Text('Add'),
                 onPressed: () {

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/task': (BuildContext context) => BottlePage(title: 'Task'),
           '/home': (BuildContext context) => HomePage(),
+          '/splash': (BuildContext context) => SplashPage(),
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
           '/SearchList': (BuildContext context) => ListSearch(),
