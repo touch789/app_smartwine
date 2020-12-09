@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   List<double> temp = [];
   String hygro;
+  String test;
 
   @override
   initState() {
@@ -62,7 +63,48 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  Material myTextItems(String title, String subtitle) {
+  Material myTextItems(String title, String subtitle, Color couleur) {
+    return Material(
+      color: couleur,
+      borderRadius: BorderRadius.circular(12.0),
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(1.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(1.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(1.0),
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Material myBottleItems(String title) {
     return Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(24.0),
@@ -81,19 +123,34 @@ class _HomePageState extends State<HomePage> {
                       title,
                       style: TextStyle(
                         fontSize: 20.0,
-                        color: Colors.blueAccent,
+                        color: Colors.blueAccent
                       ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 30.0,
-                      ),
-                    ),
+            child: StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('users')
+                    .document(widget.uid)
+                    .collection("compteur").snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return LinearProgressIndicator();
+                  } else {
+                    snapshot.data.documents.forEach((element) {
+
+                        test = element.data["count"].toString();
+
+                    });
+                    return Text(
+                  test,
+                  style: TextStyle(
+                  fontSize: 30.0,
                   ),
+                  );
+                  }})),
+
                 ],
               ),
             ],
@@ -284,17 +341,21 @@ class _HomePageState extends State<HomePage> {
           color: HexColor("#FEF3FF"),
           child: StaggeredGridView.count(
             crossAxisCount: 4,
-            crossAxisSpacing: 12.0,
+            crossAxisSpacing: 1.0,
             mainAxisSpacing: 12.0,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(top:8.0, left: 8.0),
+                child: myCircularChart("Hygrometrie"),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:8.0),
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0),
+                      borderRadius: BorderRadius.circular(0.0),
                     ),
-                    child: Text('appui ici pour la list des vins'),
-                    color: HexColor("#EB54A8"),
+                    child: myBottleItems("Bottle :"),
+                    color: HexColor("#FEF3FF"),
                     onPressed: () => Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -304,17 +365,14 @@ class _HomePageState extends State<HomePage> {
                                 )),
                         (_) => false)),
               ),
+
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: myCircularChart("Hygrometrie"),
+                padding: const EdgeInsets.only(right: 8.0,left: 8.0),
+                child: myTextItems("Red", "2",Colors.red[200]),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: myTextItems("Red", "48.6M"),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: myTextItems("Rosé", "25.5M"),
+                padding: const EdgeInsets.only(right: 8.0,left: 8.0),
+                child: myTextItems("Rosé", "1", Colors.pink[200]),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -325,7 +383,7 @@ class _HomePageState extends State<HomePage> {
                         .document(widget.caveid)
                         .collection("sensor")
                         .orderBy("date", descending: true)
-                        .limit(3)
+                        .limit(10)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -340,13 +398,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: myTextItems("violet", "48.6M", Colors.white),
+              ),
             ],
             staggeredTiles: [
-              StaggeredTile.extent(4, 250.0),
               StaggeredTile.extent(2, 250.0),
-              StaggeredTile.extent(2, 120.0),
-              StaggeredTile.extent(2, 120.0),
+              StaggeredTile.extent(2, 140.0),
+              StaggeredTile.extent(2, 40.0),
+              StaggeredTile.extent(2, 40.0),
               StaggeredTile.extent(4, 250.0),
+              StaggeredTile.extent(3, 170.0),
+
             ],
           ),
         ),
