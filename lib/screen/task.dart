@@ -103,6 +103,7 @@ class BottlePage extends StatelessWidget {
                           String url = item.data[0];
                           // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
                           return CachedNetworkImage(
+                            useOldImageOnUrlChange: true,
                             imageUrl: url.replaceAll("fine_default","thickbox_default" ),
                             placeholder: (context, url) => CircularProgressIndicator(),
                             errorWidget: (context, url, error) => Icon(Icons.error),
