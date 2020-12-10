@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:baby_names/screen/cellar.dart';
+import 'package:baby_names/smartwine/image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +83,27 @@ class BottlePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  Container(
+                    child: FutureBuilder<List<String>>(
+                      future: Datahelper.loadImagesFromGoogleTask(snapshot.data['title']),
+                      builder: (context, item) {
+                        if (item.hasData) {
+                          print(item.data[0]);
+                          // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
+                          return CachedNetworkImage(
+                            imageUrl: item.data[0].replaceAll("fine_default","thickbox_default" ),
+                            placeholder: (context, url) => CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
+                          );
+                        } else if (item.hasError) {
+                          return Text("${item.error}");
+                        }
+
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      },
+                    ),
+                  ),
                   Text('Name : ' + snapshot.data['title']),
                   Text('Designation  :' + snapshot.data['designation']),
                   Text('Variety  :' + snapshot.data['variety']),
@@ -99,6 +122,7 @@ class BottlePage extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () => _showDialog(context)),
+
                 ],
               )));
         });
