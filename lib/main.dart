@@ -33,6 +33,8 @@ class MyApp extends StatelessWidget {
           '/cellar': (BuildContext context) => cellar(),
           '/checkcaveid': (BuildContext context) => checkCellarId(),
           '/ajoutbouteille': (BuildContext context) => AjoutBouteille(),
+
+
         });
   }
 }

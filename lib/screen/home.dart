@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
       borderRadius: BorderRadius.circular(12.0),
       child: Center(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       title,
                       style: TextStyle(
@@ -88,11 +88,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(1.0),
                     child: Text(
                       subtitle,
                       style: TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 13.0,
+                        color: colorText,
                       ),
                     ),
                   ),
@@ -233,14 +234,15 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(1.0),
+                    padding: EdgeInsets.only(bottom : 12.0),
                     child: Text(
-                      title,
+                      title + ":       "+ data.last.toString()+"°C",
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,
@@ -248,15 +250,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.all(1.0),
-                      child: Padding(
-                        padding: EdgeInsets.all(1.0),
+                    padding: EdgeInsets.all(1.0),
                         child: Sparkline(
                           lineColor: Colors.white,
                           lineWidth: 5.0,
                           data: data,
                         ),
-                      )),
+
+                  ),
                 ],
               ),
             ],
@@ -270,16 +271,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.menu,
-          color: HexColor("#EB54A8"),
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: HexColor("#EB54A8"),
+          ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, "/settings");
+          },
         ),
+
+
         backgroundColor: Colors.white,
         title: Text(
           "My wine cellar",
           style: TextStyle(color: HexColor("#EB54A8")),
         ),
         actions: <Widget>[
+
           IconButton(
             icon: Icon(
               Icons.account_circle,
