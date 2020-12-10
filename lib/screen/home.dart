@@ -63,13 +63,14 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  Material myTextItems(String title, String subtitle, Color couleur) {
+  Material myTextItems(
+      String title, String subtitle, Color colorCard, Color colorText) {
     return Material(
-      color: couleur,
+      color: colorCard,
       borderRadius: BorderRadius.circular(12.0),
       child: Center(
         child: Padding(
-          padding: EdgeInsets.all(1.0),
+          padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -77,17 +78,17 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(1.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       title,
                       style: TextStyle(
                         fontSize: 10.0,
-                        color: Colors.blueAccent,
+                        color: colorText,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(1.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       subtitle,
                       style: TextStyle(
@@ -121,36 +122,33 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(8.0),
                     child: Text(
                       title,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueAccent
-                      ),
+                      style:
+                          TextStyle(fontSize: 20.0, color: Colors.blueAccent),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
-            child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
-                    .collection('users')
-                    .document(widget.uid)
-                    .collection("compteur").snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return LinearProgressIndicator();
-                  } else {
-                    snapshot.data.documents.forEach((element) {
-
-                        test = element.data["count"].toString();
-
-                    });
-                    return Text(
-                  test,
-                  style: TextStyle(
-                  fontSize: 30.0,
-                  ),
-                  );
-                  }})),
-
+                      padding: EdgeInsets.all(8.0),
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: Firestore.instance
+                              .collection('users')
+                              .document(widget.uid)
+                              .collection("compteur")
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return LinearProgressIndicator();
+                            } else {
+                              snapshot.data.documents.forEach((element) {
+                                test = element.data["count"].toString();
+                              });
+                              return Text(
+                                test,
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                ),
+                              );
+                            }
+                          })),
                 ],
               ),
             ],
@@ -226,55 +224,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Material myCircularItems(String title, String subtitle) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 30.0,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: AnimatedCircularChart(
-                      size: const Size(100.0, 100.0),
-                      initialChartData: circularData,
-                      chartType: CircularChartType.Pie,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Material mychart1Items(String title, List<double> data) {
     return Material(
       color: HexColor("#EB54A8"),
@@ -289,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(1.0),
                     child: Text(
                       title,
                       style: TextStyle(
@@ -321,11 +270,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My wine cellar"),
+        leading: Icon(
+          Icons.menu,
+          color: HexColor("#EB54A8"),
+        ),
+        backgroundColor: Colors.white,
+        title: Text(
+          "My wine cellar",
+          style: TextStyle(color: HexColor("#EB54A8")),
+        ),
         actions: <Widget>[
-          FlatButton(
-            child: Text("Log Out"),
-            textColor: Colors.white,
+          IconButton(
+            icon: Icon(
+              Icons.account_circle,
+              color: HexColor("#EB54A8"),
+            ),
             onPressed: () {
               FirebaseAuth.instance
                   .signOut()
@@ -333,7 +292,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.pushReplacementNamed(context, "/login"))
                   .catchError((err) => print(err));
             },
-          )
+          ),
         ],
       ),
       body: Center(
@@ -345,17 +304,18 @@ class _HomePageState extends State<HomePage> {
             mainAxisSpacing: 12.0,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top:8.0, left: 8.0),
-                child: myCircularChart("Hygrometrie"),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: FlatButton(
+                    color: HexColor("#EB54A8"),
+                    textColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0),
+                      borderRadius: BorderRadius.circular(24.0),
                     ),
-                    child: myBottleItems("Bottle :"),
-                    color: HexColor("#FEF3FF"),
+                    child: Text(
+                      "My Bottles",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
                     onPressed: () => Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -365,14 +325,24 @@ class _HomePageState extends State<HomePage> {
                                 )),
                         (_) => false)),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(right: 8.0,left: 8.0),
-                child: myTextItems("Red", "2",Colors.red[200]),
+                padding: const EdgeInsets.all(8.0),
+                child: myCircularChart("Hygrometrie"),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8.0,left: 8.0),
-                child: myTextItems("Rosé", "1", Colors.pink[200]),
+                padding: const EdgeInsets.only(right: 8.0),
+                child:
+                    myTextItems("Red", "2", HexColor("#8C0B1F"), Colors.white),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child:
+                    myTextItems("Rosé", "1", HexColor("#D885A7"), Colors.white),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: myTextItems(
+                    "White", "2", HexColor("#FCEBCA"), Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -398,19 +368,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: myTextItems("violet", "48.6M", Colors.white),
-              ),
             ],
             staggeredTiles: [
-              StaggeredTile.extent(2, 250.0),
-              StaggeredTile.extent(2, 140.0),
-              StaggeredTile.extent(2, 40.0),
-              StaggeredTile.extent(2, 40.0),
               StaggeredTile.extent(4, 250.0),
-              StaggeredTile.extent(3, 170.0),
-
+              StaggeredTile.extent(2, 200.0),
+              StaggeredTile.extent(2, 50.0),
+              StaggeredTile.extent(2, 50.0),
+              StaggeredTile.extent(2, 50.0),
+              StaggeredTile.extent(4, 250.0),
             ],
           ),
         ),
