@@ -4,129 +4,123 @@ import 'package:baby_names/screen/cellar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'home.dart';
 
-
-
-
 // ignore: must_be_immutable
 class BottlePage extends StatelessWidget {
-  BottlePage({@required this.id,this.usid});
+  BottlePage({@required this.id, this.usid});
 
-  String title ;
+  String title;
   String description;
-  String  designation;
-  String  country;
-  String  province;
-  String  region;
-  String  variety;
-  String  winery;
-  final  id;
+  String designation;
+  String country;
+  String province;
+  String region;
+  String variety;
+  String winery;
+  final id;
   final usid;
 
-
-
   FirebaseUser currentUser;
-
-
 
   void getCurrentUser() async {
     currentUser = await FirebaseAuth.instance.currentUser();
   }
 
-
-
-  void deleteBottle ( String id,BuildContext context ) async{
+  void deleteBottle(String id, BuildContext context) async {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
             builder: (context) => cellar(
-              uid: usid,
-              title: "My wine cellar",
-            )),
-            (_) => false);
+                  uid: usid,
+                  title: "My wine cellar",
+                )),
+        (_) => false);
 
     Firestore.instance
         .collection("users")
         .document(usid)
         .collection('bottle')
-        .document(id).delete();
-    DocumentSnapshot variable = await Firestore.instance.collection('users').document(usid).collection('compteur').document('count').get();
+        .document(id)
+        .delete();
+    DocumentSnapshot variable = await Firestore.instance
+        .collection('users')
+        .document(usid)
+        .collection('compteur')
+        .document('count')
+        .get();
     int nb = int.parse(variable.data["count"]);
 
-    Firestore.instance.collection('users').document(usid).collection('compteur').document('count').setData(
-        {"count":(nb-1).toString()});
-
+    Firestore.instance
+        .collection('users')
+        .document(usid)
+        .collection('compteur')
+        .document('count')
+        .setData({"count": (nb - 1).toString()});
   }
 
   @override
   Widget build(BuildContext context) {
-        return StreamBuilder(
-            stream: Firestore.instance.collection('users').document(usid)
-                .collection("bottle").document(id)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData)
-                return Text('Loading data.... please wait...');
-              return Scaffold(
-                  appBar: AppBar(
-                    title: Text('Bottle : '+snapshot.data['title']),
-                  ),
-                  body : Center(
+    return StreamBuilder(
+        stream: Firestore.instance
+            .collection('users')
+            .document(usid)
+            .collection("bottle")
+            .document(id)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Text('Loading data.... please wait...');
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('Bottle : ' + snapshot.data['title']),
+              ),
+              body: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text('Name : ' + snapshot.data['title']),
-                      Text('Designation  :' + snapshot.data['designation']),
-                      Text('Variety  :' + snapshot.data['variety']),
-                      Text('Winery :' + snapshot.data['winery']),
-                      Text('Country :' + snapshot.data['country']),
-                      Text('Region :' + snapshot.data['region']),
-                      Text('Province :' + snapshot.data['province']),
-                      Text('Description : ' + snapshot.data['description']),
-                      RaisedButton(
-                          child: Text('Delete this bottle '),
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
-                          textColor: Colors.white,
-                          onPressed: () => deleteBottle(id, context)),
-                      RaisedButton(
-                          child: Text("Modify bottle's information "),
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
-                          textColor: Colors.white,
-                          onPressed: () => _showDialog(context)),
-                    ],
-                  )
-                  )
-              );
-            }
-
-    );
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text('Name : ' + snapshot.data['title']),
+                  Text('Designation  :' + snapshot.data['designation']),
+                  Text('Variety  :' + snapshot.data['variety']),
+                  Text('Winery :' + snapshot.data['winery']),
+                  Text('Country :' + snapshot.data['country']),
+                  Text('Region :' + snapshot.data['region']),
+                  Text('Province :' + snapshot.data['province']),
+                  Text('Description : ' + snapshot.data['description']),
+                  RaisedButton(
+                      child: Text('Delete this bottle '),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      onPressed: () => deleteBottle(id, context)),
+                  RaisedButton(
+                      child: Text("Modify bottle's information "),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      onPressed: () => _showDialog(context)),
+                ],
+              )));
+        });
   }
 
-
-
-
-
-
-
-
-
-
   _showDialog(BuildContext context) async {
-    TextEditingController BottleTitleInputController = new TextEditingController(text: title);
-    TextEditingController BottleDescripInputController= new TextEditingController(text: description);
-    TextEditingController BottleCountryInputController= new TextEditingController(text: country);
-    TextEditingController BottleDesignationInputController= new TextEditingController(text: designation);
-    TextEditingController BottleProvinceInputController= new TextEditingController(text: province);
-    TextEditingController BottleregionInputController= new TextEditingController(text: region);
-    TextEditingController BottlevarietyInputController= new TextEditingController(text: variety);
-    TextEditingController BottleWineryInputController= new TextEditingController(text: winery);
+    TextEditingController BottleTitleInputController =
+        new TextEditingController(text: title);
+    TextEditingController BottleDescripInputController =
+        new TextEditingController(text: description);
+    TextEditingController BottleCountryInputController =
+        new TextEditingController(text: country);
+    TextEditingController BottleDesignationInputController =
+        new TextEditingController(text: designation);
+    TextEditingController BottleProvinceInputController =
+        new TextEditingController(text: province);
+    TextEditingController BottleregionInputController =
+        new TextEditingController(text: region);
+    TextEditingController BottlevarietyInputController =
+        new TextEditingController(text: variety);
+    TextEditingController BottleWineryInputController =
+        new TextEditingController(text: winery);
     await showDialog<String>(
       context: context,
       child: AlertDialog(
@@ -195,7 +189,6 @@ class BottlePage extends StatelessWidget {
           FlatButton(
               child: Text('Cancel'),
               onPressed: () {
-
                 BottleTitleInputController.clear();
                 BottleDescripInputController.clear();
                 BottleCountryInputController.clear();
@@ -209,36 +202,34 @@ class BottlePage extends StatelessWidget {
           FlatButton(
               child: Text('Update'),
               onPressed: () {
-
-                  Firestore.instance
-                      .collection("users")
-                      .document(usid)
-                      .collection('bottle')
-                      .document(id).updateData({
-                    "title": BottleTitleInputController.text,
-                    "description": BottleDescripInputController.text,
-                    "country" : BottleCountryInputController.text,
-                    "designation" : BottleDesignationInputController.text,
-                    "province" : BottleProvinceInputController.text,
-                    "region" : BottleregionInputController.text,
-                    "variety" : BottlevarietyInputController.text,
-                    "winery" : BottleWineryInputController.text,
-                  })
-                      .then((result) => {
-                    Navigator.pop(context),
-                    BottleTitleInputController.clear(),
-                    BottleDescripInputController.clear(),
-                    BottleCountryInputController.clear(),
-                    BottleDesignationInputController.clear(),
-                    BottleProvinceInputController.clear(),
-                    BottleregionInputController.clear(),
-                    BottlevarietyInputController.clear(),
-                    BottleWineryInputController.clear()
-
-                  })
-                      .catchError((err) => print(err));
-                }
-              )
+                Firestore.instance
+                    .collection("users")
+                    .document(usid)
+                    .collection('bottle')
+                    .document(id)
+                    .updateData({
+                      "title": BottleTitleInputController.text,
+                      "description": BottleDescripInputController.text,
+                      "country": BottleCountryInputController.text,
+                      "designation": BottleDesignationInputController.text,
+                      "province": BottleProvinceInputController.text,
+                      "region": BottleregionInputController.text,
+                      "variety": BottlevarietyInputController.text,
+                      "winery": BottleWineryInputController.text,
+                    })
+                    .then((result) => {
+                          Navigator.pop(context),
+                          BottleTitleInputController.clear(),
+                          BottleDescripInputController.clear(),
+                          BottleCountryInputController.clear(),
+                          BottleDesignationInputController.clear(),
+                          BottleProvinceInputController.clear(),
+                          BottleregionInputController.clear(),
+                          BottlevarietyInputController.clear(),
+                          BottleWineryInputController.clear()
+                        })
+                    .catchError((err) => print(err));
+              })
         ],
       ),
     );

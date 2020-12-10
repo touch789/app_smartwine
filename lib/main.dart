@@ -8,6 +8,7 @@ import 'screen/register.dart';
 import 'screen/splash.dart';
 import 'package:flutter/material.dart';
 import 'screen/task.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'SmartWine',
         theme: ThemeData(
+          primaryColor: HexColor("#EB54A8"),
           primarySwatch: Colors.pink,
         ),
         home: SplashPage(),
@@ -33,8 +35,6 @@ class MyApp extends StatelessWidget {
           '/cellar': (BuildContext context) => cellar(),
           '/checkcaveid': (BuildContext context) => checkCellarId(),
           '/ajoutbouteille': (BuildContext context) => AjoutBouteille(),
-
-
         });
   }
 }
