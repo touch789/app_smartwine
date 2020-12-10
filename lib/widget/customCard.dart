@@ -56,7 +56,8 @@ class CustomCard extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => BottlePage(
                           id: id,
-                          usid: usid)));
+                          uid: usid
+                          )));
             },
             onLongPress: () => _showMyDialog(context, id),
           ),

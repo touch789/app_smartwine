@@ -147,6 +147,8 @@ class _cellar extends State<cellar> {
           MaterialPageRoute(
               builder: (context) => AjoutBouteille(
                     uid: widget.uid,
+                    action: "Add",
+                    add: true,
                   )));
     } else {
       showDialog(

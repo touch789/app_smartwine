@@ -1,4 +1,5 @@
 import 'package:baby_names/screen/cellar.dart';
+import 'package:baby_names/screen/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,9 +54,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
 
 class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key, this.uid}) : super(key: key); //update this to include the uid in the constructor
+  AjoutBouteille({Key key,this.action, this.add,this.uid, this.bottleid,this.titlein,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin}) : super(key: key); //update this to include the uid in the constructor
 
-  final String uid; //include this
+  final String uid;
+  String titlein, designationin,descriptionin,countryin,provincein,regionin,varietyin,wineryin,bottleid, action;
+  bool add;
+  //include this
   @override
   _AjoutBouteille createState() => _AjoutBouteille();
 }
@@ -63,6 +67,7 @@ class AjoutBouteille extends StatefulWidget {
 class _AjoutBouteille extends State<AjoutBouteille> {
   GlobalKey<FormState> _key = GlobalKey();
   bool _validate = false;
+
   String title, designation,description,country,province,region,variety,winery;
 
   @override
@@ -75,7 +80,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Add Your Bottle'),
+          title: new Text(widget.action+' your Bottle'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pushAndRemoveUntil(
@@ -109,7 +114,8 @@ class _AjoutBouteille extends State<AjoutBouteille> {
       children: <Widget>[
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Title'),
-            validator: validateAuthor,
+            initialValue: widget.titlein,
+
             onSaved: (String val) {
               title = val;
             }
@@ -118,6 +124,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Designation'),
             validator: validateAuthor,
+            initialValue: widget.designationin,
             onSaved: (String val) {
               designation = val;
             }
@@ -125,6 +132,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Variety'),
             validator: validateAuthor,
+            initialValue: widget.varietyin,
             onSaved: (String val) {
               variety = val;
             }
@@ -132,6 +140,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Winery'),
             validator: validateAuthor,
+            initialValue: widget.wineryin,
             onSaved: (String val) {
               winery = val;
             }
@@ -139,6 +148,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Country'),
             validator: validateAuthor,
+            initialValue: widget.countryin,
             onSaved: (String val) {
               country = val;
             }
@@ -146,6 +156,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Region'),
             validator: validateAuthor,
+            initialValue: widget.regionin,
             onSaved: (String val) {
               region = val;
             }
@@ -153,6 +164,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Province'),
             validator: validateAuthor,
+            initialValue: widget.provincein,
             onSaved: (String val) {
               province = val;
             }
@@ -160,12 +172,13 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Description'),
             validator: validateAuthor,
+            initialValue: widget.descriptionin,
             onSaved: (String val) {
               description = val;
             }
         ),
         new SizedBox(height: 15.0),
-        new RaisedButton(onPressed: _sendToServer, child: new Text('Upload'),
+        new RaisedButton(onPressed: _sendToServer, child: new Text(widget.action),
         )
       ],
     );
@@ -197,36 +210,66 @@ class _AjoutBouteille extends State<AjoutBouteille> {
       //No error in validator
       _key.currentState.save();
       Firestore.instance.runTransaction((Transaction transaction) async {
-        CollectionReference reference = Firestore.instance.collection('users').document(widget.uid).collection("bottle");
+        CollectionReference reference = Firestore.instance.collection('users')
+            .document(widget.uid)
+            .collection("bottle");
+        if (widget.add == false) {
+          reference.document(widget.bottleid).updateData({
+            "title": title,
+            "description": description,
+            "country": country,
+            "designation": designation,
+            "province": province,
+            "region": region,
+            "variety": variety,
+            "winery": winery,
+          })
+              .then((result) =>
+          {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BottlePage(
+                        id: widget.bottleid,
+                        uid: widget.uid)))
+          });
 
-        await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
-          "winery": "$winery","country": "$country","region": "$region","province": "$province"});
-        DocumentSnapshot variable = await Firestore.instance
-            .collection('users')
-            .document(widget.uid)
-            .collection('compteur')
-            .document('count')
-            .get();
-        int nb = int.parse(variable.data["count"]);
-       await Firestore.instance
-            .collection('users')
-            .document(widget.uid)
-            .collection('compteur')
-            .document('count')
-            .setData({"count": (nb + 1).toString()});
+        } else {
+
+
+
+          await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
+            "winery": "$winery","country": "$country","region": "$region","province": "$province"});
+          DocumentSnapshot variable = await Firestore.instance
+              .collection('users')
+              .document(widget.uid)
+              .collection('compteur')
+              .document('count')
+              .get();
+          int nb = int.parse(variable.data["count"]);
+          await Firestore.instance
+              .collection('users')
+              .document(widget.uid)
+              .collection('compteur')
+              .document('count')
+              .setData({"count": (nb + 1).toString()});
+
+
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    cellar(
+                      uid: widget.uid,
+                      title: "My Wine Cellar",
+                    )));
+        }
       });
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => cellar(
-                uid: widget.uid,
-                title: "My Wine Cellar",
-              )));
-    } else {
+    }else {
       // validation error
       setState(() {
         _validate = true;
       });
-    }
-  }
-}
+    }}
+      }
+

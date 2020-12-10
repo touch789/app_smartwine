@@ -24,16 +24,12 @@ class Datahelper {
     if (response.statusCode == 200) {
       var document = parse(response.body);
       var elements = document.querySelectorAll("img.pull-right");
-      int i = 0;
 
       for (var element in elements) {
         if (element.attributes.values.elementAt(2).contains("https") ) {
-          print(element.attributes.values.elementAt(2));
           links.add((element.attributes.values.elementAt(2)));
-          i++;
         }
       }
-      print(links);
 
       return links;
     } else

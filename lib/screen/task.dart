@@ -8,11 +8,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'ajoutbouteille.dart';
 import 'home.dart';
 
 // ignore: must_be_immutable
 class BottlePage extends StatelessWidget {
-  BottlePage({@required this.id, this.usid});
+  BottlePage({@required this.id, this.uid});
 
   String title;
   String description;
@@ -23,7 +24,7 @@ class BottlePage extends StatelessWidget {
   String variety;
   String winery;
   final id;
-  final usid;
+  final uid;
 
   FirebaseUser currentUser;
 
@@ -36,20 +37,20 @@ class BottlePage extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => cellar(
-                  uid: usid,
+                  uid: uid,
                   title: "My wine cellar",
                 )),
         (_) => false);
 
     Firestore.instance
         .collection("users")
-        .document(usid)
+        .document(uid)
         .collection('bottle')
         .document(id)
         .delete();
     DocumentSnapshot variable = await Firestore.instance
         .collection('users')
-        .document(usid)
+        .document(uid)
         .collection('compteur')
         .document('count')
         .get();
@@ -57,7 +58,7 @@ class BottlePage extends StatelessWidget {
 
     Firestore.instance
         .collection('users')
-        .document(usid)
+        .document(uid)
         .collection('compteur')
         .document('count')
         .setData({"count": (nb - 1).toString()});
@@ -68,7 +69,7 @@ class BottlePage extends StatelessWidget {
     return StreamBuilder(
         stream: Firestore.instance
             .collection('users')
-            .document(usid)
+            .document(uid)
             .collection("bottle")
             .document(id)
             .snapshots(),
@@ -77,6 +78,17 @@ class BottlePage extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 title: Text('Bottle : ' + snapshot.data['title']),
+                leading: new IconButton(
+                  icon: new Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => cellar(
+                            title: "My Wine Cellar",
+                            uid: uid,
+                          )),
+                          (_) => false),
+                ),
               ),
               body: Center(
                   child: Column(
@@ -88,10 +100,10 @@ class BottlePage extends StatelessWidget {
                       future: Datahelper.loadImagesFromGoogleTask(snapshot.data['title']),
                       builder: (context, item) {
                         if (item.hasData) {
-                          print(item.data[0]);
+                          String url = item.data[0];
                           // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
                           return CachedNetworkImage(
-                            imageUrl: item.data[0].replaceAll("fine_default","thickbox_default" ),
+                            imageUrl: url.replaceAll("fine_default","thickbox_default" ),
                             placeholder: (context, url) => CircularProgressIndicator(),
                             errorWidget: (context, url, error) => Icon(Icons.error),
                           );
@@ -121,141 +133,35 @@ class BottlePage extends StatelessWidget {
                       child: Text("Modify bottle's information "),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
-                      onPressed: () => _showDialog(context)),
+                      onPressed: () => _showDialog(context, snapshot.data["title"],snapshot.data['designation'],snapshot.data['variety'],
+                                  snapshot.data['winery'],snapshot.data['country'],snapshot.data['region'],snapshot.data['province'],
+                                  snapshot.data['description'])),
 
                 ],
               )));
         });
   }
 
-  _showDialog(BuildContext context) async {
-    TextEditingController BottleTitleInputController =
-        new TextEditingController(text: title);
-    TextEditingController BottleDescripInputController =
-        new TextEditingController(text: description);
-    TextEditingController BottleCountryInputController =
-        new TextEditingController(text: country);
-    TextEditingController BottleDesignationInputController =
-        new TextEditingController(text: designation);
-    TextEditingController BottleProvinceInputController =
-        new TextEditingController(text: province);
-    TextEditingController BottleregionInputController =
-        new TextEditingController(text: region);
-    TextEditingController BottlevarietyInputController =
-        new TextEditingController(text: variety);
-    TextEditingController BottleWineryInputController =
-        new TextEditingController(text: winery);
-    await showDialog<String>(
-      context: context,
-      child: AlertDialog(
-        contentPadding: const EdgeInsets.all(16.0),
-        content: Column(
-          children: <Widget>[
-            Text("Please fill all fields to add your new bottle"),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Title'),
-                controller: BottleTitleInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Designation'),
-                controller: BottleDesignationInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Variety'),
-                controller: BottlevarietyInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Country'),
-                controller: BottleCountryInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Province'),
-                controller: BottleProvinceInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Region'),
-                controller: BottleregionInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(labelText: 'Bottle Winery'),
-                controller: BottleWineryInputController,
-              ),
-            ),
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'Bottle Description*'),
-                controller: BottleDescripInputController,
-              ),
-            )
-          ],
-        ),
-        actions: <Widget>[
-          FlatButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                BottleTitleInputController.clear();
-                BottleDescripInputController.clear();
-                BottleCountryInputController.clear();
-                BottleDesignationInputController.clear();
-                BottleProvinceInputController.clear();
-                BottleregionInputController.clear();
-                BottlevarietyInputController.clear();
-                BottleWineryInputController.clear();
-                Navigator.pop(context);
-              }),
-          FlatButton(
-              child: Text('Update'),
-              onPressed: () {
-                Firestore.instance
-                    .collection("users")
-                    .document(usid)
-                    .collection('bottle')
-                    .document(id)
-                    .updateData({
-                      "title": BottleTitleInputController.text,
-                      "description": BottleDescripInputController.text,
-                      "country": BottleCountryInputController.text,
-                      "designation": BottleDesignationInputController.text,
-                      "province": BottleProvinceInputController.text,
-                      "region": BottleregionInputController.text,
-                      "variety": BottlevarietyInputController.text,
-                      "winery": BottleWineryInputController.text,
-                    })
-                    .then((result) => {
-                          Navigator.pop(context),
-                          BottleTitleInputController.clear(),
-                          BottleDescripInputController.clear(),
-                          BottleCountryInputController.clear(),
-                          BottleDesignationInputController.clear(),
-                          BottleProvinceInputController.clear(),
-                          BottleregionInputController.clear(),
-                          BottlevarietyInputController.clear(),
-                          BottleWineryInputController.clear()
-                        })
-                    .catchError((err) => print(err));
-              })
-        ],
-      ),
-    );
+  _showDialog(BuildContext context,title,designation,variety,winery,country,region,province,description) async {
+
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AjoutBouteille(
+              uid: uid,
+              bottleid: id,
+              action: "Update",
+              add: false,
+              titlein: title ,
+              descriptionin: description,
+              designationin: designation,
+              varietyin: variety,
+              wineryin: winery,
+              countryin: country,
+              regionin: region,
+              provincein: province,
+            )));
+
+
   }
 }

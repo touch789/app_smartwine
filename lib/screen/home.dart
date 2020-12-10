@@ -252,6 +252,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(1.0),
                     child: Sparkline(
                       lineColor: Colors.white,
+
                       lineWidth: 5.0,
                       data: data,
                     ),
@@ -269,15 +270,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: HexColor("#EB54A8"),
-          ),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, "/settings");
-          },
-        ),
+
         backgroundColor: Colors.white,
         title: Text(
           "My Cellar",
@@ -364,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                         return LinearProgressIndicator();
                       } else {
                         snapshot.data.documents.forEach((element) {
-                          temp.add(element.data["temp"]);
+                          temp.insert(0,element.data["temp"]);
                         });
                         return mychart1Items("Température", temp);
                       }
