@@ -36,8 +36,8 @@ dependencies:
   font_awesome_flutter: ^8.10.1
   hexcolor: ^1.0.6
   percent_indicator: "^2.1.7+2"
-  fl_chart: ^0.12.0
-  flutter_launcher_icons: "^0.7.0"
+  fl_chart: ^0.12.0  
+  flutter_launcher_icons: ^0.7.2+1  
   flutter_speed_dial: ^1.2.5
   responsive_grid: ^1.0.1
 
@@ -46,13 +46,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
- ### flutter_icons:
-    ###   ios: true
-    ###  android: true
-    ### image_path_ios: "assets/launcher/icon.png"
-    ### image_path_android: "assets/launcher/icon.png"
-    ### adaptive_icon_background: "assets/launcher/background.png"
-  ### adaptive_icon_foreground: "assets/launcher/foreground.png"
+
 
 dev_dependencies:
   flutter_test:

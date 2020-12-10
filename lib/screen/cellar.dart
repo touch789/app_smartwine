@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../widget/customCard.dart';
-
-
+import 'package:hexcolor/hexcolor.dart';
 
 class cellar extends StatefulWidget {
   cellar({Key key, this.title, this.uid})
@@ -33,20 +32,25 @@ class _cellar extends State<cellar> {
     currentUser = await FirebaseAuth.instance.currentUser();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
           leading: new IconButton(
-              icon: new Icon(Icons.arrow_back, color: Colors.white),
+            icon: new Icon(Icons.arrow_back, color: HexColor("#EB54A8")),
             onPressed: () => Navigator.pushNamed(context, "/splash"),
           ),
+          backgroundColor: Colors.white,
+          title: Text(
+            widget.title,
+            style: TextStyle(color: HexColor("#EB54A8")),
+          ),
           actions: <Widget>[
-            FlatButton(
-              child: Text("Log Out"),
-              textColor: Colors.white,
+            IconButton(
+              icon: Icon(
+                Icons.account_circle,
+                color: HexColor("#EB54A8"),
+              ),
               onPressed: () {
                 FirebaseAuth.instance
                     .signOut()
@@ -54,7 +58,7 @@ class _cellar extends State<cellar> {
                         Navigator.pushReplacementNamed(context, "/login"))
                     .catchError((err) => print(err));
               },
-            )
+            ),
           ],
         ),
         body: Center(
@@ -78,10 +82,10 @@ class _cellar extends State<cellar> {
                         children: snapshot.data.documents
                             .map((DocumentSnapshot document) {
                           return new CustomCard(
-                              id: document.documentID,
-                              usid: widget.uid,
-                              title: document['title'],
-                              );
+                            id: document.documentID,
+                            usid: widget.uid,
+                            title: document['title'],
+                          );
                         }).toList(),
                       );
                   }
@@ -105,25 +109,27 @@ class _cellar extends State<cellar> {
             tooltip: 'Speed Dial',
             heroTag: 'speed-dial-hero-tag',
             backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            elevation: 8.0,
+            foregroundColor: HexColor("#EB54A8"),
+            elevation: 4.0,
             shape: CircleBorder(),
             children: [
               SpeedDialChild(
-                child: Icon(Icons.search),
-                backgroundColor: Colors.pinkAccent,
-                label: 'Search',
-                labelStyle: TextStyle(fontSize: 18.0),
-                onTap: () {Navigator.pushNamed(context, "/SearchList");}
-            ),
-            SpeedDialChild(
-            child: Icon(Icons.add),
-            backgroundColor: Colors.pinkAccent,
-            label: 'Add Manually',
-            labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () {_showDialog();}
-            ),]
-        ));
+                  child: Icon(Icons.search, color: Colors.white),
+                  backgroundColor: HexColor("#EB54A8"),
+                  label: 'Search',
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/SearchList");
+                  }),
+              SpeedDialChild(
+                  child: Icon(Icons.add, color: Colors.white),
+                  backgroundColor: HexColor("#EB54A8"),
+                  label: 'Add Manually',
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: () {
+                    _showDialog();
+                  }),
+            ]));
   }
 
   _showDialog() async {
@@ -140,9 +146,8 @@ class _cellar extends State<cellar> {
           context,
           MaterialPageRoute(
               builder: (context) => AjoutBouteille(
-
-                uid: widget.uid ,
-              )));
+                    uid: widget.uid,
+                  )));
     } else {
       showDialog(
           context: context,

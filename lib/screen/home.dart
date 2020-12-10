@@ -234,15 +234,14 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(bottom : 12.0),
+                    padding: EdgeInsets.only(bottom: 12.0),
                     child: Text(
-                      title + ":       "+ data.last.toString()+"°C",
+                      title + ":       " + data.last.toString() + "°C",
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,
@@ -251,12 +250,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                        child: Sparkline(
-                          lineColor: Colors.white,
-                          lineWidth: 5.0,
-                          data: data,
-                        ),
-
+                    child: Sparkline(
+                      lineColor: Colors.white,
+                      lineWidth: 5.0,
+                      data: data,
+                    ),
                   ),
                 ],
               ),
@@ -280,15 +278,12 @@ class _HomePageState extends State<HomePage> {
             Navigator.pushReplacementNamed(context, "/settings");
           },
         ),
-
-
         backgroundColor: Colors.white,
         title: Text(
-          "My wine cellar",
+          "My Cellar",
           style: TextStyle(color: HexColor("#EB54A8")),
         ),
         actions: <Widget>[
-
           IconButton(
             icon: Icon(
               Icons.account_circle,
@@ -351,7 +346,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: myTextItems(
-                    "White", "2", HexColor("#FCEBCA"), Colors.white),
+                    "White", "2", HexColor("#FCEBCA"), Colors.grey[900]),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
