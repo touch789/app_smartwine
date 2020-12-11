@@ -90,7 +90,9 @@ class BottlePage extends StatelessWidget {
                           (_) => false),
                 ),
               ),
-              body: Center(
+              body: SingleChildScrollView(
+                child : Center(
+
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,11 +102,11 @@ class BottlePage extends StatelessWidget {
                       future: Datahelper.loadImagesFromGoogleTask(snapshot.data['title']),
                       builder: (context, item) {
                         if (item.hasData) {
-                          String url = item.data[0];
+                          String url = item.data.firstWhere((element) => element.contains(".png"));
                           // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
                           return CachedNetworkImage(
                             useOldImageOnUrlChange: true,
-                            imageUrl: url.replaceAll("fine_default","thickbox_default" ),
+                            imageUrl: url,
                             placeholder: (context, url) => CircularProgressIndicator(),
                             errorWidget: (context, url, error) => Icon(Icons.error),
                           );
@@ -139,7 +141,7 @@ class BottlePage extends StatelessWidget {
                                   snapshot.data['description'])),
 
                 ],
-              )));
+              ))));
         });
   }
 

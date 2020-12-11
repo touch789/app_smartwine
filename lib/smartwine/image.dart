@@ -12,7 +12,7 @@ class Datahelper {
 
   static Future<List<String>> loadImagesFromGoogleTask(String query) async {
     var url = Uri.encodeFull(
-        "https://www.vinatis.com/recherche?search_query="+query);
+        "https://www.vivino.com/search/wines?q="+query);
 
     //https://www.google.com/search?safe=off&site=&tbm=isch&source=hp&q={q}&oq={q}&gs_l=img
 
@@ -23,11 +23,11 @@ class Datahelper {
     List<String> links = new List<String>();
     if (response.statusCode == 200) {
       var document = parse(response.body);
-      var elements = document.querySelectorAll("img.pull-right");
+      var elements = document.getElementsByClassName("wine-card__image");
 
       for (var element in elements) {
-        if (element.attributes.values.elementAt(2).contains("https") ) {
-          links.add((element.attributes.values.elementAt(2)));
+        if (element.attributes.values.elementAt(1).contains("images") ) {
+          links.add((element.attributes.values.elementAt(1).replaceAll("background-image: url(//", "https://").replaceAll("pl_375x500.png)", "pb_x600.png")));
         }
       }
 
