@@ -5,7 +5,7 @@
     <title>DashBorad</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/style.css?v=2" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/baa1a65d0b.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/Chart.min.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
@@ -15,21 +15,19 @@
   </head>
   <body>
     
-    <nav class="navbar navbar-dark bg-dark">
-      <ul class="navbar-nav mr-auto">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="assets/img/logo.png"  class="d-inline-block align-top" id="logo" alt="">
-            <span>DASHBOARD</span>
-        </a>
-      </ul>
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item">
-          <a>
-            <i class="fas fa-user" id="logout"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="assets/img/logo.png"  class="d-inline-block align-top" id="logo" alt="">
+        <span>DASHBOARD</span>
+    </a>
+  
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ml-auto">
+              <a href="#" class="nav-item nav-link"><i class="fas fa-user fa-2x" id="logout"></i></a>
+          </div>
+      </div>
+  </nav>
 
     <div class="row">
       <div class="col card">
