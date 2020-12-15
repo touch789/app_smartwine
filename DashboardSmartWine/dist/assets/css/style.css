@@ -84,6 +84,21 @@ body {
     text-align:center;
 }
 
-.logout {
-    color : #EF2996;
+
+.fa-user {
+    color : #91a4b5;
+}
+
+.fa-user:hover {
+    color:#EF2996;
+}
+
+.form-control {
+    color:  #91a4b5;
+}
+input[type="email"], input[type="password"] {
+    background-color: #343A40;
+    border : 1px solid;
+    border-color:#EF2996;
+
 }
