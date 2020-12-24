@@ -212,7 +212,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         .document('count')
         .get();
     int nb = int.parse(variable.data["count"]);
-    if(nb<=5){
+    if(nb<=5 || widget.add == false){
       _sendToServer();
     }
     else{
