@@ -178,7 +178,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             }
         ),
         new SizedBox(height: 15.0),
-        new RaisedButton(onPressed: _sendToServer, child: new Text(widget.action),
+        new RaisedButton(onPressed: _checkCellarCapacity, child: new Text(widget.action),
         )
       ],
     );
@@ -202,6 +202,31 @@ class _AjoutBouteille extends State<AjoutBouteille> {
       return "Please enter something";
     }
     return null;
+  }
+
+   _checkCellarCapacity() async {
+    DocumentSnapshot variable = await Firestore.instance
+        .collection('users')
+        .document(widget.uid)
+        .collection('compteur')
+        .document('count')
+        .get();
+    int nb = int.parse(variable.data["count"]);
+    if(nb<=5){
+      _sendToServer();
+    }
+    else{
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Wine cellar full"),
+              content: Text(
+                  "You can not add another bottle because your Wine cellar is full. Please delete a bottle before adding another one"),
+            );
+          });
+    }
+
   }
 
 

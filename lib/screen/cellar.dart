@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:baby_names/screen/ajoutbouteille.dart';
+import 'package:baby_names/screen/bottleinfo.dart';
+import 'package:baby_names/screen/rechercher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +121,12 @@ class _cellar extends State<cellar> {
                   label: 'Search',
                   labelStyle: TextStyle(fontSize: 18.0),
                   onTap: () {
-                    Navigator.pushNamed(context, "/SearchList");
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ListSearch(
+                              uid: widget.uid,
+                            )));
                   }),
               SpeedDialChild(
                   child: Icon(Icons.add, color: Colors.white),

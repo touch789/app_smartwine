@@ -97,7 +97,7 @@ class DataTableDemoState extends State<DataTableDemo> {
     });
     _showProgress('Updating Employee...');
     Services.updateEmployee(
-        employee.id, _firstNameController.text, _lastNameController.text)
+        employee.num, _firstNameController.text, _lastNameController.text)
         .then((result) {
       if ('success' == result) {
         _getEmployees(); // Refresh the list after update
@@ -111,7 +111,7 @@ class DataTableDemoState extends State<DataTableDemo> {
 
   _deleteEmployee(Employee employee) {
     _showProgress('Deleting Employee...');
-    Services.deleteEmployee(employee.id).then((result) {
+    Services.deleteEmployee(employee.num).then((result) {
       if ('success' == result) {
         _getEmployees(); // Refresh after delete...
       }
@@ -125,8 +125,8 @@ class DataTableDemoState extends State<DataTableDemo> {
   }
 
   _showValues(Employee employee) {
-    _firstNameController.text = employee.firstName;
-    _lastNameController.text = employee.lastName;
+    _firstNameController.text = employee.title;
+    _lastNameController.text = employee.variety;
   }
 
   // Let's create a DataTable and show the employee list in it.
@@ -157,7 +157,7 @@ class DataTableDemoState extends State<DataTableDemo> {
               .map(
                 (employee) => DataRow(cells: [
               DataCell(
-                Text(employee.id),
+                Text(employee.num),
                 // Add tap in the row and populate the
                 // textfields with the corresponding values to update
                 onTap: () {
@@ -171,7 +171,7 @@ class DataTableDemoState extends State<DataTableDemo> {
               ),
               DataCell(
                 Text(
-                  employee.firstName.toUpperCase(),
+                  employee.title.toUpperCase(),
                 ),
                 onTap: () {
                   _showValues(employee);
@@ -185,7 +185,7 @@ class DataTableDemoState extends State<DataTableDemo> {
               ),
               DataCell(
                 Text(
-                  employee.lastName.toUpperCase(),
+                  employee.variety.toUpperCase(),
                 ),
                 onTap: () {
                   _showValues(employee);

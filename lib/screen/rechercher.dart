@@ -1,9 +1,14 @@
+import 'package:baby_names/screen/bottleinfo.dart';
+
 import '../smartwine/Services.dart';
 import 'package:flutter/material.dart';
 import '../model/classBouteille.dart';
+import 'ajoutbouteille.dart';
 
 class ListSearch extends StatefulWidget {
   ListSearchState createState() => ListSearchState();
+  ListSearch({@required this.uid});
+  final uid;
 }
 
 class ListSearchState extends State<ListSearch> {
@@ -41,9 +46,22 @@ class ListSearchState extends State<ListSearch> {
               padding: EdgeInsets.all(12.0),
               children: newDataList.map((data) {
                 return ListTile(
-                  title: Text(data.firstName.toString()),
-                  subtitle: Text(data.lastName.toString()),
-                  onTap: () => print(data.id),
+                  title: Text(data.title.toString()),
+                  subtitle: Text(data.variety.toString()),
+                  onTap: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BottleInfo(
+                            uid: widget.uid,
+                            title: data.title.toString(),
+                            variety: data.variety.toString(),
+                            country: data.country.toString(),
+                            province: data.province.toString(),
+                            designation: data.designation.toString(),
+                            description: data.description.toString(),
+                            winery: data.winery.toString(),
+                            region: data.region.toString(),
+                          ))),
                 );
               }).toList(),
             ),

@@ -8,17 +8,31 @@ import 'package:flutter/material.dart';
 
 
 class Employee {
-  String id;
-  String firstName;
-  String lastName;
+  String num;
+  String title;
+  String description;
+  String designation;
+  String country;
+  String province;
+  String region;
+  String variety;
+  String winery;
 
-  Employee({this.id, this.firstName, this.lastName});
+  Employee({this.num, this.title, this.variety,this.description,this.designation,this.winery,this.country,this.region,this.province});
 
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee(
-      id: json['num'] as String,
-      firstName: json['title'] as String,
-      lastName: json['variety'] as String,
+      num: json['num'] as String,
+      title: json['title'] as String,
+      variety: json['variety'] as String,
+      description: json['description'] as String,
+      designation: json['designation'] as String,
+      winery: json['winery'] as String,
+      country: json['country'] as String,
+      region: json['region'] as String,
+      province: json['province'] as String,
+
+
     );
   }
 }
