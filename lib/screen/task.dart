@@ -23,6 +23,7 @@ class BottlePage extends StatelessWidget {
   String region;
   String variety;
   String winery;
+  String caveid;
   final id;
   final uid;
 
@@ -32,36 +33,12 @@ class BottlePage extends StatelessWidget {
     currentUser = await FirebaseAuth.instance.currentUser();
   }
 
-  void deleteBottle(String id, BuildContext context) async {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => cellar(
-                  uid: uid,
-                  title: "My wine cellar",
-                )),
-        (_) => false);
+  void deleteBottle(String location) async {
 
-    Firestore.instance
-        .collection("users")
-        .document(uid)
-        .collection('bottle')
-        .document(id)
-        .delete();
-    DocumentSnapshot variable = await Firestore.instance
-        .collection('users')
-        .document(uid)
-        .collection('compteur')
-        .document('count')
-        .get();
-    int nb = int.parse(variable.data["count"]);
+    await Firestore.instance.collection("users").document(uid).get().then((DocumentSnapshot result) => caveid = result.data["caveid"]);
+   await Firestore.instance.collection("Cave").document(caveid).collection("cellar").document(location).updateData({"detect":true});
 
-    Firestore.instance
-        .collection('users')
-        .document(uid)
-        .collection('compteur')
-        .document('count')
-        .setData({"count": (nb - 1).toString()});
+
   }
 
   @override
@@ -127,25 +104,27 @@ class BottlePage extends StatelessWidget {
                   Text('Region :' + snapshot.data['region']),
                   Text('Province :' + snapshot.data['province']),
                   Text('Description : ' + snapshot.data['description']),
+                  Text('Location in cellar : ' + snapshot.data['location']),
+
                   RaisedButton(
-                      child: Text('Delete this bottle '),
+                      child: Text('Detect this bottle '),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
-                      onPressed: () => deleteBottle(id, context)),
+                      onPressed: () => deleteBottle(snapshot.data["location"])),
                   RaisedButton(
                       child: Text("Modify bottle's information "),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                       onPressed: () => _showDialog(context, snapshot.data["title"],snapshot.data['designation'],snapshot.data['variety'],
                                   snapshot.data['winery'],snapshot.data['country'],snapshot.data['region'],snapshot.data['province'],
-                                  snapshot.data['description'])),
+                                  snapshot.data['description'],snapshot.data['location'])),
 
                 ],
               ))));
         });
   }
 
-  _showDialog(BuildContext context,title,designation,variety,winery,country,region,province,description) async {
+  _showDialog(BuildContext context,title,designation,variety,winery,country,region,province,description,location) async {
 
     Navigator.pushReplacement(
         context,
@@ -163,6 +142,7 @@ class BottlePage extends StatelessWidget {
               countryin: country,
               regionin: region,
               provincein: province,
+              locationin: location,
             )));
 
 

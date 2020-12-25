@@ -30,47 +30,47 @@ class Services {
     }
   }
 
-  static Future<List<Employee>> getEmployees() async {
+  static Future<List<myBottle>> getBottles() async {
     try {
-      print("getemployee");
+      print("getbottles");
       var map = Map<String, dynamic>();
       map['action'] = _GET_ALL_ACTION;
       String action = "GET_ALL";
       final http.Response response = await http.post('http://192.168.56.1/vin.php?action='+action);
-      print('getEmployees Response: ${response.body}');
+      print('getbottle Response: ${response.body}');
       if (200 == response.statusCode) {
-        List<Employee> list = parseResponse(response.body);
+        List<myBottle> list = parseResponse(response.body);
         return list;
       } else {
-        return List<Employee>();
+        return List<myBottle>();
       }
     } catch (e) {
-      return List<Employee>(); // return an empty list on exception/error
+      return List<myBottle>(); // return an empty list on exception/error
     }
   }
 
-  static Future<List<Employee>> getspecificEmployees(String search) async {
+  static Future<List<myBottle>> getspecificBottles(String search) async {
     try {
-      print("getemployee");
+      print("getbottles");
       var map = Map<String, dynamic>();
       map['action'] = _GET_ALL_ACTION;
       String action = "GET_ALL";
       final http.Response response = await http.post('http://192.168.56.1/vin.php?action='+action+'&query='+search);
-      print('getEmployees Response: ${response.body}');
+      print('getBottles Response: ${response.body}');
       if (200 == response.statusCode) {
-        List<Employee> list = parseResponse(response.body);
+        List<myBottle> list = parseResponse(response.body);
         return list;
       } else {
-        return List<Employee>();
+        return List<myBottle>();
       }
     } catch (e) {
-      return List<Employee>(); // return an empty list on exception/error
+      return List<myBottle>(); // return an empty list on exception/error
     }
   }
 
-  static List<Employee> parseResponse(String responseBody) {
+  static List<myBottle> parseResponse(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Employee>((json) => Employee.fromJson(json)).toList();
+    return parsed.map<myBottle>((json) => myBottle.fromJson(json)).toList();
   }
 
   // Method to add employee to the database...

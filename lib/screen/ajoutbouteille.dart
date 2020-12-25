@@ -54,10 +54,10 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
 
 class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key,this.action, this.add,this.uid, this.bottleid,this.titlein,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin}) : super(key: key); //update this to include the uid in the constructor
+  AjoutBouteille({Key key,this.action, this.add,this.uid, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin}) : super(key: key); //update this to include the uid in the constructor
 
   final String uid;
-  String titlein, designationin,descriptionin,countryin,provincein,regionin,varietyin,wineryin,bottleid, action;
+  String titlein, designationin,descriptionin,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action;
   bool add;
   //include this
   @override
@@ -68,7 +68,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   GlobalKey<FormState> _key = GlobalKey();
   bool _validate = false;
 
-  String title, designation,description,country,province,region,variety,winery;
+  String title, designation,description,country,province,region,variety,winery, emplacement;
 
   @override
   Widget build(BuildContext context) {
@@ -177,6 +177,13 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               description = val;
             }
         ),
+        new TextFormField(
+            decoration: new InputDecoration(hintText: 'Cellar location'),
+            initialValue: widget.locationin,
+            onSaved: (String val) {
+              emplacement = val;
+            }
+        ),
         new SizedBox(height: 15.0),
         new RaisedButton(onPressed: _checkCellarCapacity, child: new Text(widget.action),
         )
@@ -248,6 +255,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             "region": region,
             "variety": variety,
             "winery": winery,
+            "location" : emplacement
           })
               .then((result) =>
           {
@@ -264,7 +272,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
 
           await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
-            "winery": "$winery","country": "$country","region": "$region","province": "$province"});
+            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement"});
           DocumentSnapshot variable = await Firestore.instance
               .collection('users')
               .document(widget.uid)

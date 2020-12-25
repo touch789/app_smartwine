@@ -4,6 +4,7 @@ import '../smartwine/Services.dart';
 import 'package:flutter/material.dart';
 import '../model/classBouteille.dart';
 import 'ajoutbouteille.dart';
+import 'cellar.dart';
 
 class ListSearch extends StatefulWidget {
   ListSearchState createState() => ListSearchState();
@@ -15,10 +16,10 @@ class ListSearchState extends State<ListSearch> {
   TextEditingController _textController = TextEditingController();
 
   // Copy Main List into New List.
-  List<Employee> newDataList = [];
+  List<myBottle> newDataList = [];
 
   onItemChanged(String value) {
-    Services.getspecificEmployees(value).then((employees) {
+    Services.getspecificBottles(value).then((employees) {
       setState(() {
         newDataList = employees.toList();
       });
@@ -28,7 +29,18 @@ class ListSearchState extends State<ListSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Search for a bottle')),
+      appBar: AppBar(title: Text('Search for a bottle'),
+          leading: new IconButton(
+          icon: new Icon(Icons.arrow_back, color: Colors.white),
+      onPressed: () => Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => cellar(
+                title: "My Wine Cellar",
+                uid: widget.uid,
+              )),
+              (_) => false),
+    ),),
       body: Column(
         children: <Widget>[
           Padding(

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 
 
-class Employee {
+class myBottle {
   String num;
   String title;
   String description;
@@ -18,10 +18,10 @@ class Employee {
   String variety;
   String winery;
 
-  Employee({this.num, this.title, this.variety,this.description,this.designation,this.winery,this.country,this.region,this.province});
+  myBottle({this.num, this.title, this.variety,this.description,this.designation,this.winery,this.country,this.region,this.province});
 
-  factory Employee.fromJson(Map<String, dynamic> json) {
-    return Employee(
+  factory myBottle.fromJson(Map<String, dynamic> json) {
+    return myBottle(
       num: json['num'] as String,
       title: json['title'] as String,
       variety: json['variety'] as String,
