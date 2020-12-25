@@ -18,9 +18,10 @@ class Datahelper {
 
     final response = await http.get(url, headers: {
       "user-agent":
-      "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36"
+      "test"
     });
     List<String> links = new List<String>();
+    print(response.statusCode.toString());
     if (response.statusCode == 200) {
       var document = parse(response.body);
       var elements = document.getElementsByClassName("wine-card__image");
