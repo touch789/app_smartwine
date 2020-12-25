@@ -39,14 +39,7 @@ class BottleInfo extends StatelessWidget {
                 title: Text('Bottle : ' + title),
                 leading: new IconButton(
                   icon: new Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => cellar(
-                            title: "My Wine Cellar",
-                            uid: uid,
-                          )),
-                          (_) => false),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
               body: SingleChildScrollView(
@@ -57,6 +50,7 @@ class BottleInfo extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Container(
+                            height: 300,
                             child: FutureBuilder<List<String>>(
                               future: Datahelper.loadImagesFromGoogleTask(title),
                               builder: (context, item) {

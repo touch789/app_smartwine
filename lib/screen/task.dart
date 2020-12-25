@@ -154,13 +154,13 @@ class BottlePageState extends State<BottlePage> {
                       child: Text("Modify bottle's information "),
                       color: Theme.of(context).primaryColor,
                       textColor: Colors.white,
-                      onPressed: () => _showDialog(context, snapshot.data["title"],snapshot.data['designation'],snapshot.data['variety'],
+                      onPressed: () => _showDialog( snapshot.data["title"],snapshot.data['designation'],snapshot.data['variety'],
                                   snapshot.data['winery'],snapshot.data['country'],snapshot.data['region'],snapshot.data['province'],
                                   snapshot.data['description'],snapshot.data['location'])),
                   Text("This selection of wine might also interest you :")
                   ,
                   Container(
-                      height: 284.0,
+                      height: 300.0,
 
                     child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -231,7 +231,7 @@ class BottlePageState extends State<BottlePage> {
         });
   }
 
-  _showDialog(BuildContext context,title,designation,variety,winery,country,region,province,description,location) async {
+  _showDialog(title,designation,variety,winery,country,region,province,description,location) async {
 
     Navigator.pushReplacement(
         context,
