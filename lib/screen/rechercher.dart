@@ -8,7 +8,7 @@ import 'cellar.dart';
 
 class ListSearch extends StatefulWidget {
   ListSearchState createState() => ListSearchState();
-  ListSearch({@required this.uid});
+  ListSearch({this.uid});
   final uid;
 }
 

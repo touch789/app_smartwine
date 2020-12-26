@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
@@ -10,15 +11,19 @@ enum SearchType { Google, Flickr }
 class Datahelper {
   static final String _API_KEY = "c9ca501d27bd752dcdbe0bd8313b41d4";
 
+
   static Future<List<String>> loadImagesFromGoogleTask(String query) async {
     var url = Uri.encodeFull(
         "https://www.vivino.com/search/wines?q="+query);
+    final random = new Random();
+    String nb = random.nextInt(100).toString();
+    print(nb);
 
     //https://www.google.com/search?safe=off&site=&tbm=isch&source=hp&q={q}&oq={q}&gs_l=img
 
     final response = await http.get(url, headers: {
       "user-agent":
-      "test"
+      "test"+ nb
     });
     List<String> links = new List<String>();
     print(response.statusCode.toString());
@@ -34,8 +39,11 @@ class Datahelper {
 
       return links;
     } else
-      throw Exception('Failed');
+      links.add("https://images.vivino.com/thumbs/hrxtl36mTVyp1LDyZyhpbw_pb_x600.png");
+    return links;
+      //throw Exception('Failed');
   }
+
 
   static Future<bool> downloadImageFromURL(String url) async {
     try {

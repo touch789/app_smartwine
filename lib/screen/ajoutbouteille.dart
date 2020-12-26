@@ -264,7 +264,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
                 MaterialPageRoute(
                     builder: (context) => BottlePage(
                         id: widget.bottleid,
-                        uid: widget.uid)))
+                        )))
           });
 
         } else {
