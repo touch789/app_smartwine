@@ -23,7 +23,7 @@ class Datahelper {
 
     final response = await http.get(url, headers: {
       "user-agent":
-      "test"+ nb
+      "test"
     });
     List<String> links = new List<String>();
     print(response.statusCode.toString());
@@ -33,15 +33,50 @@ class Datahelper {
 
       for (var element in elements) {
         if (element.attributes.values.elementAt(1).contains("images") ) {
+          //links.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5-8nMm6CfoOmCMuV-OW0ArxUh5eLQZccpUZSVAreYWm3NvWxAieOC4kz2fA&s");
           links.add((element.attributes.values.elementAt(1).replaceAll("background-image: url(//", "https://").replaceAll("pl_375x500.png)", "pb_x600.png")));
         }
       }
 
       return links;
     } else
-      links.add("https://images.vivino.com/thumbs/hrxtl36mTVyp1LDyZyhpbw_pb_x600.png");
+      print(response.body);
+      links.add("http://clipart-library.com/new_gallery/10-106441_wine-bottle-and-glass-png-vector-clipart-transparent.png");
     return links;
       //throw Exception('Failed');
+  }
+
+
+  static Future<List<String>> loadImagesFromGooglephp(String query) async {
+    var url = Uri.encodeFull(
+        "http://172.20.10.2/testimage.php?keyword="+query);
+
+    final response = await http.get(url, headers: {
+      "user-agent":
+      "test"
+    });
+    List<String> links = new List<String>();
+    print(response.statusCode.toString());
+    if (response.statusCode == 200) {
+      var document = parse(response.body);
+      var elements = document.getElementsByClassName("t0fcAb");
+
+      for (var element in elements) {
+        print(element.attributes.values.elementAt(2));
+        links.add(element.attributes.values.elementAt(2));
+
+
+          //links.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5-8nMm6CfoOmCMuV-OW0ArxUh5eLQZccpUZSVAreYWm3NvWxAieOC4kz2fA&s");
+          //links.add((element.attributes.values.elementAt(1).replaceAll("background-image: url(//", "https://").replaceAll("pl_375x500.png)", "pb_x600.png")));
+
+      }
+
+      return links;
+    } else
+      print(response.body);
+    links.add("http://clipart-library.com/new_gallery/10-106441_wine-bottle-and-glass-png-vector-clipart-transparent.png");
+    return links;
+    //throw Exception('Failed');
   }
 
 

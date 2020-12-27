@@ -2,62 +2,19 @@ import 'package:baby_names/screen/cellar.dart';
 import 'package:baby_names/screen/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 
 
 
-/*class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key, this.title}) : super(key: key);
-  final String title;
 
-  @override
-  _AjoutBouteille createState() => new _AjoutBouteille();
-}
-
-class _AjoutBouteille extends State<AjoutBouteille> {
-  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  List<String> _colors = <String>['', 'red', 'green', 'blue', 'orange'];
-  String _color = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-            title: new Text ('Welcome'),
-            actions: <Widget>[
-
-
-            ]
-        ),
-        body:  new FloatingActionButton(
-            elevation: 0.0,
-            child: new Icon(Icons.add),
-            backgroundColor: new Color(0xFFE57373),
-            onPressed: (){
-              Navigator.push(
-                context,
-                new MaterialPageRoute(builder: (context) => new UploadFormField()),
-              );
-
-            }
-        )
-    );
-  }
-
-}*/
-
-
-
-// UPLOAD TO FIRESTORE
 
 
 
 class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key,this.action, this.add,this.uid, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin}) : super(key: key); //update this to include the uid in the constructor
+  AjoutBouteille({Key key,this.action, this.add,this.uid, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin, this.tempConsin, this.tempServicein}) : super(key: key); //update this to include the uid in the constructor
 
   final String uid;
-  String titlein, designationin,descriptionin,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action;
+  String titlein, designationin,descriptionin,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action, tempServicein, tempConsin;
   bool add;
   //include this
   @override
@@ -68,7 +25,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   GlobalKey<FormState> _key = GlobalKey();
   bool _validate = false;
 
-  String title, designation,description,country,province,region,variety,winery, emplacement;
+  String title, designation,description,country,province,region,variety,winery, emplacement, tempService, tempCons;
 
   @override
   Widget build(BuildContext context) {
@@ -178,8 +135,23 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             }
         ),
         new TextFormField(
+            decoration: new InputDecoration(hintText: 'Service Temperature'),
+            initialValue: widget.tempServicein,
+            onSaved: (String val) {
+              tempService = val;
+            }
+        ),
+        new TextFormField(
+            decoration: new InputDecoration(hintText: 'Conservation Temperature'),
+            initialValue: widget.tempConsin,
+            onSaved: (String val) {
+              tempCons = val;
+            }
+        ),
+        new TextFormField(
             decoration: new InputDecoration(hintText: 'Cellar location'),
             initialValue: widget.locationin,
+            validator: validateAuthor,
             onSaved: (String val) {
               emplacement = val;
             }
@@ -255,7 +227,10 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             "region": region,
             "variety": variety,
             "winery": winery,
-            "location" : emplacement
+            "location" : emplacement,
+            "tempService" : tempService,
+            "tempCons" : tempCons,
+
           })
               .then((result) =>
           {
@@ -272,7 +247,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
 
           await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
-            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement"});
+            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement","tempService":"$tempService", "tempCons":"$tempCons"});
           DocumentSnapshot variable = await Firestore.instance
               .collection('users')
               .document(widget.uid)

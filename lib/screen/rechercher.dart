@@ -1,4 +1,6 @@
 import 'package:baby_names/screen/bottleinfo.dart';
+import 'package:baby_names/smartwine/image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../smartwine/Services.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +60,31 @@ class ListSearchState extends State<ListSearch> {
               padding: EdgeInsets.all(12.0),
               children: newDataList.map((data) {
                 return ListTile(
+
+                    leading: SizedBox(
+                        height: 50.0,
+                        width: 50.0, // fixed width and height
+                        child: FutureBuilder<List<String>>(
+                          future: Datahelper.loadImagesFromGooglephp(data.title),
+                          builder: (context, item) {
+                            if (item.hasData) {
+                              String url = item.data.first;
+                              // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
+                              return CachedNetworkImage(
+                                useOldImageOnUrlChange: true,
+                                imageUrl: url,
+                                placeholder: (context, url) => CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                              );
+                            } else if (item.hasError) {
+                              return Text("${item.error}");
+                            }
+
+                            // By default, show a loading spinner.
+                            return CircularProgressIndicator();
+                          },
+                        ),
+                    ),
                   title: Text(data.title.toString()),
                   subtitle: Text(data.variety.toString()),
                   onTap: () => Navigator.pushReplacement(
@@ -73,6 +100,8 @@ class ListSearchState extends State<ListSearch> {
                             description: data.description.toString(),
                             winery: data.winery.toString(),
                             region: data.region.toString(),
+                            tempCons: data.tempCons.toString(),
+                            tempService: data.tempService.toString(),
                           ))),
                 );
               }).toList(),

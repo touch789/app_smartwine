@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:baby_names/screen/cellar.dart';
+import 'package:baby_names/screen/settings.dart';
 import 'package:baby_names/smartwine/cave.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -279,16 +280,18 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              Icons.account_circle,
+              Icons.build,
               color: HexColor("#EB54A8"),
             ),
-            onPressed: () {
-              FirebaseAuth.instance
-                  .signOut()
-                  .then((result) =>
-                      Navigator.pushReplacementNamed(context, "/login"))
-                  .catchError((err) => print(err));
-            },
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SettingsOnePage(
+                      uid: widget.uid,
+
+                    ))),
+
+
           ),
         ],
       ),

@@ -14,7 +14,7 @@ import 'home.dart';
 
 // ignore: must_be_immutable
 class BottleInfo extends StatelessWidget {
-  BottleInfo({ this.id, this.uid,this.title,this.province,this.region,this.country,this.winery,this.variety,this.description,this.designation} );
+  BottleInfo({ this.id, this.uid,this.title,this.province,this.region,this.country,this.winery,this.variety,this.description,this.designation,this.tempService, this.tempCons} );
 
   String title;
   String description;
@@ -24,6 +24,8 @@ class BottleInfo extends StatelessWidget {
   String region;
   String variety;
   String winery;
+  String tempService;
+  String tempCons;
   final id;
   final uid;
 
@@ -95,7 +97,14 @@ class BottleInfo extends StatelessWidget {
               title: Text('Bottle : ' + title),
               leading: new IconButton(
                 icon: new Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => cellar(
+                          title: "My Wine Cellar",
+                          uid: uid,
+                        )),
+                        (_) => false)
               ),
             ),
             body: Center(
@@ -142,7 +151,7 @@ class BottleInfo extends StatelessWidget {
                           future: Datahelper.loadImagesFromGoogleTask(title),
                           builder: (context, item) {
                             if (item.hasData) {
-                              String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "https://assets.stickpng.com/thumbs/585ac2114f6ae202fedf2943.png");
+                              String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "http://clipart-library.com/new_gallery/10-106441_wine-bottle-and-glass-png-vector-clipart-transparent.png" );
 
                                 return CachedNetworkImage(
                                   useOldImageOnUrlChange: true,
@@ -197,7 +206,7 @@ class BottleInfo extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child:
-                      Text('Température de service : 10 - 12 °C' ),
+                      Text('Température de service : '+tempService+ "°C" +"\n"+"Temperature conservation : "+ tempCons+" °C" ),
                     ),
 
                     Padding(
@@ -227,8 +236,8 @@ class BottleInfo extends StatelessWidget {
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 200.0),
+                    StaggeredTile.extent(2, 180.0),
+                    StaggeredTile.extent(2, 70.0),
                     StaggeredTile.extent(4, 60.0),
 
 
@@ -262,6 +271,8 @@ class BottleInfo extends StatelessWidget {
               countryin: country,
               regionin: region,
               provincein: province,
+              tempConsin: tempCons,
+              tempServicein: tempService,
             )));
 
 

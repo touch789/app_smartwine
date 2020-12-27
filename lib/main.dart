@@ -2,6 +2,7 @@ import 'package:baby_names/screen/ajoutbouteille.dart';
 import 'package:baby_names/screen/bottleinfo.dart';
 import 'package:baby_names/screen/checkCellarId.dart';
 import 'package:baby_names/screen/cellar.dart';
+import 'package:baby_names/screen/settings.dart';
 import 'screen/home.dart';
 import 'screen/login.dart';
 import 'screen/rechercher.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           '/checkcaveid': (BuildContext context) => checkCellarId(),
           '/ajoutbouteille': (BuildContext context) => AjoutBouteille(),
           '/infobottle': (BuildContext context) => BottleInfo(),
+          '/settings': (BuildContext context) => SettingsOnePage(),
 
 
         });

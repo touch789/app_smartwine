@@ -1,3 +1,5 @@
+import 'package:baby_names/smartwine/cave.dart';
+
 import '../screen/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,7 @@ class CustomCard extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => BottlePage(
                           id: id,
+                        uid: uid,
 
                           )));
             },

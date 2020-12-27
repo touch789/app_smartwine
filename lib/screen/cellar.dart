@@ -47,21 +47,6 @@ class _cellar extends State<cellar> {
             widget.title,
             style: TextStyle(color: HexColor("#EB54A8")),
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.account_circle,
-                color: HexColor("#EB54A8"),
-              ),
-              onPressed: () {
-                FirebaseAuth.instance
-                    .signOut()
-                    .then((result) =>
-                        Navigator.pushReplacementNamed(context, "/login"))
-                    .catchError((err) => print(err));
-              },
-            ),
-          ],
         ),
         body: Center(
           child: Container(

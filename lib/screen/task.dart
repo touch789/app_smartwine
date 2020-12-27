@@ -19,7 +19,7 @@ import 'home.dart';
 // ignore: must_be_immutable
 class BottlePage extends StatefulWidget {
   BottlePageState createState() => BottlePageState();
-  BottlePage({@required this.id });
+  BottlePage({@required this.id,this.uid });
 
   String title;
   String description;
@@ -42,7 +42,7 @@ FirebaseAuth auth;
   void initState() {
 
     auth = FirebaseAuth.instance;
-    getCurrentUser();
+    //getCurrentUser();
     onItemChanged();
     super.initState();
 
@@ -156,7 +156,7 @@ FirebaseAuth auth;
                           future: Datahelper.loadImagesFromGoogleTask(snapshot.data['title']),
                           builder: (context, item) {
                             if (item.hasData) {
-                              String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "https://assets.stickpng.com/thumbs/585ac2114f6ae202fedf2943.png");
+                              String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
 
                                 return CachedNetworkImage(
                                   useOldImageOnUrlChange: true,
@@ -205,13 +205,15 @@ FirebaseAuth auth;
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('description : ' + snapshot.data['description']),
+                child:Container(
+                  height: 200,
+                  child: Text('description : ' + snapshot.data['description']),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child:
-                Text('Température de service : 10 - 12 °C' ),
+                Text('Température de service : '+snapshot.data["tempService"]+ "°C" +"\n"+"Temperature conservation : "+ snapshot.data["tempCons"]+" °C" ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -242,7 +244,7 @@ FirebaseAuth auth;
                     textColor: Colors.white,
                     onPressed: () => _showDialog( snapshot.data["title"],snapshot.data['designation'],snapshot.data['variety'],
                         snapshot.data['winery'],snapshot.data['country'],snapshot.data['region'],snapshot.data['province'],
-                        snapshot.data['description'],snapshot.data['location'])),
+                        snapshot.data['description'],snapshot.data['location'], snapshot.data["tempService"], snapshot.data["tempCons"])),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -270,6 +272,8 @@ FirebaseAuth auth;
                                           description: data.description.toString(),
                                           winery: data.winery.toString(),
                                           region: data.region.toString(),
+                                          tempService: data.tempService.toString(),
+                                          tempCons: data.tempCons.toString(),
                                         ))),
                                 child: Card(
                                     semanticContainer: true,
@@ -284,10 +288,10 @@ FirebaseAuth auth;
                                           Container(
                                             height : 200,
                                             child: FutureBuilder<List<String>>(
-                                              future: Datahelper.loadImagesFromGoogleTask(data.title),
+                                              future: Datahelper.loadImagesFromGooglephp(data.title),
                                               builder: (context, item) {
                                                 if (item.hasData) {
-                                                  String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "https://assets.stickpng.com/thumbs/585ac2114f6ae202fedf2943.png");
+                                                  String url = item.data.first;
                                                   // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
                                                   return CachedNetworkImage(
                                                     useOldImageOnUrlChange: true,
@@ -317,7 +321,7 @@ FirebaseAuth auth;
             staggeredTiles: [
               StaggeredTile.extent(4, 70.0),
               StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 652.0),
+              StaggeredTile.extent(2, 663.0),
 
 
               StaggeredTile.extent(2, 50.0),
@@ -325,8 +329,8 @@ FirebaseAuth auth;
               StaggeredTile.extent(2, 50.0),
               StaggeredTile.extent(2, 50.0),
               StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 200.0),
-              StaggeredTile.extent(2, 40.0),
+              StaggeredTile.extent(2, 180.0),
+              StaggeredTile.extent(2, 70.0),
               StaggeredTile.extent(2, 17.0),
               StaggeredTile.extent(2, 60.0),
               StaggeredTile.extent(2, 60.0),
@@ -522,7 +526,7 @@ FirebaseAuth auth;
         });
   } */
 
-  _showDialog(title,designation,variety,winery,country,region,province,description,location) async {
+  _showDialog(title,designation,variety,winery,country,region,province,description,location,tempservice,tempcons) async {
 
     Navigator.pushReplacement(
         context,
@@ -541,6 +545,8 @@ FirebaseAuth auth;
               regionin: region,
               provincein: province,
               locationin: location,
+              tempServicein: tempservice,
+              tempConsin: tempcons,
             )));
 
 

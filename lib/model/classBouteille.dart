@@ -17,8 +17,10 @@ class myBottle {
   String region;
   String variety;
   String winery;
+  String tempService;
+  String tempCons;
 
-  myBottle({this.num, this.title, this.variety,this.description,this.designation,this.winery,this.country,this.region,this.province});
+  myBottle({this.num, this.title, this.variety,this.description,this.designation,this.winery,this.country,this.region,this.province,this.tempService,this.tempCons});
 
   factory myBottle.fromJson(Map<String, dynamic> json) {
     return myBottle(
@@ -31,6 +33,8 @@ class myBottle {
       country: json['country'] as String,
       region: json['region'] as String,
       province: json['province'] as String,
+      tempService: json['TempService'] as String,
+      tempCons: json['TempCons'] as String,
 
 
     );
