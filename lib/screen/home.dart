@@ -253,7 +253,6 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(1.0),
                     child: Sparkline(
                       lineColor: Colors.white,
-
                       lineWidth: 5.0,
                       data: data,
                     ),
@@ -271,7 +270,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Colors.white,
         title: Text(
           "My Cellar",
@@ -279,19 +277,13 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
-              Icons.build,
-              color: HexColor("#EB54A8"),
-            ),
+            icon: new Icon(Icons.settings, color: HexColor("#EB54A8")),
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => SettingsOnePage(
-                      uid: widget.uid,
-
-                    ))),
-
-
+                          uid: widget.uid,
+                        ))),
           ),
         ],
       ),
@@ -360,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                         return LinearProgressIndicator();
                       } else {
                         snapshot.data.documents.forEach((element) {
-                          temp.insert(0,element.data["temp"]);
+                          temp.insert(0, element.data["temp"]);
                         });
                         return mychart1Items("Température", temp);
                       }

@@ -38,8 +38,9 @@ class _cellar extends State<cellar> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: HexColor("#EB54A8")),
+            icon: new Icon(Icons.arrow_back_ios, color: HexColor("#EB54A8")),
             onPressed: () => Navigator.pushNamed(context, "/splash"),
           ),
           backgroundColor: Colors.white,
@@ -110,8 +111,8 @@ class _cellar extends State<cellar> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ListSearch(
-                              uid: widget.uid,
-                            )));
+                                  uid: widget.uid,
+                                )));
                   }),
               SpeedDialChild(
                   child: Icon(Icons.add, color: Colors.white),

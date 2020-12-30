@@ -19,7 +19,7 @@ import 'home.dart';
 // ignore: must_be_immutable
 class BottlePage extends StatefulWidget {
   BottlePageState createState() => BottlePageState();
-  BottlePage({@required this.id,this.uid });
+  BottlePage({@required this.id, this.uid});
 
   String title;
   String description;
@@ -32,32 +32,27 @@ class BottlePage extends StatefulWidget {
   String caveid;
   final id;
   var uid;
-
-
-
 }
+
 class BottlePageState extends State<BottlePage> {
-FirebaseAuth auth;
+  FirebaseAuth auth;
   @override
   void initState() {
-
     auth = FirebaseAuth.instance;
     //getCurrentUser();
     onItemChanged();
     super.initState();
-
-
   }
 
   List<myBottle> newDataList = [];
 
-   getCurrentUser() async {
+  getCurrentUser() async {
     final FirebaseUser user = await auth.currentUser();
     setState(() {
       widget.uid = user.uid;
     });
-
   }
+
   onItemChanged() async {
     final FirebaseUser user = await auth.currentUser();
     setState(() {
@@ -68,7 +63,8 @@ FirebaseAuth auth;
         .document(widget.uid)
         .collection("bottle")
         .document(widget.id)
-        .get().then((value) => widget.variety = value.data["variety"]);
+        .get()
+        .then((value) => widget.variety = value.data["variety"]);
     Services.getspecificBottles(widget.variety).then((employees) {
       setState(() {
         newDataList = employees.toList();
@@ -76,18 +72,23 @@ FirebaseAuth auth;
     });
   }
 
-
   void detectBottle(String location) async {
-
-    await Firestore.instance.collection("users").document(widget.uid).get().then((DocumentSnapshot result) => widget.caveid = result.data["caveid"]);
-   await Firestore.instance.collection("Cave").document(widget.caveid).collection("cellar").document(location).updateData({"detect":true});
-
-
+    await Firestore.instance
+        .collection("users")
+        .document(widget.uid)
+        .get()
+        .then(
+            (DocumentSnapshot result) => widget.caveid = result.data["caveid"]);
+    await Firestore.instance
+        .collection("Cave")
+        .document(widget.caveid)
+        .collection("cellar")
+        .document(location)
+        .updateData({"detect": true});
   }
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder(
         stream: Firestore.instance
             .collection('users')
@@ -99,71 +100,89 @@ FirebaseAuth auth;
           if (!snapshot.hasData) return Text('Loading data.... please wait...');
           return Scaffold(
             appBar: AppBar(
-              title: Text('Bottle : ' + snapshot.data['title']),
+              centerTitle: true,
+              title: Text('MY CELLAR',
+                  style: TextStyle(color: HexColor("#EB54A8"))),
               leading: new IconButton(
-                icon: new Icon(Icons.arrow_back, color: Colors.white),
+                icon:
+                    new Icon(Icons.arrow_back_ios, color: HexColor("#EB54A8")),
                 onPressed: () => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                         builder: (context) => cellar(
-                          title: "My Wine Cellar",
-                          uid: widget.uid,
-                        )),
-                        (_) => false),
+                              title: "My Wine Cellar",
+                              uid: widget.uid,
+                            )),
+                    (_) => false),
               ),
+              backgroundColor: Colors.white,
+              elevation: 2,
             ),
-      body: Center(
-        child: Container(
-          color: HexColor("#FEF3FF"),
-          child: StaggeredGridView.count(
-            crossAxisCount: 4,
-            crossAxisSpacing: 1.0,
-            mainAxisSpacing: 12.0,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container (
-                    decoration: BoxDecoration(
-                       color: Theme.of(context).primaryColor,
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 8,
+            body: Center(
+              child: Container(
+                color: Colors.white,
+                child: StaggeredGridView.count(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 1.0,
+                  mainAxisSpacing: 12.0,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.pink.withOpacity(0.4),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                          color: Theme.of(context).primaryColor,
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 7,
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Center(
+                          child: Text(snapshot.data['title'],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white,
+                              )),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(30),
-
                     ),
-
-                  child: Center (
-                    child :Text(snapshot.data['title'], textAlign: TextAlign.center,style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white,)),
-
-                ),),
-
-
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('variety : ' + snapshot.data['variety']),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:  Container(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Variety : ' + snapshot.data['variety']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
                         height: 300,
-
                         child: FutureBuilder<List<String>>(
-                          future: Datahelper.loadImagesFromGoogleTask(snapshot.data['title']),
+                          future: Datahelper.loadImagesFromGoogleTask(
+                              snapshot.data['title']),
                           builder: (context, item) {
                             if (item.hasData) {
-                              String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
+                              String url = item.data.firstWhere(
+                                  (element) => element.contains(".png"),
+                                  orElse: () =>
+                                      "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
 
-                                return CachedNetworkImage(
-                                  useOldImageOnUrlChange: true,
-                                  imageUrl: url,
-                                  placeholder: (context, url) => CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
-                                );
+                              return CachedNetworkImage(
+                                useOldImageOnUrlChange: true,
+                                imageUrl: url,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              );
                               // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
 
                             } else if (item.hasError) {
@@ -175,178 +194,199 @@ FirebaseAuth auth;
                           },
                         ),
                       ),
-              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Winery : ' + snapshot.data['winery']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child:
+                          Text('Designation : ' + snapshot.data['designation']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Country : ' + snapshot.data['country']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Region : ' + snapshot.data['region']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Province : ' + snapshot.data['province']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Container(
+                        height: 200,
+                        child: Text(
+                            'Description : ' + snapshot.data['description']),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Serving temperature : ' +
+                          snapshot.data["tempService"] +
+                          "°C" +
+                          "\n" +
+                          "Storage temperature : " +
+                          snapshot.data["tempCons"] +
+                          " °C"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                          'Location in cellar : ' + snapshot.data['location']),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: Theme.of(context).primaryColor)),
+                          child: Text('DETECT'),
+                          color: Theme.of(context).primaryColor,
+                          textColor: Colors.white,
+                          onPressed: () =>
+                              detectBottle(snapshot.data["location"])),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: Theme.of(context).primaryColor)),
+                          child: Text("MODIFY"),
+                          color: Theme.of(context).primaryColor,
+                          textColor: Colors.white,
+                          onPressed: () => _showDialog(
+                              snapshot.data["title"],
+                              snapshot.data['designation'],
+                              snapshot.data['variety'],
+                              snapshot.data['winery'],
+                              snapshot.data['country'],
+                              snapshot.data['region'],
+                              snapshot.data['province'],
+                              snapshot.data['description'],
+                              snapshot.data['location'],
+                              snapshot.data["tempService"],
+                              snapshot.data["tempCons"])),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Container(
+                          height: 300.0,
+                          child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: newDataList.map((data) {
+                                return Container(
+                                  width: 160.0,
+                                  child: InkWell(
+                                      onTap: () => Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => BottleInfo(
+                                                    uid: widget.uid,
+                                                    title:
+                                                        data.title.toString(),
+                                                    variety:
+                                                        data.variety.toString(),
+                                                    country:
+                                                        data.country.toString(),
+                                                    province: data.province
+                                                        .toString(),
+                                                    designation: data
+                                                        .designation
+                                                        .toString(),
+                                                    description: data
+                                                        .description
+                                                        .toString(),
+                                                    winery:
+                                                        data.winery.toString(),
+                                                    region:
+                                                        data.region.toString(),
+                                                    tempService: data
+                                                        .tempService
+                                                        .toString(),
+                                                    tempCons: data.tempCons
+                                                        .toString(),
+                                                  ))),
+                                      child: Card(
+                                          semanticContainer: true,
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          elevation: 5,
+                                          margin: EdgeInsets.all(10),
+                                          child: Column(children: <Widget>[
+                                            Container(
+                                              height: 200,
+                                              child:
+                                                  FutureBuilder<List<String>>(
+                                                future: Datahelper
+                                                    .loadImagesFromGooglephp(
+                                                        data.title),
+                                                builder: (context, item) {
+                                                  if (item.hasData) {
+                                                    String url =
+                                                        item.data.first;
+                                                    // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
+                                                    return CachedNetworkImage(
+                                                      useOldImageOnUrlChange:
+                                                          true,
+                                                      imageUrl: url,
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          CircularProgressIndicator(),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(Icons.error),
+                                                    );
+                                                  } else if (item.hasError) {
+                                                    return Text(
+                                                        "${item.error}");
+                                                  }
 
-
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('winery : ' + snapshot.data['winery']),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('designation : ' + snapshot.data['designation']),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('Country : ' + snapshot.data['country']),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('Region : ' + snapshot.data['region']),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('Province : ' + snapshot.data['province']),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:Container(
-                  height: 200,
-                  child: Text('description : ' + snapshot.data['description']),
+                                                  // By default, show a loading spinner.
+                                                  return CircularProgressIndicator();
+                                                },
+                                              ),
+                                            ),
+                                            Text(data.title,
+                                                textAlign: TextAlign.center),
+                                          ]))),
+                                );
+                              }).toList())),
+                    ),
+                  ],
+                  staggeredTiles: [
+                    StaggeredTile.extent(4, 70.0),
+                    StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 663.0),
+                    StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 180.0),
+                    StaggeredTile.extent(2, 70.0),
+                    StaggeredTile.extent(2, 17.0),
+                    StaggeredTile.extent(2, 60.0),
+                    StaggeredTile.extent(2, 60.0),
+                    StaggeredTile.extent(4, 300.0),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('Température de service : '+snapshot.data["tempService"]+ "°C" +"\n"+"Temperature conservation : "+ snapshot.data["tempCons"]+" °C" ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Text('Location in cellar : ' + snapshot.data['location']),
-              ),
-              Padding(
-                padding: const EdgeInsets.all( 11.0),
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Theme.of(context).primaryColor)
-                  ),
-                    child: Text('Detect this bottle '),
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    onPressed: () => detectBottle(snapshot.data["location"])),
-              ),
-              Padding(
-                padding: const EdgeInsets.all( 11.0),
-                child:RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: BorderSide(color: Theme.of(context).primaryColor)
-                    ),
-                    child: Text("Modify bottle's information "),
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    onPressed: () => _showDialog( snapshot.data["title"],snapshot.data['designation'],snapshot.data['variety'],
-                        snapshot.data['winery'],snapshot.data['country'],snapshot.data['region'],snapshot.data['province'],
-                        snapshot.data['description'],snapshot.data['location'], snapshot.data["tempService"], snapshot.data["tempCons"])),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child:
-                Container(
-                    height: 300.0,
-
-                    child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: newDataList.map((data) {
-                          return Container(
-
-                            width: 160.0,
-                            child :InkWell(
-                                onTap: () => Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => BottleInfo(
-                                          uid: widget.uid,
-                                          title: data.title.toString(),
-                                          variety: data.variety.toString(),
-                                          country: data.country.toString(),
-                                          province: data.province.toString(),
-                                          designation: data.designation.toString(),
-                                          description: data.description.toString(),
-                                          winery: data.winery.toString(),
-                                          region: data.region.toString(),
-                                          tempService: data.tempService.toString(),
-                                          tempCons: data.tempCons.toString(),
-                                        ))),
-                                child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    elevation: 5,
-                                    margin: EdgeInsets.all(10),
-                                    child: Column (
-                                        children: <Widget>[
-                                          Container(
-                                            height : 200,
-                                            child: FutureBuilder<List<String>>(
-                                              future: Datahelper.loadImagesFromGooglephp(data.title),
-                                              builder: (context, item) {
-                                                if (item.hasData) {
-                                                  String url = item.data.first;
-                                                  // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
-                                                  return CachedNetworkImage(
-                                                    useOldImageOnUrlChange: true,
-                                                    imageUrl: url,
-                                                    placeholder: (context, url) => CircularProgressIndicator(),
-                                                    errorWidget: (context, url, error) => Icon(Icons.error),
-                                                  );
-                                                } else if (item.hasError) {
-                                                  return Text("${item.error}");
-                                                }
-
-                                                // By default, show a loading spinner.
-                                                return CircularProgressIndicator();
-                                              },
-                                            ),
-                                          ),
-                                          Text(data.title,textAlign: TextAlign.center),
-
-
-                                        ]))),
-
-
-                          );}).toList())),
-              ),
-
-            ],
-            staggeredTiles: [
-              StaggeredTile.extent(4, 70.0),
-              StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 663.0),
-
-
-              StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 50.0),
-              StaggeredTile.extent(2, 180.0),
-              StaggeredTile.extent(2, 70.0),
-              StaggeredTile.extent(2, 17.0),
-              StaggeredTile.extent(2, 60.0),
-              StaggeredTile.extent(2, 60.0),
-              StaggeredTile.extent(4, 300.0),
-
-            ],
-          ),
-        ),
-      ),
-    );
-        }
-
-    );
+            ),
+          );
+        });
   }
-
-
 
 /*
   @override
@@ -526,29 +566,27 @@ FirebaseAuth auth;
         });
   } */
 
-  _showDialog(title,designation,variety,winery,country,region,province,description,location,tempservice,tempcons) async {
-
+  _showDialog(title, designation, variety, winery, country, region, province,
+      description, location, tempservice, tempcons) async {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => AjoutBouteille(
-              uid: widget.uid,
-              bottleid: widget.id,
-              action: "Update",
-              add: false,
-              titlein: title ,
-              descriptionin: description,
-              designationin: designation,
-              varietyin: variety,
-              wineryin: winery,
-              countryin: country,
-              regionin: region,
-              provincein: province,
-              locationin: location,
-              tempServicein: tempservice,
-              tempConsin: tempcons,
-            )));
-
-
+                  uid: widget.uid,
+                  bottleid: widget.id,
+                  action: "Update",
+                  add: false,
+                  titlein: title,
+                  descriptionin: description,
+                  designationin: designation,
+                  varietyin: variety,
+                  wineryin: winery,
+                  countryin: country,
+                  regionin: region,
+                  provincein: province,
+                  locationin: location,
+                  tempServicein: tempservice,
+                  tempConsin: tempcons,
+                )));
   }
 }
