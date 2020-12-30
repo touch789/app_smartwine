@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       String title, String subtitle, Color colorCard, Color colorText) {
     return Material(
       color: colorCard,
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(100.0),
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(5.0),

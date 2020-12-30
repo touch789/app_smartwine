@@ -130,15 +130,6 @@ class BottlePageState extends State<BottlePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.pink.withOpacity(0.4),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset:
-                                  Offset(0, 2), // changes position of shadow
-                            ),
-                          ],
                           color: Theme.of(context).primaryColor,
                           border: Border.all(
                             color: Theme.of(context).primaryColor,
@@ -246,9 +237,11 @@ class BottlePageState extends State<BottlePage> {
                               borderRadius: BorderRadius.circular(18.0),
                               side: BorderSide(
                                   color: Theme.of(context).primaryColor)),
-                          child: Text('DETECT'),
-                          color: Theme.of(context).primaryColor,
+                          splashColor: Colors.pinkAccent[800],
+                          color: HexColor("#EB54A8"),
                           textColor: Colors.white,
+                          child: Text('DETECT'),
+                          elevation: 0,
                           onPressed: () =>
                               detectBottle(snapshot.data["location"])),
                     ),
@@ -262,6 +255,7 @@ class BottlePageState extends State<BottlePage> {
                           child: Text("MODIFY"),
                           color: Theme.of(context).primaryColor,
                           textColor: Colors.white,
+                          elevation: 0,
                           onPressed: () => _showDialog(
                               snapshot.data["title"],
                               snapshot.data['designation'],
