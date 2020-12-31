@@ -26,6 +26,7 @@ class BottleInfo extends StatelessWidget {
   String winery;
   String tempService;
   String tempCons;
+
   final id;
   final uid;
 
@@ -97,14 +98,7 @@ class BottleInfo extends StatelessWidget {
               title: Text('Bottle : ' + title),
               leading: new IconButton(
                 icon: new Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => cellar(
-                          title: "My Wine Cellar",
-                          uid: uid,
-                        )),
-                        (_) => false)
+                onPressed: () => Navigator.pop(context)
               ),
             ),
             body: Center(
@@ -141,6 +135,7 @@ class BottleInfo extends StatelessWidget {
                       child:
                       Text('variety : ' + variety),
                     ),
+
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),

@@ -153,6 +153,10 @@ class BottlePageState extends State<BottlePage> {
                       child: Text('Variety : ' + snapshot.data['variety']),
                     ),
                     Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text('Year : ' + snapshot.data['year']),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         height: 300,
@@ -267,7 +271,8 @@ class BottlePageState extends State<BottlePage> {
                               snapshot.data['description'],
                               snapshot.data['location'],
                               snapshot.data["tempService"],
-                              snapshot.data["tempCons"])),
+                              snapshot.data["tempCons"],
+                          snapshot.data["year"])),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -279,7 +284,7 @@ class BottlePageState extends State<BottlePage> {
                                 return Container(
                                   width: 160.0,
                                   child: InkWell(
-                                      onTap: () => Navigator.pushReplacement(
+                                      onTap: () => Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => BottleInfo(
@@ -362,6 +367,7 @@ class BottlePageState extends State<BottlePage> {
                   staggeredTiles: [
                     StaggeredTile.extent(4, 70.0),
                     StaggeredTile.extent(2, 50.0),
+                    StaggeredTile.extent(2, 30.0),
                     StaggeredTile.extent(2, 663.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
@@ -561,8 +567,8 @@ class BottlePageState extends State<BottlePage> {
   } */
 
   _showDialog(title, designation, variety, winery, country, region, province,
-      description, location, tempservice, tempcons) async {
-    Navigator.pushReplacement(
+      description, location, tempservice, tempcons,annee) async {
+    Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AjoutBouteille(
@@ -581,6 +587,7 @@ class BottlePageState extends State<BottlePage> {
                   locationin: location,
                   tempServicein: tempservice,
                   tempConsin: tempcons,
+                  anneein: annee,
                 )));
   }
 }

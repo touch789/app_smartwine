@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 
 
 class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key,this.action, this.add,this.uid, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin, this.tempConsin, this.tempServicein}) : super(key: key); //update this to include the uid in the constructor
+  AjoutBouteille({Key key,this.action, this.add,this.uid,this.anneein, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin, this.tempConsin, this.tempServicein}) : super(key: key); //update this to include the uid in the constructor
 
   final String uid;
-  String titlein, designationin,descriptionin,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action, tempServicein, tempConsin;
+  String titlein, designationin,descriptionin,anneein,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action, tempServicein, tempConsin;
   bool add;
   //include this
   @override
@@ -25,7 +25,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   GlobalKey<FormState> _key = GlobalKey();
   bool _validate = false;
 
-  String title, designation,description,country,province,region,variety,winery, emplacement, tempService, tempCons;
+  String title, designation,description,country,province,region,variety,winery, emplacement, tempService, tempCons, annee;
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +40,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
           title: new Text(widget.action+' your Bottle'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => cellar(
-                      title: "My Wine Cellar",
-                      uid: widget.uid,
-                    )),
-                    (_) => false),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
 
@@ -92,6 +85,14 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             initialValue: widget.varietyin,
             onSaved: (String val) {
               variety = val;
+            }
+        ),
+        new TextFormField(
+            decoration: new InputDecoration(hintText: 'Year'),
+            validator: validateAuthor,
+            initialValue: widget.anneein,
+            onSaved: (String val) {
+              annee = val;
             }
         ),
         new TextFormField(
@@ -230,6 +231,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             "location" : emplacement,
             "tempService" : tempService,
             "tempCons" : tempCons,
+            "year" : annee
 
           })
               .then((result) =>
@@ -247,7 +249,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
 
           await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
-            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement","tempService":"$tempService", "tempCons":"$tempCons"});
+            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement","tempService":"$tempService", "tempCons":"$tempCons", "year" : "$annee"});
           DocumentSnapshot variable = await Firestore.instance
               .collection('users')
               .document(widget.uid)

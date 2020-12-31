@@ -20,6 +20,7 @@ class myBottle {
   String tempService;
   String tempCons;
 
+
   myBottle({this.num, this.title, this.variety,this.description,this.designation,this.winery,this.country,this.region,this.province,this.tempService,this.tempCons});
 
   factory myBottle.fromJson(Map<String, dynamic> json) {

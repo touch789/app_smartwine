@@ -87,7 +87,7 @@ class ListSearchState extends State<ListSearch> {
                     ),
                   title: Text(data.title.toString()),
                   subtitle: Text(data.variety.toString()),
-                  onTap: () => Navigator.pushReplacement(
+                  onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BottleInfo(
