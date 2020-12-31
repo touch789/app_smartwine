@@ -227,7 +227,7 @@ checkcellar(String id) async {
     if (doc.exists) {
       Firestore.instance.collection("users").document(widget.uid).updateData(
           {
-            "cellarid": id,
+            "caveid": id,
           });
       Navigator.pop(context);
     } else {
