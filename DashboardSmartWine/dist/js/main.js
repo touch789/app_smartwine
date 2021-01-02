@@ -5,7 +5,6 @@ const auth = firebase.auth();
 auth.onAuthStateChanged(user => {
   if (user) {
     var usr = user.uid;
-    console.log(user);
     getdata(usr);
     getdataSensor();
   } else {
@@ -52,7 +51,8 @@ const setupList = (list) =>{
 
 function getdataSensor(){
   let docRef = db.collection("Cave").doc("1");
-  docRef.collection('sensor').get().then(snapshot => {
+  
+  docRef.collection('sensor').orderBy("date", "desc").limit(10).get().then(snapshot => {
     setupTemp(snapshot.docs);
   }).catch(function(error) {
       console.log("Error getting document:", error);
@@ -74,6 +74,10 @@ const setupTemp = (list) =>{
     
   })
   
+  date.reverse();
+  temp.reverse();
+  humid.reverse();
+
   let configTemp = {
     type: 'line',
 
@@ -180,6 +184,6 @@ const setupTemp = (list) =>{
   let ctxh = document.getElementById('graphCanvas2').getContext('2d');
   window.myLine = new Chart(ctxh, configHygro);
   document.getElementById('hygro').innerHTML = humid[humid.length - 1] + "%";
-  setTimeout(getdataSensor, 5000);
+  setTimeout(getdataSensor, 50000);
 
 }
