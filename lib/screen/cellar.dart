@@ -71,7 +71,7 @@ class _cellar extends State<cellar> {
                       return new ListView(
                         children: snapshot.data.documents
                             .map((DocumentSnapshot document) {
-                          return new PlanetRow();
+                          return new PlanetRow(title: document.data["title"],usid: widget.uid, id: document.documentID,variety: document.data["variety"],);
                         }).toList(),
                       );
                   }
