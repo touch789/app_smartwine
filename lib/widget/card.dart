@@ -22,7 +22,7 @@ final planetThumbnail = new Container(
   margin: new EdgeInsets.symmetric(vertical: 16.0),
   alignment: FractionalOffset.centerLeft,
   child: new Image(
-    image: new AssetImage("lib/assets/fiollered.png"),
+    image: new AssetImage("lib/assets/img/fiollered.png"),
     height: 92.0,
     width: 92.0,
   ),
