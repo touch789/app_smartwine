@@ -135,6 +135,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               description = val;
             }
         ),
+
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Service Temperature'),
             initialValue: widget.tempServicein,
@@ -142,6 +143,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               tempService = val;
             }
         ),
+
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Conservation Temperature'),
             initialValue: widget.tempConsin,
@@ -322,3 +324,15 @@ class _AjoutBouteille extends State<AjoutBouteille> {
     }}
       }
 
+
+Widget  _buildDivider() {
+  return Container(
+    margin: const EdgeInsets.symmetric(
+      horizontal: 8.0,
+    ),
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.grey.shade300,
+    child: Divider(),
+  );
+}
