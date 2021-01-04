@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 
 
 class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key,this.action, this.add,this.uid,this.anneein, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin, this.tempConsin, this.tempServicein}) : super(key: key); //update this to include the uid in the constructor
+  AjoutBouteille({Key key,this.action, this.add,this.uid,this.anneein, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.colorin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin, this.tempConsin, this.tempServicein}) : super(key: key); //update this to include the uid in the constructor
 
   final String uid;
-  String titlein, designationin,descriptionin,anneein,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action, tempServicein, tempConsin;
+  String titlein, designationin,descriptionin,anneein,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action, tempServicein, tempConsin,colorin;
   bool add;
   //include this
   @override
@@ -25,7 +25,15 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   GlobalKey<FormState> _key = GlobalKey();
   bool _validate = false;
 
-  String title, designation,description,country,province,region,variety,winery, emplacement, tempService, tempCons, annee;
+  String title, designation,description,country,province,region,variety,winery, emplacement, tempService, tempCons, annee, color;
+  @override
+  void initState(){
+    super.initState();
+    emplacement = widget.locationin;
+    color = widget.colorin;
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +143,26 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               description = val;
             }
         ),
+        new DropdownButton(
+                  //value: shopId,
+                  //isDense: true,
+                  isExpanded: true,
+
+                  value: widget.colorin,
+              onChanged: (String val) {
+              color = val;
+              setState(() {
+              widget.colorin = val;
+              });
+              },
+              hint: Text('Select your bottle color'),
+          items: <String>['red', 'white', 'rose'].map((String value) {
+            return new DropdownMenuItem<String>(
+              value: value,
+              child: new Text(value),
+            );
+          }).toList(),
+    ),
 
         new TextFormField(
             decoration: new InputDecoration(hintText: 'Service Temperature'),
@@ -272,7 +300,8 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             "location" : emplacement,
             "tempService" : tempService,
             "tempCons" : tempCons,
-            "year" : annee
+            "year" : annee,
+            "color" : color
 
           })
               .then((result) =>
@@ -290,7 +319,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
 
 
           await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
-            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement","tempService":"$tempService", "tempCons":"$tempCons", "year" : "$annee"});
+            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement","tempService":"$tempService", "tempCons":"$tempCons", "year" : "$annee","color":"$color"});
           DocumentSnapshot variable = await Firestore.instance
               .collection('users')
               .document(widget.uid)

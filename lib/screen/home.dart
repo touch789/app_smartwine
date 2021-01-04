@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   String hygro;
   String test;
 
+
   @override
   initState() {
     this.getCurrentUser();
@@ -65,43 +66,58 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Material myTextItems(
-      String title, String subtitle, Color colorCard, Color colorText) {
+      String title, String vincolor, Color colorCard, Color colorText) {
     return Material(
       color: colorCard,
       borderRadius: BorderRadius.circular(100.0),
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: colorText,
+          child: StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance
+                  .collection('users')
+                  .document(widget.uid)
+                  .collection("bottle").where("color", isEqualTo: vincolor)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return LinearProgressIndicator();
+                } else {
+                  snapshot.data.documents.forEach((element) {
+
+                  });
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Text(
+                              title,
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: colorText,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(1.0),
+                            child: Text(
+                              snapshot.data.documents.length.toString(),
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                color: colorText,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        color: colorText,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    ],
+                  );
+                }
+              })
         ),
       ),
     );
@@ -325,17 +341,17 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child:
-                    myTextItems("Red", "2", HexColor("#8C0B1F"), Colors.white),
+                    myTextItems("Red", "red", HexColor("#8C0B1F"), Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child:
-                    myTextItems("Rosé", "1", HexColor("#D885A7"), Colors.white),
+                    myTextItems("Rosé", "rose", HexColor("#D885A7"), Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: myTextItems(
-                    "White", "2", HexColor("#FCEBCA"), Colors.grey[900]),
+                    "White", "white", HexColor("#FCEBCA"), Colors.grey[900]),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

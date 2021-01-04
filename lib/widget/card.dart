@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PlanetRow extends StatelessWidget {
-  PlanetRow({@required this.title, this.id, this.usid,this.variety});
+  PlanetRow({@required this.title, this.id, this.usid,this.variety,this.color});
 
   final title;
   final id;
   final usid;
   final variety;
+  final color;
 
 
   @override
@@ -37,7 +38,7 @@ class PlanetRow extends StatelessWidget {
           child: new Stack(
             children: <Widget>[
               planetCard(title, variety),
-              planetThumbnail("fiollewhite"),
+              planetThumbnail(color),
             ],
           )),
     );

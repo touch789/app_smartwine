@@ -232,7 +232,7 @@ class BottlePageState extends State<BottlePage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                          'Location in cellar : ' + snapshot.data['location']),
+                          'Location in cellar : ' + snapshot.data["location"]),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(11.0),
@@ -272,7 +272,9 @@ class BottlePageState extends State<BottlePage> {
                               snapshot.data['location'],
                               snapshot.data["tempService"],
                               snapshot.data["tempCons"],
-                          snapshot.data["year"])),
+                          snapshot.data["year"],
+                            snapshot.data["color"])),
+
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -567,7 +569,7 @@ class BottlePageState extends State<BottlePage> {
   } */
 
   _showDialog(title, designation, variety, winery, country, region, province,
-      description, location, tempservice, tempcons,annee) async {
+      description, location, tempservice, tempcons,annee,color) async {
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -588,6 +590,7 @@ class BottlePageState extends State<BottlePage> {
                   tempServicein: tempservice,
                   tempConsin: tempcons,
                   anneein: annee,
+                  colorin: color,
                 )));
   }
 }
