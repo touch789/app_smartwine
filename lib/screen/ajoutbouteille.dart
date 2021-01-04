@@ -149,13 +149,52 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               tempCons = val;
             }
         ),
-        new TextFormField(
+        /*new TextFormField(
             decoration: new InputDecoration(hintText: 'Cellar location'),
             initialValue: widget.locationin,
             validator: validateAuthor,
             onSaved: (String val) {
               emplacement = val;
             }
+        ),*/
+        new StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection("Cave")
+              .document("1")
+              .collection('cellar')
+              .where("buttonState", isEqualTo: false )
+              .snapshots(),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError)
+              return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                return DropdownButton(
+                  //value: shopId,
+                  //isDense: true,
+                  isExpanded: true,
+                  value: widget.locationin,
+                  onChanged: (String val) {
+                    emplacement = val;
+                    setState(() {
+                      widget.locationin = val;
+                    });
+                  },
+                  hint: Text('Choose from available location'),
+                  items: snapshot.data.documents
+                      .map((DocumentSnapshot document) {
+                    return DropdownMenuItem<String>(
+                      value: document.data['location'].toString() ,
+                      child: Text(document.data['location'].toString()),
+                    );
+                  }).toList(),
+                );
+
+            }
+          },
         ),
         new SizedBox(height: 15.0),
         new RaisedButton(onPressed: _checkCellarCapacity, child: new Text(widget.action),
