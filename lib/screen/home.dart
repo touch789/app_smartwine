@@ -271,8 +271,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
-          "My Cellar",
+          "MY CELLAR",
           style: TextStyle(color: HexColor("#EB54A8")),
         ),
         actions: <Widget>[

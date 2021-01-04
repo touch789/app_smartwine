@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:baby_names/screen/ajoutbouteille.dart';
 import 'package:baby_names/screen/bottleinfo.dart';
 import 'package:baby_names/screen/rechercher.dart';
+import 'package:baby_names/widget/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _cellar extends State<cellar> {
           ),
           backgroundColor: Colors.white,
           title: Text(
-            widget.title,
+            'MY CELLAR',
             style: TextStyle(color: HexColor("#EB54A8")),
           ),
         ),
@@ -69,11 +70,7 @@ class _cellar extends State<cellar> {
                       return new ListView(
                         children: snapshot.data.documents
                             .map((DocumentSnapshot document) {
-                          return new CustomCard(
-                            id: document.documentID,
-                            usid: widget.uid,
-                            title: document['title'],
-                          );
+                          return new PlanetRow();
                         }).toList(),
                       );
                   }
@@ -154,5 +151,12 @@ class _cellar extends State<cellar> {
             );
           });
     }
+  }
+}
+
+class HomePageBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new PlanetRow();
   }
 }

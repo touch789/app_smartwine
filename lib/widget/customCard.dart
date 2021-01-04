@@ -5,10 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  CustomCard(
-      {@required this.title,
-      this.id,
-      this.usid});
+  CustomCard({@required this.title, this.id, this.usid});
 
   final title;
   final id;
@@ -57,9 +54,8 @@ class CustomCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => BottlePage(
-                          id: id,
-                        uid: uid,
-
+                            id: id,
+                            uid: uid,
                           )));
             },
             onLongPress: () => _showMyDialog(context, id),

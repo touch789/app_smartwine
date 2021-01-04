@@ -39,8 +39,6 @@ class MyApp extends StatelessWidget {
           '/ajoutbouteille': (BuildContext context) => AjoutBouteille(),
           '/infobottle': (BuildContext context) => BottleInfo(),
           '/settings': (BuildContext context) => SettingsOnePage(),
-
-
         });
   }
 }
