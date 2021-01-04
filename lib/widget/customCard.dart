@@ -58,7 +58,9 @@ class CustomCard extends StatelessWidget {
                             uid: uid,
                           )));
             },
-            onLongPress: () => _showMyDialog(context, id),
+            onLongPress: () {
+              print('Button Clicked.');
+            },
           ),
         ),
       )
