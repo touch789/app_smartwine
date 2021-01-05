@@ -15,6 +15,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_ink_well/image_ink_well.dart';
 
 final databaseReference =
     FirebaseDatabase.instance.reference().child("Bottle/2/data");
@@ -35,7 +36,6 @@ class _HomePageState extends State<HomePage> {
   List<double> temp = [];
   String hygro;
   String test;
-
 
   @override
   initState() {
@@ -72,53 +72,51 @@ class _HomePageState extends State<HomePage> {
       borderRadius: BorderRadius.circular(100.0),
       child: Center(
         child: Padding(
-          padding: EdgeInsets.all(5.0),
-          child: StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
-                  .collection('users')
-                  .document(widget.uid)
-                  .collection("bottle").where("color", isEqualTo: vincolor)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return LinearProgressIndicator();
-                } else {
-                  snapshot.data.documents.forEach((element) {
-
-                  });
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Text(
-                              title,
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: colorText,
+            padding: EdgeInsets.all(5.0),
+            child: StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('users')
+                    .document(widget.uid)
+                    .collection("bottle")
+                    .where("color", isEqualTo: vincolor)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return LinearProgressIndicator();
+                  } else {
+                    snapshot.data.documents.forEach((element) {});
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: Text(
+                                title,
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                  color: colorText,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(1.0),
-                            child: Text(
-                              snapshot.data.documents.length.toString(),
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                color: colorText,
+                            Padding(
+                              padding: EdgeInsets.all(1.0),
+                              child: Text(
+                                snapshot.data.documents.length.toString(),
+                                style: TextStyle(
+                                  fontSize: 13.0,
+                                  color: colorText,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                }
-              })
-        ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                })),
       ),
     );
   }
@@ -314,25 +312,21 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                    color: HexColor("#EB54A8"),
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    child: Text(
-                      "My Bottles",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                    ),
-                    onPressed: () => Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => cellar(
-                                  title: "My Wine Cellar",
-                                  uid: currentUser.uid,
-                                )),
-                        (_) => false)),
+                child: RoundedRectangleImageInkWell(
+                  onPressed: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => cellar(
+                                title: "My Wine Cellar",
+                                uid: currentUser.uid,
+                              )),
+                      (_) => false),
+                  splashColor: HexColor("#EB54A8").withOpacity(0.5),
+                  width: 300,
+                  height: 100,
+                  borderRadius: BorderRadius.all(const Radius.circular(20)),
+                  image: AssetImage("lib/assets/img/wine.jpg"),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -340,13 +334,13 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child:
-                    myTextItems("Red", "red", HexColor("#8C0B1F"), Colors.white),
+                child: myTextItems(
+                    "Red", "red", HexColor("#8C0B1F"), Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child:
-                    myTextItems("Rosé", "rose", HexColor("#D885A7"), Colors.white),
+                child: myTextItems(
+                    "Rosé", "rose", HexColor("#D885A7"), Colors.white),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
