@@ -52,7 +52,7 @@ class _cellar extends State<cellar> {
         ),
         body: Center(
           child: Container(
-              color: HexColor("#FEF3FF"),
+              color: Colors.white,
               padding: const EdgeInsets.all(0.0),
               child: StreamBuilder<QuerySnapshot>(
                 stream: Firestore.instance
@@ -71,7 +71,13 @@ class _cellar extends State<cellar> {
                       return new ListView(
                         children: snapshot.data.documents
                             .map((DocumentSnapshot document) {
-                          return new PlanetRow(title: document.data["title"],usid: widget.uid, id: document.documentID,variety: document.data["variety"],color: document.data["color"],);
+                          return new PlanetRow(
+                            title: document.data["title"],
+                            usid: widget.uid,
+                            id: document.documentID,
+                            variety: document.data["variety"],
+                            color: document.data["color"],
+                          );
                         }).toList(),
                       );
                   }
@@ -94,14 +100,14 @@ class _cellar extends State<cellar> {
             overlayOpacity: 0.5,
             tooltip: 'Speed Dial',
             heroTag: 'speed-dial-hero-tag',
-            backgroundColor: Colors.white,
-            foregroundColor: HexColor("#EB54A8"),
+            backgroundColor: HexColor("#EB54A8"),
+            foregroundColor: Colors.white,
             elevation: 4.0,
             shape: CircleBorder(),
             children: [
               SpeedDialChild(
-                  child: Icon(Icons.search, color: Colors.white),
-                  backgroundColor: HexColor("#EB54A8"),
+                  child: Icon(Icons.search, color: HexColor("#EB54A8")),
+                  backgroundColor: Colors.white,
                   label: 'Search',
                   labelStyle: TextStyle(fontSize: 18.0),
                   onTap: () {
@@ -113,8 +119,8 @@ class _cellar extends State<cellar> {
                                 )));
                   }),
               SpeedDialChild(
-                  child: Icon(Icons.add, color: Colors.white),
-                  backgroundColor: HexColor("#EB54A8"),
+                  child: Icon(Icons.add, color: HexColor("#EB54A8")),
+                  backgroundColor: Colors.white,
                   label: 'Add Manually',
                   labelStyle: TextStyle(fontSize: 18.0),
                   onTap: () {

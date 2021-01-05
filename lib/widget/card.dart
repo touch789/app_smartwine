@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PlanetRow extends StatelessWidget {
-  PlanetRow({@required this.title, this.id, this.usid,this.variety,this.color});
+  PlanetRow(
+      {@required this.title, this.id, this.usid, this.variety, this.color});
 
   final title;
   final id;
   final usid;
   final variety;
   final color;
-
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,7 @@ class PlanetRow extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    BottlePage(
+                builder: (context) => BottlePage(
                       id: id,
                       uid: usid,
                     )));
@@ -30,7 +29,6 @@ class PlanetRow extends StatelessWidget {
         print('Button Clicked.');
       },
       child: Container(
-
           margin: const EdgeInsets.symmetric(
             vertical: 16.0,
             horizontal: 24.0,
@@ -44,23 +42,21 @@ class PlanetRow extends StatelessWidget {
     );
   }
 
-
   Widget planetThumbnail(String test) {
     return new Container(
       margin: new EdgeInsets.symmetric(vertical: 20.0),
       alignment: FractionalOffset.centerLeft,
       child: new Image(
-        image: new AssetImage("lib/assets/img/"+test+".png"),
+        image: new AssetImage("lib/assets/img/" + test + ".png"),
         height: 80.0,
         width: 80.0,
       ),
     );
   }
 
-
   Widget planetCard(String title, String variety) {
     return new Container(
-      padding: const EdgeInsets.only(left : 40.0, top: 22),
+      padding: const EdgeInsets.only(left: 50.0, top: 22),
       //alignment: Alignment.center,
       height: 120.0,
       margin: new EdgeInsets.only(left: 46.0),
@@ -77,22 +73,19 @@ class PlanetRow extends StatelessWidget {
         ],
       ),
       child: new Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        new Container(height: 4.0),
-        new Text(title,
-
-        ),
-        new Container(height: 10.0),
-        new Text(variety,
-
-        ),
-
-      ],
-    ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Container(height: 4.0),
+          new Text(
+            title,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+          ),
+          new Container(height: 10.0),
+          new Text(
+            variety,
+          ),
+        ],
+      ),
     );
   }
 }
-
-
-
