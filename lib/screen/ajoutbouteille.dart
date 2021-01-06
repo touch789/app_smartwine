@@ -196,11 +196,6 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 2887cc6e21a3332bd78d0511a61ad296ccc88945
           subtitle: TextFormField(
               minLines: 1,
               maxLines: 20,
@@ -306,9 +301,26 @@ class _AjoutBouteille extends State<AjoutBouteille> {
           ),
         ),
         new SizedBox(height: 15.0),
-        new RaisedButton(
-          onPressed: _checkCellarCapacity,
-          child: new Text(widget.action),
+        Center(
+          child:
+          SizedBox(
+            height: 40,
+            width: 200,
+            child: RaisedButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(color: Theme.of(context).primaryColor)
+                ),
+                child: Text(widget.action),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: () => _checkCellarCapacity(),
+          ),
+
+
+
+
+        )
         )
       ],
     );
