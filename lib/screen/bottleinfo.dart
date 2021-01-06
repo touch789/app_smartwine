@@ -29,220 +29,188 @@ class BottleInfo extends StatelessWidget {
 
   final id;
   final uid;
-
- /* @override
-  Widget build(BuildContext context) {
-          return Scaffold(
-              appBar: AppBar(
-                title: Text('Bottle : ' + title),
-                leading: new IconButton(
-                  icon: new Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-              body: SingleChildScrollView(
-                  child : Center(
-
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 300,
-                            child: FutureBuilder<List<String>>(
-                              future: Datahelper.loadImagesFromGoogleTask(title),
-                              builder: (context, item) {
-                                if (item.hasData) {
-                                  String url = item.data.firstWhere((element) => element.contains(".png"));
-                                  // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
-                                  return CachedNetworkImage(
-                                    useOldImageOnUrlChange: true,
-                                    imageUrl: url,
-                                    placeholder: (context, url) => CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) => Icon(Icons.error),
-                                  );
-                                } else if (item.hasError) {
-                                  return Text("${item.error}");
-                                }
-
-                                // By default, show a loading spinner.
-                                return CircularProgressIndicator();
-                              },
-                            ),
-                          ),
-                          Text('Name : ' + title),
-                          Text('Designation  :' + designation),
-                          Text('Variety  :' + variety),
-                          Text('Winery :' + winery),
-                          Text('Country :' + country),
-                          Text('Region :' + region),
-                          Text('Province :' + province),
-                          Text('Description : ' + description),
-                          RaisedButton(
-                              child: Text("Add to my cellar"),
-                              color: Theme.of(context).primaryColor,
-                              textColor: Colors.white,
-                              onPressed: () => _showDialog(context,title,designation,variety,
-                                  winery,country,region,province,
-                                  description)),
-
-                        ],
-                      ))));
-
-  }*/
-
+  
   @override
   Widget build(BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Bottle : ' + title),
-              leading: new IconButton(
-                icon: new Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context)
-              ),
-            ),
-            body: Center(
-              child: Container(
-                color: HexColor("#FEF3FF"),
-                child: StaggeredGridView.count(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 1.0,
-                  mainAxisSpacing: 12.0,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container (
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 8,
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-
-                        ),
-
-                        child: Center (
-                          child :Text(title, textAlign: TextAlign.center,style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white,)),
-
-                        ),),
-
-
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Bottle informations: ',
+            style: TextStyle(color: HexColor("#EB54A8"))),
+        leading: new IconButton(
+          icon:
+          new Icon(Icons.arrow_back_ios, color: HexColor("#EB54A8")),
+          onPressed: () => Navigator.pop(context)
+        ),
+        backgroundColor: Colors.white,
+        elevation: 2,
+      ),
+      body: Center(
+        child: Container(
+          color: Colors.white,
+          child: StaggeredGridView.count(
+            crossAxisCount: 4,
+            crossAxisSpacing: 1.0,
+            mainAxisSpacing: 12.0,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
+                      width: 7,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('variety : ' + variety),
-                    ),
-
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:  Container(
-                        height: 300,
-
-                        child: FutureBuilder<List<String>>(
-                          future: Datahelper.loadImagesFromGoogleTask(title),
-                          builder: (context, item) {
-                            if (item.hasData) {
-                              String url = item.data.firstWhere((element) => element.contains(".png"), orElse: () => "http://clipart-library.com/new_gallery/10-106441_wine-bottle-and-glass-png-vector-clipart-transparent.png" );
-
-                                return CachedNetworkImage(
-                                  useOldImageOnUrlChange: true,
-                                  imageUrl: url,
-                                  placeholder: (context, url) => CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
-                                );
-                              // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
-
-                            } else if (item.hasError) {
-                              return Text("${item.error}");
-                            }
-
-                            // By default, show a loading spinner.
-                            return CircularProgressIndicator();
-                          },
-                        ),
-                      ),
-                    ),
-
-
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('winery : ' + winery),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('designation : ' + designation),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('Country : ' + country),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('Region : ' + region),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('Province : ' + province),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('description : ' + description),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                      Text('Température de service : '+tempService+ "°C" +"\n"+"Temperature conservation : "+ tempCons+" °C" ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.all( 11.0),
-                      child:RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Theme.of(context).primaryColor)
-                          ),
-                          child: Text("Add bottle to my cellar "),
-                          color: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          onPressed: () => _showDialog(context,title,designation,variety,
-                              winery,country,region,province,
-                              description)),
-                    ),
-
-                  ],
-                  staggeredTiles: [
-                    StaggeredTile.extent(4, 70.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 600.0),
-
-
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 180.0),
-                    StaggeredTile.extent(2, 70.0),
-                    StaggeredTile.extent(4, 60.0),
-
-
-
-
-                  ],
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Center(
+                    child: Text(title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.white,
+                        )),
+                  ),
                 ),
               ),
-            ),
-          );
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: FutureBuilder<List<String>>(
+                    future: Datahelper.loadImagesFromGoogleTask(
+                        title),
+                    builder: (context, item) {
+                      if (item.hasData) {
+                        String url = item.data.firstWhere(
+                                (element) => element.contains(".png"),
+                            orElse: () =>
+                            "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
+
+                        return CachedNetworkImage(
+                          useOldImageOnUrlChange: true,
+                          imageUrl: url,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        );
+                        // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
+
+                      } else if (item.hasError) {
+                        return Text("${item.error}");
+                      }
+
+                      // By default, show a loading spinner.
+                      return CircularProgressIndicator();
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Card(
+                  elevation: 0.5,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 0,
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading:
+                        Icon(
+                          Icons.local_drink,
+                          color: HexColor("#EB54A8"),
+
+                        ),
+                        title: Text("Variety : "),
+                        subtitle: Text(variety, style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                      ),
+                      
+                      ListTile(
+                        leading:
+                        Icon(
+                          Icons.local_drink,
+                          color: HexColor("#EB54A8"),
+
+                        ),
+                        title: Text("Winery :"),
+                        subtitle: Text(winery, style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                      ),
+                      ListTile(
+                        leading:
+                        Icon(
+                          Icons.local_drink,
+                          color: HexColor("#EB54A8"),
+
+                        ),
+                        title: Text("Description : "),
+                        subtitle: Text(description, style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                      ),
+                      ListTile(
+                        leading:
+                        Icon(
+                          Icons.local_drink,
+                          color: HexColor("#EB54A8"),
+
+                        ),
+                        title: Text("Localisation :"),
+                        subtitle: Text(country+", "+region+", "+province, style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                      ),
+                      
+                      ListTile(
+                        leading:
+                        Icon(
+                          Icons.local_drink,
+                          color: HexColor("#EB54A8"),
+
+                        ),
+                        title: Text("Temperature :"),
+                        subtitle: Text("Serving temperature : "+tempService+" °C \nConservation temperature: "+ tempCons+" °C", style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                      ),
+                      SizedBox(height: 15),
+                      Center(
+                          child:
+                          SizedBox(
+                            height: 40,
+                            width: 160,
+                            child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Theme.of(context).primaryColor)
+                                ),
+                                child: Text("Add bottle to my cellar "),
+                                color: Theme.of(context).primaryColor,
+                                textColor: Colors.white,
+                                onPressed: () => _showDialog(context,title,designation,variety,
+                                    winery,country,region,province,
+                                    description)),
+                          ),
+
+
+
+
+                      )
+
+
+
+                    ],
+                  ),
+                ),
+              ),
+            ],
+            staggeredTiles: [
+              StaggeredTile.extent(4, 70.0),
+              StaggeredTile.extent(4, 300.0),
+              StaggeredTile.extent(4, 650.0),
+              
+            ],
+          ),
+        ),
+      ),
+    );
         }
 
 
