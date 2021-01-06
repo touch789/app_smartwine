@@ -175,7 +175,7 @@ class BottleInfo extends StatelessWidget {
                           child:
                           SizedBox(
                             height: 40,
-                            width: 160,
+                            width: 200,
                             child: RaisedButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),

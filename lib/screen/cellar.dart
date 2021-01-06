@@ -139,7 +139,7 @@ class _cellar extends State<cellar> {
     int nb = int.parse(variable.data["count"]);
     print(nb);
     if (nb <= 5) {
-      await Navigator.pushReplacement(
+      await Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => AjoutBouteille(
