@@ -113,6 +113,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
           subtitle: TextFormField(
               minLines: 1,
               maxLines: 6,
+
               decoration: new InputDecoration(
                 hintText: 'Title',
                 enabledBorder: UnderlineInputBorder(
@@ -194,7 +195,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.location_off,
+            Icons.location_on,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -281,7 +282,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.invert_colors,
             color: HexColor("#EB54A8"),
           ),
           subtitle: new DropdownButton(
@@ -307,7 +308,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.gps_fixed,
             color: HexColor("#EB54A8"),
           ),
           subtitle: new StreamBuilder<QuerySnapshot>(
