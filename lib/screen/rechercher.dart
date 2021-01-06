@@ -45,9 +45,10 @@ class ListSearchState extends State<ListSearch> {
         ),
       ),
       body: Column(
+
         children: <Widget>[
           new Container(
-            color: Theme.of(context).primaryColor,
+            color: HexColor("#FEF3FF"),
             child: new Padding(
               padding: const EdgeInsets.all(8.0),
               child: new Card(
@@ -71,43 +72,60 @@ class ListSearchState extends State<ListSearch> {
               ),
             ),
           ),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(12.0),
-              children: newDataList.map((data) {
-                return ListTile(
-                  leading: SizedBox(
-                    height: 50.0,
-                    width: 50.0, // fixed width and height
-                    child: FutureBuilder<List<String>>(
-                      future: Datahelper.loadImagesFromGooglephp(data.title),
-                      builder: (context, item) {
-                        if (item.hasData) {
-                          String url = item.data.first;
-                          // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
-                          return CachedNetworkImage(
-                            useOldImageOnUrlChange: true,
-                            imageUrl: url,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          );
-                        } else if (item.hasError) {
-                          return Text("${item.error}");
-                        }
+          new Expanded(
 
-                        // By default, show a loading spinner.
-                        return CircularProgressIndicator();
-                      },
+            child : Container(
+              color: HexColor("#FEF3FF"),
+            child: ListView(
+
+              padding: EdgeInsets.all(12.0),
+
+              children: newDataList.map((data) {
+                return Card(
+                    semanticContainer: true,
+                    clipBehavior:
+                    Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(10.0),
                     ),
-                  ),
-                  title: Text(data.title.toString()),
-                  subtitle: Text(data.variety.toString()),
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BottleInfo(
+                    elevation: 5,
+                    margin: EdgeInsets.all(10),
+
+                    child :ListTile(
+
+                      leading: SizedBox(
+                        height: 50.0,
+                        width: 50.0, // fixed width and height
+                        child: FutureBuilder<List<String>>(
+                          future: Datahelper.loadImagesFromGooglephp(data.title),
+                          builder: (context, item) {
+                            if (item.hasData) {
+                              String url = item.data.first;
+                              // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
+                              return CachedNetworkImage(
+                                useOldImageOnUrlChange: true,
+                                imageUrl: url,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              );
+                            } else if (item.hasError) {
+                              return Text("${item.error}");
+                            }
+
+                            // By default, show a loading spinner.
+                            return CircularProgressIndicator();
+                          },
+                        ),
+                      ),
+                      title: Text(data.title.toString()),
+                      subtitle: Text(data.variety.toString()),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BottleInfo(
                                 uid: widget.uid,
                                 title: data.title.toString(),
                                 variety: data.variety.toString(),
@@ -120,9 +138,12 @@ class ListSearchState extends State<ListSearch> {
                                 tempCons: data.tempCons.toString(),
                                 tempService: data.tempService.toString(),
                               ))),
+                    )
                 );
+
               }).toList(),
             ),
+          )
           )
         ],
       ),

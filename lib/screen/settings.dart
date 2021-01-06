@@ -265,7 +265,7 @@ checkcellar(String id) async {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Text('Loading data.... please wait...');
           return Scaffold(
-            backgroundColor: Colors.grey.shade200,
+            backgroundColor: HexColor("#FEF3FF"),
             appBar: AppBar(
               backgroundColor: Colors.white,
               leading: new IconButton(
@@ -279,6 +279,7 @@ checkcellar(String id) async {
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(

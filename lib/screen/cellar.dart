@@ -52,7 +52,7 @@ class _cellar extends State<cellar> {
         ),
         body: Center(
           child: Container(
-              color: Colors.white,
+              color: HexColor("#FEF3FF"),
               padding: const EdgeInsets.all(0.0),
               child: StreamBuilder<QuerySnapshot>(
                 stream: Firestore.instance

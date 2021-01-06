@@ -120,7 +120,7 @@ class BottlePageState extends State<BottlePage> {
             ),
             body: Center(
               child: Container(
-                color: Colors.white,
+                color: HexColor("#FEF3FF"),
                 child: StaggeredGridView.count(
                   crossAxisCount: 4,
                   crossAxisSpacing: 1.0,
@@ -184,11 +184,15 @@ class BottlePageState extends State<BottlePage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Card(
-                        elevation: 0.5,
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 4.0,
-                          horizontal: 0,
+                        semanticContainer: true,
+                        clipBehavior:
+                        Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(10.0),
                         ),
+                        elevation: 5,
+                        margin: EdgeInsets.all(10),
                         child: Column(
                           children: <Widget>[
                             ListTile(
@@ -447,7 +451,7 @@ class BottlePageState extends State<BottlePage> {
                   staggeredTiles: [
                     StaggeredTile.extent(4, 70.0),
                     StaggeredTile.extent(4, 300.0),
-                    StaggeredTile.extent(4, 700.0),
+                    StaggeredTile.extent(4, 720.0),
                     StaggeredTile.extent(4, 316.0),
                   ],
                 ),

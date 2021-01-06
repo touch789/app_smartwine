@@ -47,7 +47,7 @@ class BottleInfo extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          color: Colors.white,
+          color: HexColor("#FEF3FF"),
           child: StaggeredGridView.count(
             crossAxisCount: 4,
             crossAxisSpacing: 1.0,
@@ -204,7 +204,7 @@ class BottleInfo extends StatelessWidget {
             staggeredTiles: [
               StaggeredTile.extent(4, 70.0),
               StaggeredTile.extent(4, 300.0),
-              StaggeredTile.extent(4, 650.0),
+              StaggeredTile.extent(4, 500.0),
               
             ],
           ),
