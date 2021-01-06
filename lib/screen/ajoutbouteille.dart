@@ -113,7 +113,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
           subtitle: TextFormField(
               minLines: 1,
               maxLines: 6,
-              decoration: new InputDecoration(hintText: 'Title'),
+              decoration: new InputDecoration(
+                hintText: 'Title',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.titlein,
               onSaved: (String val) {
                 title = val;
@@ -125,7 +130,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Variety'),
+              decoration: new InputDecoration(
+                hintText: 'Variety',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.varietyin,
               onSaved: (String val) {
                 variety = val;
@@ -137,7 +147,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Year'),
+              decoration: new InputDecoration(
+                hintText: 'Year',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.anneein,
               onSaved: (String val) {
                 annee = val;
@@ -149,7 +164,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Winery'),
+              decoration: new InputDecoration(
+                hintText: 'Winery',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.wineryin,
               onSaved: (String val) {
                 winery = val;
@@ -161,7 +181,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Country'),
+              decoration: new InputDecoration(
+                hintText: 'Country',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.countryin,
               onSaved: (String val) {
                 country = val;
@@ -173,7 +198,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Region'),
+              decoration: new InputDecoration(
+                hintText: 'Region',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.regionin,
               onSaved: (String val) {
                 region = val;
@@ -185,7 +215,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Province'),
+              decoration: new InputDecoration(
+                hintText: 'Province',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.provincein,
               onSaved: (String val) {
                 province = val;
@@ -199,7 +234,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
           subtitle: TextFormField(
               minLines: 1,
               maxLines: 20,
-              decoration: new InputDecoration(hintText: 'Description'),
+              decoration: new InputDecoration(
+                hintText: 'Description',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.descriptionin,
               onSaved: (String val) {
                 description = val;
@@ -211,7 +251,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Serving temperature'),
+              decoration: new InputDecoration(
+                hintText: 'Serving temperature',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.tempServicein,
               onSaved: (String val) {
                 tempService = val;
@@ -223,8 +268,12 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
-              decoration:
-                  new InputDecoration(hintText: 'Conservation temperature'),
+              decoration: new InputDecoration(
+                hintText: 'Conservation temperature',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: HexColor("#EB54A8")),
+                ),
+              ),
               initialValue: widget.tempConsin,
               onSaved: (String val) {
                 tempCons = val;
