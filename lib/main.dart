@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'SmartWine',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: HexColor("#EB54A8"),
           primarySwatch: Colors.pink,

@@ -256,6 +256,7 @@ checkcellar(String id) async {
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder(
         stream: Firestore.instance
             .collection('users')
