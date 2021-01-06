@@ -157,9 +157,9 @@ class BottlePageState extends State<BottlePage> {
                           builder: (context, item) {
                             if (item.hasData) {
                               String url = item.data.firstWhere(
-                                      (element) => element.contains(".png"),
+                                  (element) => element.contains(".png"),
                                   orElse: () =>
-                                  "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
+                                      "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
 
                               return CachedNetworkImage(
                                 useOldImageOnUrlChange: true,
@@ -192,97 +192,123 @@ class BottlePageState extends State<BottlePage> {
                         child: Column(
                           children: <Widget>[
                             ListTile(
-                              leading:
-                              Icon(
+                              leading: Icon(
                                 Icons.local_drink,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Variety : "),
-                              subtitle: Text(snapshot.data["variety"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["variety"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.invert_colors,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Color :"),
-                              subtitle: Text(snapshot.data["color"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["color"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.date_range,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Year :"),
-                              subtitle: Text(snapshot.data["year"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["year"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.grain,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Winery :"),
-                              subtitle: Text(snapshot.data["winery"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["winery"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.description,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Description : "),
-                              subtitle: Text(snapshot.data["description"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["description"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.location_on,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Localisation :"),
-                              subtitle: Text(snapshot.data["country"]+", "+snapshot.data["region"]+", "+snapshot.data["province"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["country"] +
+                                    ", " +
+                                    snapshot.data["region"] +
+                                    ", " +
+                                    snapshot.data["province"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.gps_fixed,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Location in cellar :"),
-                              subtitle: Text(snapshot.data["location"], style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                snapshot.data["location"],
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             ListTile(
-                              leading:
-                              Icon(
-                                Icons.local_drink,
+                              leading: Icon(
+                                Icons.thermo,
                                 color: HexColor("#EB54A8"),
-
                               ),
                               title: Text("Temperature :"),
-                              subtitle: Text("Serving temperature : "+snapshot.data["tempService"]+" °C \nConservation temperature: "+ snapshot.data["tempCons"]+" °C", style: TextStyle(fontWeight: FontWeight.w600),textAlign: TextAlign.justify,),
+                              subtitle: Text(
+                                "Serving temperature : " +
+                                    snapshot.data["tempService"] +
+                                    " °C \nConservation temperature: " +
+                                    snapshot.data["tempCons"] +
+                                    " °C",
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             SizedBox(height: 15),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 40,
+                                    height: 40,
                                     width: 160,
                                     child: RaisedButton(
                                         shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
                                             side: BorderSide(
-                                                color: Theme.of(context).primaryColor)),
+                                                color: Theme.of(context)
+                                                    .primaryColor)),
                                         child: Text("MODIFY"),
                                         color: Theme.of(context).primaryColor,
                                         textColor: Colors.white,
@@ -300,38 +326,31 @@ class BottlePageState extends State<BottlePage> {
                                             snapshot.data["tempService"],
                                             snapshot.data["tempCons"],
                                             snapshot.data["year"],
-                                            snapshot.data["color"]))
-                                ),
+                                            snapshot.data["color"]))),
                                 SizedBox(
                                   height: 40,
                                   width: 160,
                                   child: RaisedButton(
                                       shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
                                           side: BorderSide(
-                                              color: Theme.of(context).primaryColor)),
+                                              color: Theme.of(context)
+                                                  .primaryColor)),
                                       splashColor: Colors.pinkAccent[800],
                                       color: HexColor("#EB54A8"),
                                       textColor: Colors.white,
                                       child: Text('DETECT'),
                                       elevation: 0,
-                                      onPressed: () =>
-                                          detectBottle(snapshot.data["location"])),
+                                      onPressed: () => detectBottle(
+                                          snapshot.data["location"])),
                                 ),
-
-
-
                               ],
                             )
-
-
-
                           ],
                         ),
                       ),
                     ),
-
-
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Container(
@@ -391,7 +410,8 @@ class BottlePageState extends State<BottlePage> {
                                                         data.title),
                                                 builder: (context, item) {
                                                   if (item.hasData) {
-                                                    String url = item.data.first;
+                                                    String url =
+                                                        item.data.first;
 
                                                     // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
                                                     return CachedNetworkImage(
@@ -415,8 +435,10 @@ class BottlePageState extends State<BottlePage> {
                                                 },
                                               ),
                                             ),
-                                            Text(data.title,
-                                                textAlign: TextAlign.center,),
+                                            Text(
+                                              data.title,
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ]))),
                                 );
                               }).toList())),
@@ -426,7 +448,6 @@ class BottlePageState extends State<BottlePage> {
                     StaggeredTile.extent(4, 70.0),
                     StaggeredTile.extent(4, 300.0),
                     StaggeredTile.extent(4, 650.0),
-
                     StaggeredTile.extent(4, 316.0),
                   ],
                 ),
@@ -615,7 +636,7 @@ class BottlePageState extends State<BottlePage> {
   } */
 
   _showDialog(title, designation, variety, winery, country, region, province,
-      description, location, tempservice, tempcons,annee,color) async {
+      description, location, tempservice, tempcons, annee, color) async {
     Navigator.push(
         context,
         MaterialPageRoute(
