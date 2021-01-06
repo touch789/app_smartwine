@@ -107,7 +107,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
       children: <Widget>[
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.local_offer,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -121,7 +121,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.local_bar,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -133,7 +133,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.date_range,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -145,7 +145,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.grain,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -157,7 +157,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.location_on,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -169,7 +169,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.location_off,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -181,7 +181,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.location_city,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -193,7 +193,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.description,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -207,7 +207,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.room_service,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -219,7 +219,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         ListTile(
           leading: Icon(
-            Icons.local_drink,
+            Icons.ac_unit,
             color: HexColor("#EB54A8"),
           ),
           subtitle: TextFormField(
@@ -302,26 +302,19 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         ),
         new SizedBox(height: 15.0),
         Center(
-          child:
-          SizedBox(
-            height: 40,
-            width: 200,
-            child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Theme.of(context).primaryColor)
-                ),
-                child: Text(widget.action),
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                onPressed: () => _checkCellarCapacity(),
+            child: SizedBox(
+          height: 40,
+          width: 200,
+          child: RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Theme.of(context).primaryColor)),
+            child: Text(widget.action),
+            color: Theme.of(context).primaryColor,
+            textColor: Colors.white,
+            onPressed: () => _checkCellarCapacity(),
           ),
-
-
-
-
-        )
-        )
+        ))
       ],
     );
   }
