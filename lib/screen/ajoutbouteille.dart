@@ -43,6 +43,7 @@ class AjoutBouteille extends StatefulWidget {
       tempConsin,
       colorin;
   bool add;
+  static const IconData wine_bar_sharp = IconData(0xf023, fontFamily: 'MaterialIcons');
   //include this
   @override
   _AjoutBouteille createState() => _AjoutBouteille();
@@ -190,10 +191,16 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               }),
         ),
         ListTile(
-          leading: Icon(
+          leading:
+          Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2887cc6e21a3332bd78d0511a61ad296ccc88945
           subtitle: TextFormField(
               minLines: 1,
               maxLines: 20,
