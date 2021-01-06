@@ -149,6 +149,39 @@ class BottlePageState extends State<BottlePage> {
                       ),
                     ),
                     Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: FutureBuilder<List<String>>(
+                          future: Datahelper.loadImagesFromGoogleTask(
+                              snapshot.data['title']),
+                          builder: (context, item) {
+                            if (item.hasData) {
+                              String url = item.data.firstWhere(
+                                      (element) => element.contains(".png"),
+                                  orElse: () =>
+                                  "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
+
+                              return CachedNetworkImage(
+                                useOldImageOnUrlChange: true,
+                                imageUrl: url,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              );
+                              // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
+
+                            } else if (item.hasError) {
+                              return Text("${item.error}");
+                            }
+
+                            // By default, show a loading spinner.
+                            return CircularProgressIndicator();
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Card(
                         elevation: 0.5,
@@ -242,41 +275,52 @@ class BottlePageState extends State<BottlePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Theme.of(context).primaryColor)),
-                                    child: Text("MODIFY"),
-                                    color: Theme.of(context).primaryColor,
-                                    textColor: Colors.white,
-                                    elevation: 0,
-                                    onPressed: () => _showDialog(
-                                        snapshot.data["title"],
-                                        snapshot.data['designation'],
-                                        snapshot.data['variety'],
-                                        snapshot.data['winery'],
-                                        snapshot.data['country'],
-                                        snapshot.data['region'],
-                                        snapshot.data['province'],
-                                        snapshot.data['description'],
-                                        snapshot.data['location'],
-                                        snapshot.data["tempService"],
-                                        snapshot.data["tempCons"],
-                                        snapshot.data["year"],
-                                        snapshot.data["color"])),
-                                RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Theme.of(context).primaryColor)),
-                                    splashColor: Colors.pinkAccent[800],
-                                    color: HexColor("#EB54A8"),
-                                    textColor: Colors.white,
-                                    child: Text('DETECT'),
-                                    elevation: 0,
-                                    onPressed: () =>
-                                        detectBottle(snapshot.data["location"])),
+                                SizedBox(
+                                  height: 40,
+                                    width: 160,
+                                    child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(
+                                                color: Theme.of(context).primaryColor)),
+                                        child: Text("MODIFY"),
+                                        color: Theme.of(context).primaryColor,
+                                        textColor: Colors.white,
+                                        elevation: 0,
+                                        onPressed: () => _showDialog(
+                                            snapshot.data["title"],
+                                            snapshot.data['designation'],
+                                            snapshot.data['variety'],
+                                            snapshot.data['winery'],
+                                            snapshot.data['country'],
+                                            snapshot.data['region'],
+                                            snapshot.data['province'],
+                                            snapshot.data['description'],
+                                            snapshot.data['location'],
+                                            snapshot.data["tempService"],
+                                            snapshot.data["tempCons"],
+                                            snapshot.data["year"],
+                                            snapshot.data["color"]))
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                  width: 160,
+                                  child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                          side: BorderSide(
+                                              color: Theme.of(context).primaryColor)),
+                                      splashColor: Colors.pinkAccent[800],
+                                      color: HexColor("#EB54A8"),
+                                      textColor: Colors.white,
+                                      child: Text('DETECT'),
+                                      elevation: 0,
+                                      onPressed: () =>
+                                          detectBottle(snapshot.data["location"])),
+                                ),
+
+
+
                               ],
                             )
 
@@ -286,132 +330,8 @@ class BottlePageState extends State<BottlePage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Year : ' + snapshot.data['year']),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        //height: 600,
-                        alignment: Alignment(3,0),
-                        child: FutureBuilder<List<String>>(
-                          future: Datahelper.loadImagesFromGoogleTask(
-                              snapshot.data['title']),
-                          builder: (context, item) {
-                            if (item.hasData) {
-                              String url = item.data.firstWhere(
-                                  (element) => element.contains(".png"),
-                                  orElse: () =>
-                                      "https://images.vivino.com/thumbs/J7S2JZOERkW0yLU9yL2hNg_pb_x960.png");
 
-                              return CachedNetworkImage(
-                                useOldImageOnUrlChange: true,
-                                imageUrl: url,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              );
-                              // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
 
-                            } else if (item.hasError) {
-                              return Text("${item.error}");
-                            }
-
-                            // By default, show a loading spinner.
-                            return CircularProgressIndicator();
-                          },
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Winery : ' + snapshot.data['winery']),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                          Text('Designation : ' + snapshot.data['designation']),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Country : ' + snapshot.data['country']),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Region : ' + snapshot.data['region']),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Province : ' + snapshot.data['province']),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Container(
-                        height: 200,
-                        alignment: Alignment(200,0),
-                        child: Text(
-                            'Description : ' + snapshot.data['description']),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text('Serving temperature : ' +
-                          snapshot.data["tempService"] +
-                          "°C" +
-                          "\n" +
-                          "Storage temperature : " +
-                          snapshot.data["tempCons"] +
-                          " °C"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                          'Location in cellar : ' + snapshot.data["location"]),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(11.0),
-                      child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
-                                  color: Theme.of(context).primaryColor)),
-                          splashColor: Colors.pinkAccent[800],
-                          color: HexColor("#EB54A8"),
-                          textColor: Colors.white,
-                          child: Text('DETECT'),
-                          elevation: 0,
-                          onPressed: () =>
-                              detectBottle(snapshot.data["location"])),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(11.0),
-                      child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
-                                  color: Theme.of(context).primaryColor)),
-                          child: Text("MODIFY"),
-                          color: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          elevation: 0,
-                          onPressed: () => _showDialog(
-                              snapshot.data["title"],
-                              snapshot.data['designation'],
-                              snapshot.data['variety'],
-                              snapshot.data['winery'],
-                              snapshot.data['country'],
-                              snapshot.data['region'],
-                              snapshot.data['province'],
-                              snapshot.data['description'],
-                              snapshot.data['location'],
-                              snapshot.data["tempService"],
-                              snapshot.data["tempCons"],
-                          snapshot.data["year"],
-                            snapshot.data["color"])),
-
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Container(
@@ -496,7 +416,7 @@ class BottlePageState extends State<BottlePage> {
                                               ),
                                             ),
                                             Text(data.title,
-                                                textAlign: TextAlign.center),
+                                                textAlign: TextAlign.center,),
                                           ]))),
                                 );
                               }).toList())),
@@ -504,20 +424,10 @@ class BottlePageState extends State<BottlePage> {
                   ],
                   staggeredTiles: [
                     StaggeredTile.extent(4, 70.0),
-                    StaggeredTile.extent(4, 1000.0),
-                    StaggeredTile.extent(2, 30.0),
-                    StaggeredTile.extent(2, 600.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 50.0),
-                    StaggeredTile.extent(2, 180.0),
-                    StaggeredTile.extent(2, 49.0),
-                    StaggeredTile.extent(2, 17.0),
-                    StaggeredTile.extent(2, 60.0),
-                    StaggeredTile.extent(2, 60.0),
                     StaggeredTile.extent(4, 300.0),
+                    StaggeredTile.extent(4, 650.0),
+
+                    StaggeredTile.extent(4, 316.0),
                   ],
                 ),
               ),
