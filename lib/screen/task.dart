@@ -159,7 +159,8 @@ class BottlePageState extends State<BottlePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        height: 300,
+                        height: 500,
+                        //alignment: Alignment.ri,
                         child: FutureBuilder<List<String>>(
                           future: Datahelper.loadImagesFromGoogleTask(
                               snapshot.data['title']),
@@ -370,14 +371,14 @@ class BottlePageState extends State<BottlePage> {
                     StaggeredTile.extent(4, 70.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 30.0),
-                    StaggeredTile.extent(2, 663.0),
+                    StaggeredTile.extent(2, 600.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 50.0),
                     StaggeredTile.extent(2, 180.0),
-                    StaggeredTile.extent(2, 70.0),
+                    StaggeredTile.extent(2, 49.0),
                     StaggeredTile.extent(2, 17.0),
                     StaggeredTile.extent(2, 60.0),
                     StaggeredTile.extent(2, 60.0),
