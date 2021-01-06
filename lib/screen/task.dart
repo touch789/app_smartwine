@@ -193,7 +193,7 @@ class BottlePageState extends State<BottlePage> {
                           children: <Widget>[
                             ListTile(
                               leading: Icon(
-                                Icons.local_drink,
+                                Icons.thermostat,
                                 color: HexColor("#EB54A8"),
                               ),
                               title: Text("Variety : "),
@@ -281,7 +281,7 @@ class BottlePageState extends State<BottlePage> {
                             ),
                             ListTile(
                               leading: Icon(
-                                Icons.thermo,
+                                Icons.gps_fixed,
                                 color: HexColor("#EB54A8"),
                               ),
                               title: Text("Temperature :"),
