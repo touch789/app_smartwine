@@ -281,7 +281,7 @@ class BottlePageState extends State<BottlePage> {
                             ),
                             ListTile(
                               leading: Icon(
-                                Icons.thermo,
+                                Icons.gps_fixed,
                                 color: HexColor("#EB54A8"),
                               ),
                               title: Text("Temperature :"),
@@ -447,7 +447,7 @@ class BottlePageState extends State<BottlePage> {
                   staggeredTiles: [
                     StaggeredTile.extent(4, 70.0),
                     StaggeredTile.extent(4, 300.0),
-                    StaggeredTile.extent(4, 650.0),
+                    StaggeredTile.extent(4, 700.0),
                     StaggeredTile.extent(4, 316.0),
                   ],
                 ),
