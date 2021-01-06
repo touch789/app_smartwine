@@ -373,8 +373,8 @@ checkcellar(String id) async {
                         FirebaseAuth.instance
                             .signOut()
                             .then((result) =>
-                            Navigator.pushReplacementNamed(
-                                context, "/splash"))
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/splash",(route)=> false))
                             .catchError((err) => print(err));
                       },
                     ),

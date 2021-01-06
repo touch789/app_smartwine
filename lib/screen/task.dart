@@ -335,8 +335,8 @@ class BottlePageState extends State<BottlePage> {
                                                         data.title),
                                                 builder: (context, item) {
                                                   if (item.hasData) {
-                                                    String url =
-                                                        item.data.first;
+                                                    String url = item.data.first;
+
                                                     // return Expanded(flex:1,child: Image.network(item.data[0],fit: BoxFit.cover, filterQuality: FilterQuality.low));
                                                     return CachedNetworkImage(
                                                       useOldImageOnUrlChange:

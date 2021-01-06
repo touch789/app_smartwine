@@ -21,9 +21,9 @@ class ListSearchState extends State<ListSearch> {
   List<myBottle> newDataList = [];
 
   onItemChanged(String value) {
-    Services.getspecificBottles(value).then((employees) {
+    Services.getspecificBottles(value).then((bottles) {
       setState(() {
-        newDataList = employees.toList();
+        newDataList = bottles.toList();
       });
     });
   }

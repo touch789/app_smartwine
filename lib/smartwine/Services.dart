@@ -36,7 +36,8 @@ class Services {
       var map = Map<String, dynamic>();
       map['action'] = _GET_ALL_ACTION;
       String action = "GET_ALL";
-      final http.Response response = await http.post('http://192.168.56.1/vin.php?action='+action);
+      final http.Response response = await http.post(
+          'http://192.168.56.1/vin.php?action=' + action);
       print('getbottle Response: ${response.body}');
       if (200 == response.statusCode) {
         List<myBottle> list = parseResponse(response.body);
@@ -55,7 +56,8 @@ class Services {
       var map = Map<String, dynamic>();
       map['action'] = _GET_ALL_ACTION;
       String action = "GET_ALL";
-      final http.Response response = await http.post('http://192.168.56.1/vin.php?action='+action+'&query='+search);
+      final http.Response response = await http.post(
+          'http://192.168.56.1/vin.php?action=' + action + '&query=' + search);
       print('getBottles Response: ${response.body}');
       if (200 == response.statusCode) {
         List<myBottle> list = parseResponse(response.body);
@@ -73,61 +75,4 @@ class Services {
     return parsed.map<myBottle>((json) => myBottle.fromJson(json)).toList();
   }
 
-  // Method to add employee to the database...
-  static Future<String> addEmployee(String firstName, String lastName) async {
-    try {
-      var map = Map<String, dynamic>();
-      String prenom = firstName;
-      String nom = lastName;
-      String action = "ADD_EMP";
-      final http.Response response = await http.post('http://192.168.56.1/vin.php?action='+action+'&nom='+nom+'&prenom='+prenom);
-      print('addEmployee Response: ${response.body}');
-      if (200 == response.statusCode) {
-        return response.body;
-      } else {
-        return "error";
-      }
-    } catch (e) {
-      return "error";
-    }
-  }
-
-  // Method to update an Employee in Database...
-  static Future<String> updateEmployee(
-      String empId, String firstName, String lastName) async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = _UPDATE_EMP_ACTION;
-      map['emp_id'] = empId;
-      map['first_name'] = firstName;
-      map['last_name'] = lastName;
-      final response = await http.post(ROOT, body: map);
-      print('updateEmployee Response: ${response.body}');
-      if (200 == response.statusCode) {
-        return response.body;
-      } else {
-        return "error";
-      }
-    } catch (e) {
-      return "error";
-    }
-  }
-
-  // Method to Delete an Employee from Database...
-  static Future<String> deleteEmployee(String empId) async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = _DELETE_EMP_ACTION;
-      map['emp_id'] = empId;
-      final response = await http.post(ROOT, body: map);
-      print('deleteEmployee Response: ${response.body}');
-      if (200 == response.statusCode) {
-        return response.body;
-      } else {
-        return "error";
-      }
-    } catch (e) {
-      return "error"; // returning just an "error" string to keep this simple...
-    }
-  }
 }
