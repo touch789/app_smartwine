@@ -375,7 +375,8 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             textColor: Colors.white,
             onPressed: () => _checkCellarCapacity(),
           ),
-        ))
+        )),
+         SizedBox(height: 15.0),
       ],
     )
     );

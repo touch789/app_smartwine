@@ -48,7 +48,8 @@ class ListSearchState extends State<ListSearch> {
 
         children: <Widget>[
           new Container(
-            color: HexColor("#FEF3FF"),
+            //color: HexColor("#FEF3FF"),
+            color: HexColor("#EB54A8"),
             child: new Padding(
               padding: const EdgeInsets.all(8.0),
               child: new Card(
@@ -89,8 +90,8 @@ class ListSearchState extends State<ListSearch> {
                       borderRadius:
                       BorderRadius.circular(10.0),
                     ),
-                    elevation: 5,
-                    margin: EdgeInsets.all(10),
+                    elevation: 2,
+                    margin: EdgeInsets.all(9),
 
                     child :ListTile(
 

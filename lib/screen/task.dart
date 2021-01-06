@@ -151,6 +151,8 @@ class BottlePageState extends State<BottlePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
+
+
                         child: FutureBuilder<List<String>>(
                           future: Datahelper.loadImagesFromGoogleTask(
                               snapshot.data['title']),
@@ -395,6 +397,7 @@ class BottlePageState extends State<BottlePage> {
                                                         .toString(),
                                                   ))),
                                       child: Card(
+
                                           semanticContainer: true,
                                           clipBehavior:
                                               Clip.antiAliasWithSaveLayer,
@@ -402,7 +405,7 @@ class BottlePageState extends State<BottlePage> {
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                           ),
-                                          elevation: 5,
+                                          elevation: 3,
                                           margin: EdgeInsets.all(10),
                                           child: Column(children: <Widget>[
                                             Container(
@@ -439,10 +442,14 @@ class BottlePageState extends State<BottlePage> {
                                                 },
                                               ),
                                             ),
-                                            Text(
-                                              data.title,
-                                              textAlign: TextAlign.center,
-                                            ),
+                                            Container(
+                                              padding: EdgeInsets.only(left: 4, right: 4),
+                                              child: Text(
+                                                data.title,
+                                                textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w400)
+                                              ),
+                                            )
+
                                           ]))),
                                 );
                               }).toList())),
