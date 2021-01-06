@@ -4,18 +4,44 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-
-
-
-
-
-
-
 class AjoutBouteille extends StatefulWidget {
-  AjoutBouteille({Key key,this.action, this.add,this.uid,this.anneein, this.bottleid,this.titlein,this.locationin,this.designationin,this.descriptionin,this.colorin,this.countryin,this.provincein,this.regionin,this.varietyin,this.wineryin, this.tempConsin, this.tempServicein}) : super(key: key); //update this to include the uid in the constructor
+  AjoutBouteille(
+      {Key key,
+      this.action,
+      this.add,
+      this.uid,
+      this.anneein,
+      this.bottleid,
+      this.titlein,
+      this.locationin,
+      this.designationin,
+      this.descriptionin,
+      this.colorin,
+      this.countryin,
+      this.provincein,
+      this.regionin,
+      this.varietyin,
+      this.wineryin,
+      this.tempConsin,
+      this.tempServicein})
+      : super(key: key); //update this to include the uid in the constructor
 
   final String uid;
-  String titlein, designationin,descriptionin,anneein,countryin,provincein,regionin,locationin,varietyin,wineryin,bottleid, action, tempServicein, tempConsin,colorin;
+  String titlein,
+      designationin,
+      descriptionin,
+      anneein,
+      countryin,
+      provincein,
+      regionin,
+      locationin,
+      varietyin,
+      wineryin,
+      bottleid,
+      action,
+      tempServicein,
+      tempConsin,
+      colorin;
   bool add;
   //include this
   @override
@@ -26,33 +52,40 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   GlobalKey<FormState> _key = GlobalKey();
   bool _validate = false;
 
-  String title, designation,description,country,province,region,variety,winery, emplacement, tempService, tempCons, annee, color;
+  String title,
+      designation,
+      description,
+      country,
+      province,
+      region,
+      variety,
+      winery,
+      emplacement,
+      tempService,
+      tempCons,
+      annee,
+      color;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     emplacement = widget.locationin;
     color = widget.colorin;
-
   }
-
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text(widget.action+' your Bottle'),
+          title: new Text(widget.action + ' your Bottle'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
         ),
-
         body: new SingleChildScrollView(
           child: new Container(
             margin: new EdgeInsets.all(15.0),
@@ -60,7 +93,6 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               key: _key,
               autovalidate: _validate,
               child: FormUI(),
-
             ),
           ),
         ),
@@ -69,8 +101,6 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   }
 
   Widget FormUI() {
-
-
     return new Column(
       children: <Widget>[
         ListTile(
@@ -78,171 +108,131 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
-            minLines: 1,
+              minLines: 1,
               maxLines: 6,
               decoration: new InputDecoration(hintText: 'Title'),
               initialValue: widget.titlein,
-
               onSaved: (String val) {
                 title = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Variety'),
               initialValue: widget.varietyin,
-
               onSaved: (String val) {
                 variety = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Year'),
               initialValue: widget.anneein,
-
               onSaved: (String val) {
                 annee = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Winery'),
               initialValue: widget.wineryin,
-
               onSaved: (String val) {
                 winery = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Country'),
               initialValue: widget.countryin,
-
               onSaved: (String val) {
                 country = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Region'),
               initialValue: widget.regionin,
-
               onSaved: (String val) {
                 region = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Province'),
               initialValue: widget.provincein,
-
               onSaved: (String val) {
                 province = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               minLines: 1,
               maxLines: 20,
               decoration: new InputDecoration(hintText: 'Description'),
               initialValue: widget.descriptionin,
-
               onSaved: (String val) {
                 description = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
               decoration: new InputDecoration(hintText: 'Serving temperature'),
               initialValue: widget.tempServicein,
-
               onSaved: (String val) {
                 tempService = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: TextFormField(
-              decoration: new InputDecoration(hintText: 'Conservation temperature'),
+              decoration:
+                  new InputDecoration(hintText: 'Conservation temperature'),
               initialValue: widget.tempConsin,
-
               onSaved: (String val) {
                 tempCons = val;
-              }
-          ),
-
+              }),
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
           subtitle: new DropdownButton(
             //value: shopId,
             //isDense: true,
@@ -263,23 +253,21 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               );
             }).toList(),
           ),
-
         ),
         ListTile(
           leading: Icon(
             Icons.local_drink,
             color: HexColor("#EB54A8"),
           ),
-
-          subtitle:  new StreamBuilder<QuerySnapshot>(
+          subtitle: new StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
                 .collection("Cave")
                 .document("1")
                 .collection('cellar')
-                .where("buttonState", isEqualTo: false )
+                .where("buttonState", isEqualTo: false)
                 .snapshots(),
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError)
                 return new Text('Error: ${snapshot.error}');
               switch (snapshot.connectionState) {
@@ -301,21 +289,19 @@ class _AjoutBouteille extends State<AjoutBouteille> {
                     items: snapshot.data.documents
                         .map((DocumentSnapshot document) {
                       return DropdownMenuItem<String>(
-                        value: document.data['location'].toString() ,
+                        value: document.data['location'].toString(),
                         child: Text(document.data['location'].toString()),
                       );
                     }).toList(),
                   );
-
               }
             },
           ),
-
         ),
-
-
         new SizedBox(height: 15.0),
-        new RaisedButton(onPressed: _checkCellarCapacity, child: new Text(widget.action),
+        new RaisedButton(
+          onPressed: _checkCellarCapacity,
+          child: new Text(widget.action),
         )
       ],
     );
@@ -341,7 +327,7 @@ class _AjoutBouteille extends State<AjoutBouteille> {
     return null;
   }
 
-   _checkCellarCapacity() async {
+  _checkCellarCapacity() async {
     DocumentSnapshot variable = await Firestore.instance
         .collection('users')
         .document(widget.uid)
@@ -349,10 +335,9 @@ class _AjoutBouteille extends State<AjoutBouteille> {
         .document('count')
         .get();
     int nb = int.parse(variable.data["count"]);
-    if(nb<=5 || widget.add == false){
+    if (nb <= 5 || widget.add == false) {
       _sendToServer();
-    }
-    else{
+    } else {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -363,16 +348,15 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             );
           });
     }
-
   }
-
 
   _sendToServer() {
     if (_key.currentState.validate()) {
       //No error in validator
       _key.currentState.save();
       Firestore.instance.runTransaction((Transaction transaction) async {
-        CollectionReference reference = Firestore.instance.collection('users')
+        CollectionReference reference = Firestore.instance
+            .collection('users')
             .document(widget.uid)
             .collection("bottle");
         if (widget.add == false) {
@@ -385,29 +369,35 @@ class _AjoutBouteille extends State<AjoutBouteille> {
             "region": region,
             "variety": variety,
             "winery": winery,
-            "location" : emplacement,
-            "tempService" : tempService,
-            "tempCons" : tempCons,
-            "year" : annee,
-            "color" : color
-
-          })
-              .then((result) =>
-          {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => BottlePage(
-                        id: widget.bottleid,
-                        )))
-          });
-
+            "location": emplacement,
+            "tempService": tempService,
+            "tempCons": tempCons,
+            "year": annee,
+            "color": color
+          }).then((result) => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BottlePage(
+                              id: widget.bottleid,
+                            )))
+              });
         } else {
-
-
-
-          await reference.add({"title": "$title", "description": "$description","designation": "$designation","variety": "$variety",
-            "winery": "$winery","country": "$country","region": "$region","province": "$province","location":"$emplacement","tempService":"$tempService", "tempCons":"$tempCons", "year" : "$annee","color":"$color"});
+          await reference.add({
+            "title": "$title",
+            "description": "$description",
+            "designation": "$designation",
+            "variety": "$variety",
+            "winery": "$winery",
+            "country": "$country",
+            "region": "$region",
+            "province": "$province",
+            "location": "$emplacement",
+            "tempService": "$tempService",
+            "tempCons": "$tempCons",
+            "year": "$annee",
+            "color": "$color"
+          });
           DocumentSnapshot variable = await Firestore.instance
               .collection('users')
               .document(widget.uid)
@@ -422,27 +412,25 @@ class _AjoutBouteille extends State<AjoutBouteille> {
               .document('count')
               .setData({"count": (nb + 1).toString()});
 
-
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    cellar(
-                      uid: widget.uid,
-                      title: "My Wine Cellar",
-                    )));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => cellar(
+                        uid: widget.uid,
+                        title: "My Wine Cellar",
+                      )));
         }
       });
-    }else {
+    } else {
       // validation error
       setState(() {
         _validate = true;
       });
-    }}
-      }
+    }
+  }
+}
 
-
-Widget  _buildDivider() {
+Widget _buildDivider() {
   return Container(
     margin: const EdgeInsets.symmetric(
       horizontal: 8.0,
