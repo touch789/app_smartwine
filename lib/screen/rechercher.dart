@@ -36,7 +36,7 @@ class ListSearchState extends State<ListSearch> {
         centerTitle: true,
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () => Navigator.pushNamed(context, "/splash"),
+          onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: HexColor("#EB54A8"),
         title: Text(
@@ -57,7 +57,7 @@ class ListSearchState extends State<ListSearch> {
                     controller: _textController,
                     decoration: new InputDecoration(
                         hintText: 'Search', border: InputBorder.none),
-                    // onChanged: onSearchTextChanged,
+                     onChanged: onItemChanged,
                   ),
                   trailing: new IconButton(
                     icon: new Icon(Icons.cancel),
@@ -65,6 +65,7 @@ class ListSearchState extends State<ListSearch> {
                       _textController.clear();
                       // onSearchTextChanged('');
                     },
+                    
                   ),
                 ),
               ),

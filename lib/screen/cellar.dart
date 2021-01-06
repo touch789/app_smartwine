@@ -111,7 +111,7 @@ class _cellar extends State<cellar> {
                   label: 'Search',
                   labelStyle: TextStyle(fontSize: 18.0),
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ListSearch(
