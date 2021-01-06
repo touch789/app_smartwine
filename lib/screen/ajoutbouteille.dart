@@ -2,6 +2,7 @@ import 'package:baby_names/screen/cellar.dart';
 import 'package:baby_names/screen/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 
 
@@ -68,164 +69,251 @@ class _AjoutBouteille extends State<AjoutBouteille> {
   }
 
   Widget FormUI() {
+
+
     return new Column(
       children: <Widget>[
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Title'),
-            initialValue: widget.titlein,
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
 
-            onSaved: (String val) {
-              title = val;
-            }
-        ),
+          subtitle: TextFormField(
+            minLines: 1,
+              maxLines: 6,
+              decoration: new InputDecoration(hintText: 'Title'),
+              initialValue: widget.titlein,
 
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Designation'),
-            validator: validateAuthor,
-            initialValue: widget.designationin,
-            onSaved: (String val) {
-              designation = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Variety'),
-            validator: validateAuthor,
-            initialValue: widget.varietyin,
-            onSaved: (String val) {
-              variety = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Year'),
-            validator: validateAuthor,
-            initialValue: widget.anneein,
-            onSaved: (String val) {
-              annee = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Winery'),
-            validator: validateAuthor,
-            initialValue: widget.wineryin,
-            onSaved: (String val) {
-              winery = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Country'),
-            validator: validateAuthor,
-            initialValue: widget.countryin,
-            onSaved: (String val) {
-              country = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Region'),
-            validator: validateAuthor,
-            initialValue: widget.regionin,
-            onSaved: (String val) {
-              region = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Province'),
-            validator: validateAuthor,
-            initialValue: widget.provincein,
-            onSaved: (String val) {
-              province = val;
-            }
-        ),
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Description'),
-            validator: validateAuthor,
-            initialValue: widget.descriptionin,
-            onSaved: (String val) {
-              description = val;
-            }
-        ),
-        new DropdownButton(
-                  //value: shopId,
-                  //isDense: true,
-                  isExpanded: true,
+              onSaved: (String val) {
+                title = val;
+              }
+          ),
 
-                  value: widget.colorin,
-              onChanged: (String val) {
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Variety'),
+              initialValue: widget.varietyin,
+
+              onSaved: (String val) {
+                variety = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Year'),
+              initialValue: widget.anneein,
+
+              onSaved: (String val) {
+                annee = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Winery'),
+              initialValue: widget.wineryin,
+
+              onSaved: (String val) {
+                winery = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Country'),
+              initialValue: widget.countryin,
+
+              onSaved: (String val) {
+                country = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Region'),
+              initialValue: widget.regionin,
+
+              onSaved: (String val) {
+                region = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Province'),
+              initialValue: widget.provincein,
+
+              onSaved: (String val) {
+                province = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              minLines: 1,
+              maxLines: 20,
+              decoration: new InputDecoration(hintText: 'Description'),
+              initialValue: widget.descriptionin,
+
+              onSaved: (String val) {
+                description = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Serving temperature'),
+              initialValue: widget.tempServicein,
+
+              onSaved: (String val) {
+                tempService = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: TextFormField(
+              decoration: new InputDecoration(hintText: 'Conservation temperature'),
+              initialValue: widget.tempConsin,
+
+              onSaved: (String val) {
+                tempCons = val;
+              }
+          ),
+
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle: new DropdownButton(
+            //value: shopId,
+            //isDense: true,
+            isExpanded: true,
+
+            value: widget.colorin,
+            onChanged: (String val) {
               color = val;
               setState(() {
-              widget.colorin = val;
+                widget.colorin = val;
               });
-              },
-              hint: Text('Select your bottle color'),
-          items: <String>['red', 'white', 'rose'].map((String value) {
-            return new DropdownMenuItem<String>(
-              value: value,
-              child: new Text(value),
-            );
-          }).toList(),
-    ),
+            },
+            hint: Text('Select your bottle color'),
+            items: <String>['red', 'white', 'rose'].map((String value) {
+              return new DropdownMenuItem<String>(
+                value: value,
+                child: new Text(value),
+              );
+            }).toList(),
+          ),
 
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Service Temperature'),
-            initialValue: widget.tempServicein,
-            onSaved: (String val) {
-              tempService = val;
-            }
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.local_drink,
+            color: HexColor("#EB54A8"),
+          ),
+
+          subtitle:  new StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection("Cave")
+                .document("1")
+                .collection('cellar')
+                .where("buttonState", isEqualTo: false )
+                .snapshots(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError)
+                return new Text('Error: ${snapshot.error}');
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return new Text('Loading...');
+                default:
+                  return DropdownButton(
+                    //value: shopId,
+                    //isDense: true,
+                    isExpanded: true,
+                    value: widget.locationin,
+                    onChanged: (String val) {
+                      emplacement = val;
+                      setState(() {
+                        widget.locationin = val;
+                      });
+                    },
+                    hint: Text('Choose from available location'),
+                    items: snapshot.data.documents
+                        .map((DocumentSnapshot document) {
+                      return DropdownMenuItem<String>(
+                        value: document.data['location'].toString() ,
+                        child: Text(document.data['location'].toString()),
+                      );
+                    }).toList(),
+                  );
+
+              }
+            },
+          ),
+
         ),
 
-        new TextFormField(
-            decoration: new InputDecoration(hintText: 'Conservation Temperature'),
-            initialValue: widget.tempConsin,
-            onSaved: (String val) {
-              tempCons = val;
-            }
-        ),
-        /*new TextFormField(
-            decoration: new InputDecoration(hintText: 'Cellar location'),
-            initialValue: widget.locationin,
-            validator: validateAuthor,
-            onSaved: (String val) {
-              emplacement = val;
-            }
-        ),*/
-        new StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance
-              .collection("Cave")
-              .document("1")
-              .collection('cellar')
-              .where("buttonState", isEqualTo: false )
-              .snapshots(),
-          builder: (BuildContext context,
-              AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError)
-              return new Text('Error: ${snapshot.error}');
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return new Text('Loading...');
-              default:
-                return DropdownButton(
-                  //value: shopId,
-                  //isDense: true,
-                  isExpanded: true,
-                  value: widget.locationin,
-                  onChanged: (String val) {
-                    emplacement = val;
-                    setState(() {
-                      widget.locationin = val;
-                    });
-                  },
-                  hint: Text('Choose from available location'),
-                  items: snapshot.data.documents
-                      .map((DocumentSnapshot document) {
-                    return DropdownMenuItem<String>(
-                      value: document.data['location'].toString() ,
-                      child: Text(document.data['location'].toString()),
-                    );
-                  }).toList(),
-                );
 
-            }
-          },
-        ),
         new SizedBox(height: 15.0),
         new RaisedButton(onPressed: _checkCellarCapacity, child: new Text(widget.action),
         )
